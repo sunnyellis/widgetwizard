@@ -122,32 +122,12 @@
             line-height: 1.5;
         }
 
-        .question {
-            font-size: 1.0em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
 .question {
             font-size: 1.0em;
             font-weight: 600;
             color: #333;
             margin-bottom: 20px;
             line-height: 1.4;
-        }
-
-        .compatibility-section {
-            margin-bottom: 20px;
-        }
-
-        .compatibility-header {
-            font-size: 0.9em;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 12px;
-            padding-left: 5px;
         }
 
         .compatibility-header.not-compatible {
@@ -158,6 +138,15 @@
             color: #2e7d32;
         }
 
+        /* General rule - for platform page and other pages */
+.options-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+        /* Specific rule - for plan check sections (tighter spacing) */
        .compatibility-section .options-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
