@@ -426,42 +426,6 @@
             border-radius: 0 8px 8px 0;
         }
 
-        .nav-buttons {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: #9c27b0;
-            color: white;
-            font-size: 1.2em;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
-        }
-
-        .nav-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
         @media (max-width: 768px) {
             .wizard-container {
                 margin: 10px;
@@ -919,14 +883,7 @@
                     <button class="btn btn-success" onclick="markProblemSolved('manual-completion')">Mark as resolved (manual)</button>
                 </div>
             </div>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <button class="nav-btn" onclick="goToPreviousStep()" id="prevBtn" disabled>←</button>
-            <button class="nav-btn" onclick="restartWizard()" title="Restart Wizard">🔄</button>
-        </div>
-    </div>
+        </div
 
     <script>
         // Global state
