@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Wizard - Givebutter Support Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .wizard-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 191, 0, 0.1);
+            border: 2px solid #FFBF00;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wizard-header {
+            background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .wizard-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .wizard-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .wizard-subtitle {
+            font-size: 1.1em;
+            font-weight: normal;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #FFBF00;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .wizard-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .step-container {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .step-description {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .question {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option-button {
+            background: white;
+            border: 2px solid #ddd;
+            color: #333;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-button:hover {
+            border-color: #FFBF00;
+            background: #fff9e6;
+            transform: translateY(-1px);
+        }
+
+        .option-button.selected {
+            border-color: #9c27b0;
+            background: #f3e5f5;
+            color: #9c27b0;
+            font-weight: 600;
+        }
+
+        .option-button.compatible {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option-button.incompatible {
+            border-color: #f44336;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1em;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        .text-input:focus {
+            border-color: #9c27b0;
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+        }
+
+        .large-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-family: monospace;
+            outline: none;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .large-textarea:focus {
+            border-color: #9c27b0;
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            cursor: pointer;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #9c27b0;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7b1fa2;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #bbb;
+        }
+
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .btn-warning {
+            background: #FFBF00;
+            color: #333;
+        }
+
+        .btn-warning:hover {
+            background: #e6a600;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #da190b;
+            transform: translateY(-1px);
+        }
+
+        .alert {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+            color: #2e7d32;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #FFBF00;
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            border-color: #2196F3;
+            color: #1565c0;
+        }
+
+        .solution-box {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .solution-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            padding: 10px 0;
+            padding-left: 40px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 10px;
+            background: #9c27b0;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .confidence-builder {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            font-weight: 500;
+            color: #2e7d32;
+            text-align: center;
+        }
+
+        .educational-tip {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #FFBF00;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #856404;
+        }
+
+        .platform-instructions {
+            background: #f8f9fa;
+            border-left: 4px solid #9c27b0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #9c27b0;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .wizard-container {
+                margin: 10px;
+                min-height: 90vh;
+            }
+            
+            .wizard-content {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .nav-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wizard-container">
+        <div class="wizard-header">
+            <div class="wizard-title">
+                <img src="https://i.imgur.com/UNhw0C3.png" alt="Widget Wizard" class="wizard-icon">
+                Widget Wizard
+            </div>
+            <div class="wizard-subtitle">Guided troubleshooting for widget issues</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="wizard-content">
+            <!-- Welcome Step -->
+            <div id="step-welcome" class="step-container active">
+                <div class="step-title">🧈🪄 Need help with a widget issue? You're in the right place.</div>
+                <div class="step-description">I'll guide you through the same troubleshooting steps our most experienced agents use.</div>
+                
+                <div class="educational-tip">
+                    <strong>🧠 Pro Tip:</strong> This wizard will help you become a widget detective! We'll check everything from platform compatibility to code installation, step by step.
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="nextStep('step-platform')">Let's go! 🚀</button>
+                </div>
+            </div>
+
+            <!-- Step 1: Platform Check -->
+            <div id="step-platform" class="step-container">
+                <div class="step-title">📋 Step 1: Platform Compatibility Check</div>
+                <div class="step-description">First, let's make sure we're not churning for nothing! This helps us catch compatibility issues early and save everyone time.</div>
+                
+                <div class="question">What website builder is your customer using?</div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectPlatform('wordpress')">
+                        <span>📝</span> WordPress (.org or .com)
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('squarespace')">
+                        <span>⚡</span> Squarespace
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('wix')">
+                        <span>🎨</span> Wix
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('godaddy')">
+                        <span>🌐</span> GoDaddy
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('weebly')">
+                        <span>🔧</span> Weebly
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('other')">
+                        <span>❓</span> Other (specify)
+                    </button>
+                </div>
+
+                <div class="checkbox-container" style="display: none;" id="skipCompatibilityCheck">
+                    <input type="checkbox" id="skipCheck">
+                    <label for="skipCheck">Skip if already confirmed compatible</label>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-welcome')">← Back</button>
+                    <button class="btn btn-primary" id="platformContinue" onclick="checkPlatformPlan()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Step 1.2: Plan Level Check -->
+            <div id="step-plan-check" class="step-container">
+                <div class="step-title">📋 Step 1.2: Plan Level Check</div>
+                <div class="step-description" id="planCheckDescription">Let's verify they have the right plan level for widgets.</div>
+                
+                <div class="question" id="planQuestion">What plan do they have?</div>
+                
+                <div class="options-container" id="planOptions">
+                    <!-- Options will be populated based on platform -->
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                    <button class="btn btn-primary" id="planContinue" onclick="checkPlanCompatibility()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Incompatible Plan/Platform -->
+            <div id="step-incompatible" class="step-container">
+                <div class="alert alert-danger">
+                    <strong>⚠️ Uh oh! Unfortunately, widgets won't work on their current setup.</strong>
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Here's what to tell your customer:</div>
+                    <div class="code-block" id="incompatibleMessage"></div>
+                    
+                    <div class="solution-title">💡 Alternative solutions:</div>
+                    <ul class="step-list">
+                        <li>Share campaign link instead of embedded widget</li>
+                        <li>Upgrade their website plan</li>
+                        <li>Use social media sharing options</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="restartWizard()">← Start Over</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-link-sharing')">Help with campaign link sharing</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Widget Type -->
+            <div id="step-widget-type" class="step-container">
+                <div class="step-title">🎯 Step 2: Widget Type Identification</div>
+                <div class="step-description">Different widget types have different requirements - this helps us ask the right questions.</div>
+                
+                <div class="question">What type of widget is your customer trying to install?</div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetType('button')">
+                        <span>🔘</span> Button (Static or Floating donation button)
+                    </button>
+                    <button class="option-button" onclick="selectWidgetType('form')">
+                        <span>📋</span> Form (Embedded donation form)
+                    </button>
+                    <button class="option-button" onclick="selectWidgetType('goalbar')">
+                        <span>📊</span> Goal Bar (Progress bar or thermometer)
+                    </button>
+                    <button class="option-button" onclick="selectWidgetType('signup')">
+                        <span>📧</span> Signup Form (Email/phone collection form)
+                    </button>
+                </div>
+
+                <div class="educational-tip">
+                    <strong>💡 Protip:</strong> All campaign types use the same form widget. Only the donation form section is embeddable, not the entire campaign. If users are hoping to embed the entire campaign (images, story, etc), you can upvote that feature request <a href="https://givebutter.canny.io/raise/p/embed-full-campaigns" target="_blank">here</a>.
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="widgetTypeContinue" onclick="handleWidgetTypeSelection()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Account Setup Verification -->
+            <div id="step-account-setup" class="step-container">
+                <div class="step-title">✅ Step 3: Account Setup Verification</div>
+                <div class="step-description">Great! <span id="platformName"></span> can definitely support widgets. Now let's check for some quick wins - these are super common issues that are easy to fix!</div>
+                
+                <div class="question">Is their campaign published?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Widgets connected to unpublished campaigns will appear broken. They have nothing to point to.
+                </div>
+                
+                <div class="educational-tip">
+                    <strong>🔍 How to check:</strong> Click on the customer's campaign in their dashboard. The published status will show next to the campaign title.
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectCampaignStatus('published')">
+                        <span>✅</span> Yes, it's published
+                    </button>
+                    <button class="option-button" onclick="selectCampaignStatus('unpublished')">
+                        <span>❌</span> No, it's unpublished (shows "Unpublished" label)
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-widget-type')">← Back</button>
+                    <button class="btn btn-primary" id="campaignStatusContinue" onclick="handleCampaignStatus()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Campaign Not Published Solution -->
+            <div id="step-unpublished-solution" class="step-container">
+                <div class="alert alert-success">
+                    <strong>🎉 Found it! That "Unpublished" label is the first issue.</strong>
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Tell your customer:</div>
+                    <div class="code-block">"I found the issue! Your campaign needs to be published before the widget can work. Let's get that published, and see if your widget starts working properly."</div>
+                    
+                    <div class="solution-title">📝 Steps to share:</div>
+                    <ol class="step-list">
+                        <li>Go to your campaign in your dashboard. On the top right corner, click the blue button that says "Publish"</li>
+                        <li>The "Unpublished" label should disappear</li>
+                        <li>Try your widget again!</li>
+                    </ol>
+                </div>
+
+                <div class="confidence-builder">
+                    🎯 You're doing great! This is exactly the right approach!
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="markProblemSolved('campaign-published')">Problem Solved! 🎉</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-payout-check')">Continue troubleshooting</button>
+                </div>
+            </div>
+
+            <!-- Payout Check -->
+            <div id="step-payout-check" class="step-container">
+                <div class="step-title">✅ Step 3.2: Payout Setup Check</div>
+                
+                <div class="question">Have they connected their payout method?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Without payout info, widgets appear as blank boxes or load forever.
+                </div>
+                
+                <div class="educational-tip">
+                    <strong>🔍 How to check:</strong> Click on the payouts tab in the customer's dashboard. Accounts that haven't setup their payout method yet will show an error message.
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectPayoutStatus('connected')">
+                        <span>✅</span> Yes, payout is set up
+                    </button>
+                    <button class="option-button" onclick="selectPayoutStatus('not-connected')">
+                        <span>❌</span> No payout information
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="payoutStatusContinue" onclick="handlePayoutStatus()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- No Payout Solution -->
+            <div id="step-payout-solution" class="step-container">
+                <div class="alert alert-success">
+                    <strong>🎉 Another common culprit! This could be the cause.</strong>
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Tell your customer:</div>
+                    <div class="code-block">"Ah, it looks like you still need to connect your payout information. That has to be completed before widgets can work. Here are instructions on how to do that."</div>
+                    
+                    <div class="solution-title">📖 Share the payout help article:</div>
+                    <a href="https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect" target="_blank" style="color: #9c27b0; font-weight: 600;">
+                        How to add and edit your payout information with Stripe Connect
+                    </a>
+                </div>
+
+                <div class="confidence-builder">
+                    🕵️ Most agents miss this step - you caught it!
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="markProblemSolved('payout-connected')">Problem Solved! 🎉</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-code-collection')">Continue troubleshooting</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Code Collection -->
+            <div id="step-code-collection" class="step-container">
+                <div class="step-title">📝 Step 4: Code Collection</div>
+                
+                <div class="educational-tip">
+                    <strong>🕵️ Time for some detective work!</strong> There are two pieces of code for each widget: the library code and the widget code. We need to confirm that both pieces of code are installed on the user's website.
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>🧠 Widget Education Moment:</strong> Think of widgets like a car - you need both the ENGINE (library code) and the STEERING WHEEL (widget code) to get anywhere. Lots of people install one but forget the other!
+                </div>
+                
+                <div style="color: #666; margin-bottom: 20px;">
+                    Sometimes, the Givebutter dashboard says the library is installed when it's actually not. Only check the button below if you have manually confirmed the library code is present on the user's website.
+                </div>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="libraryConfirmed" onchange="toggleLibraryConfirmed()">
+                    <label for="libraryConfirmed">✅ I already confirmed they have the library code installed</label>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep('step-library-check')">Check Library Code →</button>
+                    <button class="btn btn-warning" id="skipToWidget" onclick="nextStep('step-widget-check')" style="display: none;">Skip to Widget Check →</button>
+                </div>
+            </div>
+
+            <!-- Library Code Check -->
+            <div id="step-library-check" class="step-container">
+                <div class="step-title">📚 Step 4.1: Library Code Detection</div>
+                <div class="step-description">First, let's check if they installed their library code.</div>
+                
+                <div class="question">What's the website URL where the widget should appear?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Make sure this is the exact page URL they want the widget on, not just their home page.
+                </div>
+                
+                <input type="text" class="text-input" id="websiteUrl" placeholder="https://example.com/donate" onkeyup="checkUrlInput()">
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-code-collection')">← Back</button>
+                    <button class="btn btn-primary" id="urlContinue" onclick="startLibraryInspection()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Library Inspection Steps -->
+            <div id="step-library-inspection" class="step-container">
+                <div class="step-title">🔍 Library Code Inspection</div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">📝 Instructions for you:</div>
+                    <ol class="step-list">
+                        <li>Go to <strong id="inspectionUrl"></strong></li>
+                        <li>Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)</li>
+                        <li>Press Ctrl+F (or Cmd+F on Mac) to open the search box</li>
+                        <li>Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code></li>
+                    </ol>
+                </div>
+                
+                <div class="question">Does anything highlight in yellow or show up in the search results?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Leave this page and search box open, we might need it again in a minute.
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectLibraryFound('found')">
+                        <span>✅</span> Found it! Something highlighted
+                    </button>
+                    <button class="option-button" onclick="selectLibraryFound('not-found')">
+                        <span>❌</span> Nothing found / No results
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
+                    <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Library Not Found - Install Instructions -->
+            <div id="step-library-install" class="step-container">
+                <div class="step-title">📝 Library Code Installation</div>
+                
+                <div class="alert alert-warning">
+                    <strong>Aha! The library code is missing.</strong> Let's get that fixed! Remember, even if the Givebutter dashboard says the library is installed, that might not be true!
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Tell your customer:</div>
+                    <div class="code-block">"I double-checked your website, and I see the library code isn't installed yet. Let's get that taken care of. I'd be happy to walk you through step-by-step right now, or I can send you the instructions for that part. What would you like to do?"</div>
+                    
+                    <div style="color: #666; font-style: italic; margin-top: 15px;">
+                        Installing code can be intimidating for many users, so it's important not to send a help article right away without first checking in. When someone reaches out to us, it's because they're looking for guidance—not just information. Giving them this choice empowers them to decide what will help them most.
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep('step-get-library-code')">Step-by-step help</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-widget-check')">Sending article, let's check the widget</button>
+                    <button class="btn btn-danger" onclick="exitWizard()">Exit wizard</button>
+                </div>
+            </div>
+
+            <!-- Get Library Code -->
+            <div id="step-get-library-code" class="step-container">
+                <div class="step-title">📋 Get Their Library Code</div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">📝 Since we already know which campaign this is for:</div>
+                    <ol class="step-list">
+                        <li>Go to the campaign in their dashboard</li>
+                        <li>Go to the sharing tab</li>
+                        <li>Click "Installation" and choose <strong id="selectedPlatformName"></strong></li>
+                        <li>Copy the entire code that contains <code>https://widgets.givebutter.com/latest</code></li>
+                    </ol>
+                </div>
+                
+                <div class="question">📋 Paste their library code here:</div>
+                <textarea class="large-textarea" id="libraryCode" placeholder="Paste the library code here..." onkeyup="checkLibraryCode()"></textarea>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+                    <button class="btn btn-primary" id="libraryCodeContinue" onclick="showPlatformInstructions()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Platform Installation Instructions -->
+            <div id="step-platform-instructions" class="step-container">
+                <div class="step-title">🔧 Platform Installation Instructions</div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Tell your customer:</div>
+                    <div class="platform-instructions" id="platformInstructionsContent">
+                        <!-- Content will be populated based on platform -->
+                    </div>
+                    
+                    <div class="solution-title">📝 Library Code to Install:</div>
+                    <div class="code-block" id="libraryCodeDisplay"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back</button>
+                    <button class="btn btn-success" onclick="markProblemSolved('library-installed')">Done, that solved the issue!</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-widget-check')">Done, now let's work on the widget code</button>
+                    <button class="btn btn-danger" onclick="exitWizard()">Exit</button>
+                </div>
+            </div>
+
+            <!-- Problem Solved -->
+            <div id="step-problem-solved" class="step-container">
+                <div class="alert alert-success">
+                    <strong>🎉 Fantastic! You're really turning into a Widget expert!</strong>
+                </div>
+                
+                <div class="confidence-builder">
+                    🧈 You successfully diagnosed and solved the widget issue! The customer should now have a working widget on their website.
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">✅ What was solved:</div>
+                    <div id="solutionSummary"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="restartWizard()">Help another widget issue 🔄</button>
+                    <button class="btn btn-secondary" onclick="exitWizard()">Return to SALT</button>
+                </div>
+            </div>
+
+            <!-- Widget Check (Placeholder for now) -->
+            <div id="step-widget-check" class="step-container">
+                <div class="step-title">📝 Step 4.2: Widget Code Check</div>
+                <div class="step-description">Now let's check if the widget code itself is installed...</div>
+                
+                <div class="alert alert-info">
+                    <strong>🚧 Coming Soon:</strong> This section is still being built out. For now, you can use the knowledge from the previous steps to guide the customer through widget code installation.
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-success" onclick="markProblemSolved('manual-completion')">Mark as resolved (manual)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="goToPreviousStep()" id="prevBtn" disabled>←</button>
+            <button class="nav-btn" onclick="restartWizard()" title="Restart Wizard">🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentStep = 'step-welcome';
+        let wizardData = {
+            platform: null,
+            plan: null,
+            widgetType: null,
+            campaignStatus: null,
+            payoutStatus: null,
+            websiteUrl: null,
+            libraryCode: null,
+            libraryFound: null
+        };
+
+        const stepOrder = [
+            'step-welcome',
+            'step-platform', 
+            'step-plan-check',
+            'step-widget-type',
+            'step-account-setup',
+            'step-payout-check',
+            'step-code-collection',
+            'step-library-check',
+            'step-library-inspection'
+        ];
+
+        // Navigation functions
+        function nextStep(stepId) {
+            document.getElementById(currentStep).classList.remove('active');
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function previousStep(stepId) {
+            document.getElementById(currentStep).classList.remove('active');
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function goToPreviousStep() {
+            const currentIndex = stepOrder.indexOf(currentStep);
+            if (currentIndex > 0) {
+                previousStep(stepOrder[currentIndex - 1]);
+            }
+        }
+
+        function updateProgress() {
+            const currentIndex = stepOrder.indexOf(currentStep);
+            const progress = currentIndex >= 0 ? ((currentIndex + 1) / stepOrder.length) * 100 : 10;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function updateNavButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const currentIndex = stepOrder.indexOf(currentStep);
+            prevBtn.disabled = (currentIndex <= 0 || currentStep === 'step-welcome');
+        }
+
+        function restartWizard() {
+            wizardData = {
+                platform: null,
+                plan: null,
+                widgetType: null,
+                campaignStatus: null,
+                payoutStatus: null,
+                websiteUrl: null,
+                libraryCode: null,
+                libraryFound: null
+            };
+            nextStep('step-welcome');
+        }
+
+        function exitWizard() {
+            if (confirm('Are you sure you want to exit the Widget Wizard?')) {
+                alert('👋 Thanks for using the Widget Wizard! You\'ll return to the main SALT interface.');
+                // In the real integration, this would close the wizard modal/return to SALT
+            }
+        }
+
+        // Platform selection functions
+        function selectPlatform(platform) {
+            // Clear previous selections
+            document.querySelectorAll('#step-platform .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.platform = platform;
+            
+            // Enable continue button
+            document.getElementById('platformContinue').disabled = false;
+            
+            // Show skip checkbox for compatible platforms
+            if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform)) {
+                document.getElementById('skipCompatibilityCheck').style.display = 'flex';
+            }
+        }
+
+        function checkPlatformPlan() {
+            if (wizardData.platform === 'other') {
+                // Handle "Other" platform
+                const platformName = prompt('What website builder are they using?');
+                if (platformName) {
+                    showIncompatiblePlatform(platformName);
+                    return;
+                }
+            }
+            
+            // Check if skip is checked
+            const skipCheck = document.getElementById('skipCheck');
+            if (skipCheck && skipCheck.checked) {
+                nextStep('step-widget-type');
+                return;
+            }
+            
+            // Show plan check for supported platforms
+            setupPlanCheck();
+            nextStep('step-plan-check');
+        }
+
+        function setupPlanCheck() {
+            const planOptions = document.getElementById('planOptions');
+            const planQuestion = document.getElementById('planQuestion');
+            const planDescription = document.getElementById('planCheckDescription');
+            
+            planOptions.innerHTML = '';
+            
+            switch (wizardData.platform) {
+                case 'wordpress':
+                    planQuestion.textContent = 'What WordPress plan do they have?';
+                    planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
+                    planOptions.innerHTML = `
+                        <button class="option-button incompatible" onclick="selectPlan('free')">
+                            <span>❌</span> Free plan
+                        </button>
+                        <button class="option-button incompatible" onclick="selectPlan('personal')">
+                            <span>❌</span> Personal plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('business')">
+                            <span>✅</span> Business plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('ecommerce')">
+                            <span>✅</span> eCommerce plan
+                        </button>
+                    `;
+                    break;
+                    
+                case 'squarespace':
+                    planQuestion.textContent = 'What Squarespace plan do they have?';
+                    planDescription.textContent = 'Widgets need Code Injection access.';
+                    planOptions.innerHTML = `
+                        <button class="option-button incompatible" onclick="selectPlan('personal')">
+                            <span>❌</span> Personal plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('business')">
+                            <span>✅</span> Business plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('commerce')">
+                            <span>✅</span> Commerce plan
+                        </button>
+                    `;
+                    break;
+                    
+                case 'wix':
+                    planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
+                    planDescription.textContent = 'Widgets need the Custom Element feature.';
+                    planOptions.innerHTML = `
+                        <button class="option-button compatible" onclick="selectPlan('premium')">
+                            <span>✅</span> Yes (premium plan)
+                        </button>
+                        <button class="option-button incompatible" onclick="selectPlan('free')">
+                            <span>❌</span> No (free plan or has ads)
+                        </button>
+                    `;
+                    break;
+                    
+                default:
+                    planQuestion.textContent = 'What plan level do they have?';
+                    planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
+                    planOptions.innerHTML = `
+                        <button class="option-button compatible" onclick="selectPlan('premium')">
+                            <span>✅</span> Premium/Paid plan
+                        </button>
+                        <button class="option-button incompatible" onclick="selectPlan('free')">
+                            <span>❌</span> Free plan
+                        </button>
+                    `;
+            }
+        }
+
+        function selectPlan(plan) {
+            // Clear previous selections
+            document.querySelectorAll('#step-plan-check .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.plan = plan;
+            
+            // Enable continue button
+            document.getElementById('planContinue').disabled = false;
+        }
+
+        function checkPlanCompatibility() {
+            const isCompatible = event.target.parentElement.querySelector('.selected').classList.contains('compatible');
+            
+            if (isCompatible) {
+                nextStep('step-widget-type');
+            } else {
+                showIncompatible();
+            }
+        }
+
+        function showIncompatible() {
+            const incompatibleMessage = document.getElementById('incompatibleMessage');
+            const platformName = getPlatformDisplayName(wizardData.platform);
+            
+            if (['free', 'personal'].includes(wizardData.plan)) {
+                const requiredPlan = getRequiredPlan(wizardData.platform);
+                incompatibleMessage.textContent = `"After checking, it looks like you need to be on the ${requiredPlan} plan with ${platformName} in order to use Givebutter widgets. But don't worry, you can still share your campaign link directly on your website!"`;
+            }
+            
+            nextStep('step-incompatible');
+        }
+
+        function showIncompatiblePlatform(platformName) {
+            const incompatibleMessage = document.getElementById('incompatibleMessage');
+            incompatibleMessage.textContent = `"I've checked our resources and ${platformName} doesn't support the custom code needed for our embedded widgets. But don't worry - you can still promote your campaign effectively by sharing your campaign link!"`;
+            nextStep('step-incompatible');
+        }
+
+        function getPlatformDisplayName(platform) {
+            const names = {
+                'wordpress': 'WordPress',
+                'squarespace': 'Squarespace',
+                'wix': 'Wix',
+                'godaddy': 'GoDaddy',
+                'weebly': 'Weebly'
+            };
+            return names[platform] || platform;
+        }
+
+        function getRequiredPlan(platform) {
+            const plans = {
+                'wordpress': 'Business or eCommerce',
+                'squarespace': 'Business or Commerce',
+                'wix': 'Premium'
+            };
+            return plans[platform] || 'Premium';
+        }
+
+        // Widget type selection
+        function selectWidgetType(type) {
+            // Clear previous selections
+            document.querySelectorAll('#step-widget-type .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.widgetType = type;
+            
+            // Enable continue button
+            document.getElementById('widgetTypeContinue').disabled = false;
+        }
+
+        function handleWidgetTypeSelection() {
+            if (wizardData.widgetType === 'signup') {
+                // Signup forms skip to code collection
+                nextStep('step-code-collection');
+            } else {
+                // Update platform name display
+                document.getElementById('platformName').textContent = getPlatformDisplayName(wizardData.platform);
+                nextStep('step-account-setup');
+            }
+        }
+
+        // Campaign status functions
+        function selectCampaignStatus(status) {
+            // Clear previous selections
+            document.querySelectorAll('#step-account-setup .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.campaignStatus = status;
+            
+            // Enable continue button
+            document.getElementById('campaignStatusContinue').disabled = false;
+        }
+
+        function handleCampaignStatus() {
+            if (wizardData.campaignStatus === 'unpublished') {
+                nextStep('step-unpublished-solution');
+            } else {
+                nextStep('step-payout-check');
+            }
+        }
+
+        // Payout status functions
+        function selectPayoutStatus(status) {
+            // Clear previous selections
+            document.querySelectorAll('#step-payout-check .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.payoutStatus = status;
+            
+            // Enable continue button
+            document.getElementById('payoutStatusContinue').disabled = false;
+        }
+
+        function handlePayoutStatus() {
+            if (wizardData.payoutStatus === 'not-connected') {
+                nextStep('step-payout-solution');
+            } else {
+                nextStep('step-code-collection');
+            }
+        }
+
+        // Library code functions
+        function toggleLibraryConfirmed() {
+            const checkbox = document.getElementById('libraryConfirmed');
+            const skipButton = document.getElementById('skipToWidget');
+            
+            if (checkbox.checked) {
+                skipButton.style.display = 'inline-flex';
+            } else {
+                skipButton.style.display = 'none';
+            }
+        }
+
+        function checkUrlInput() {
+            const url = document.getElementById('websiteUrl').value.trim();
+            const continueBtn = document.getElementById('urlContinue');
+            
+            if (url && url.startsWith('http')) {
+                continueBtn.disabled = false;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+
+        function startLibraryInspection() {
+            wizardData.websiteUrl = document.getElementById('websiteUrl').value.trim();
+            document.getElementById('inspectionUrl').textContent = wizardData.websiteUrl;
+            nextStep('step-library-inspection');
+        }
+
+        function selectLibraryFound(status) {
+            // Clear previous selections
+            document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.libraryFound = status;
+            
+            // Enable continue button
+            document.getElementById('libraryFoundContinue').disabled = false;
+        }
+
+        function handleLibraryResult() {
+            if (wizardData.libraryFound === 'found') {
+                nextStep('step-widget-check');
+            } else {
+                nextStep('step-library-install');
+            }
+        }
+
+        function checkLibraryCode() {
+            const code = document.getElementById('libraryCode').value.trim();
+            const continueBtn = document.getElementById('libraryCodeContinue');
+            
+            if (code && code.includes('widgets.givebutter.com')) {
+                continueBtn.disabled = false;
+                wizardData.libraryCode = code;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+
+        function showPlatformInstructions() {
+            const platform = wizardData.platform;
+            const instructionsContent = document.getElementById('platformInstructionsContent');
+            const libraryCodeDisplay = document.getElementById('libraryCodeDisplay');
+            
+            // Update platform name
+            document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(platform);
+            
+            // Display the library code
+            libraryCodeDisplay.textContent = wizardData.libraryCode;
+            
+            // Platform-specific instructions
+            let instructions = '';
+            switch (platform) {
+                case 'squarespace':
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        1. Click on the <strong>Website</strong> heading in your Squarespace account.<br>
+                        2. Scroll down, and under the <strong>Utilities</strong> heading, click <strong>Website Tools</strong>.<br>
+                        3. Click <strong>Code Injection</strong>.<br>
+                        4. Under the <strong>Header</strong> section, paste the library code below, and save.
+                    `;
+                    break;
+                    
+                case 'wordpress':
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        1. Download and install the Givebutter WordPress plugin.<br>
+                        2. Go to your WordPress admin dashboard.<br>
+                        3. Navigate to the Givebutter plugin settings.<br>
+                        4. Enter your Givebutter account ID and save.
+                    `;
+                    break;
+                    
+                case 'wix':
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        1. Go to your Wix editor.<br>
+                        2. Click on the <strong>+</strong> button to add elements.<br>
+                        3. Go to <strong>Embed</strong> and select <strong>Custom Element</strong>.<br>
+                        4. Paste the library code in the HTML settings.
+                    `;
+                    break;
+                    
+                case 'godaddy':
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        1. Log in to your GoDaddy account.<br>
+                        2. Scroll to Websites + Marketing and select Manage next to your website.<br>
+                        3. Select Edit Website or Edit Site to open your website builder.<br>
+                        4. Go to the page and location you want to add your custom code, and add a section.<br>
+                        5. Search for HTML section and select Add. Paste the code below in the Custom Code field.
+                    `;
+                    break;
+                    
+                case 'weebly':
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        1. Log in to your Weebly account.<br>
+                        2. Navigate to Settings > SEO > Header code.<br>
+                        3. Copy and paste the code below in the Header Type text field.
+                    `;
+                    break;
+                    
+                default:
+                    instructions = `
+                        <em>To install the library on your webpage:</em><br>
+                        Please refer to your website builder's documentation for adding custom HTML/JavaScript code to the header section of your site.
+                    `;
+            }
+            
+            instructionsContent.innerHTML = instructions;
+            nextStep('step-platform-instructions');
+        }
+
+        function markProblemSolved(solutionType) {
+            const solutionSummary = document.getElementById('solutionSummary');
+            
+            let summary = '';
+            switch (solutionType) {
+                case 'campaign-published':
+                    summary = 'Campaign was unpublished - guided customer to publish their campaign.';
+                    break;
+                case 'payout-connected':
+                    summary = 'Payout method was not connected - provided customer with payout setup instructions.';
+                    break;
+                case 'library-installed':
+                    summary = `Library code was missing - provided ${getPlatformDisplayName(wizardData.platform)}-specific installation instructions.`;
+                    break;
+                case 'manual-completion':
+                    summary = 'Issue resolved through manual troubleshooting steps.';
+                    break;
+                default:
+                    summary = 'Widget issue successfully resolved!';
+            }
+            
+            solutionSummary.textContent = summary;
+            nextStep('step-problem-solved');
+        }
+
+        // Initialize wizard
+        updateProgress();
+        updateNavButtons();
+    </script>
+</body>
+</html>
