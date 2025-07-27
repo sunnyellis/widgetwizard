@@ -22,8 +22,9 @@
         }
 
         .wizard-container {
-            width: 100%;
-            max-width: 600px;
+            width: 300px;         /* launches at 300px */
+            min-width: 280px;     /* won't go smaller than this */ 
+            max-width: 800px;     /* can expand up to this if users resize */ 
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(255, 191, 0, 0.1);
@@ -106,13 +107,14 @@
         }
 
         .step-title {
-            font-size: 1.4em;
+            font-size: 1.2em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .step-description {
+            font-size: 0.9em;
             color: #666;
             font-style: italic;
             margin-bottom: 25px;
@@ -120,7 +122,7 @@
         }
 
         .question {
-            font-size: 1.1em;
+            font-size: 1.0em;
             font-weight: 600;
             color: #333;
             margin-bottom: 20px;
