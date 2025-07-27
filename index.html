@@ -130,6 +130,41 @@
             line-height: 1.4;
         }
 
+.question {
+            font-size: 1.0em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .compatibility-section {
+            margin-bottom: 20px;
+        }
+
+        .compatibility-header {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            padding-left: 5px;
+        }
+
+        .compatibility-header.not-compatible {
+            color: #c62828;
+        }
+
+        .compatibility-header.compatible {
+            color: #2e7d32;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
         .options-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1019,64 +1054,105 @@
             
             switch (wizardData.platform) {
                 case 'wordpress':
-                    planQuestion.textContent = 'What WordPress plan do they have?';
-                    planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
-                    planOptions.innerHTML = `
-                        <button class="option-button incompatible" onclick="selectPlan('free')">
-                            <span>❌</span> Free plan
-                        </button>
-                        <button class="option-button incompatible" onclick="selectPlan('personal')">
-                            <span>❌</span> Personal plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('business')">
-                            <span>✅</span> Business plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('ecommerce')">
-                            <span>✅</span> eCommerce plan
-                        </button>
-                    `;
-                    break;
+    planQuestion.textContent = 'What WordPress plan do they have?';
+    planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
+    planOptions.innerHTML = `
+        <div class="compatibility-section">
+            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('free')">
+                    Free plan
+                </button>
+                <button class="option-button" onclick="selectPlan('personal')">
+                    Personal plan
+                </button>
+            </div>
+        </div>
+        <div class="compatibility-section">
+            <div class="compatibility-header compatible">Plans that are compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('business')">
+                    Business plan
+                </button>
+                <button class="option-button" onclick="selectPlan('ecommerce')">
+                    eCommerce plan
+                </button>
+            </div>
+        </div>
+    `;
+    break;
                     
                 case 'squarespace':
-                    planQuestion.textContent = 'What Squarespace plan do they have?';
-                    planDescription.textContent = 'Widgets need Code Injection access.';
-                    planOptions.innerHTML = `
-                        <button class="option-button incompatible" onclick="selectPlan('personal')">
-                            <span>❌</span> Personal plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('business')">
-                            <span>✅</span> Business plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('commerce')">
-                            <span>✅</span> Commerce plan
-                        </button>
-                    `;
-                    break;
+                    case 'squarespace':
+    planQuestion.textContent = 'What Squarespace plan do they have?';
+    planDescription.textContent = 'Widgets need Code Injection access.';
+    planOptions.innerHTML = `
+        <div class="compatibility-section">
+            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('personal')">
+                    Personal plan
+                </button>
+            </div>
+        </div>
+        <div class="compatibility-section">
+            <div class="compatibility-header compatible">Plans that are compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('business')">
+                    Business plan
+                </button>
+                <button class="option-button" onclick="selectPlan('commerce')">
+                    Commerce plan
+                </button>
+            </div>
+        </div>
+    `;
+    break;
                     
                 case 'wix':
-                    planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
-                    planDescription.textContent = 'Widgets need the Custom Element feature.';
-                    planOptions.innerHTML = `
-                        <button class="option-button compatible" onclick="selectPlan('premium')">
-                            <span>✅</span> Yes (premium plan)
-                        </button>
-                        <button class="option-button incompatible" onclick="selectPlan('free')">
-                            <span>❌</span> No (free plan or has ads)
-                        </button>
-                    `;
-                    break;
+    planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
+    planDescription.textContent = 'Widgets need the Custom Element feature.';
+    planOptions.innerHTML = `
+        <div class="compatibility-section">
+            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('free')">
+                    No (free plan or has ads)
+                </button>
+            </div>
+        </div>
+        <div class="compatibility-section">
+            <div class="compatibility-header compatible">Plans that are compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('premium')">
+                    Yes (premium plan)
+                </button>
+            </div>
+        </div>
+    `;
+    break;
                     
                 default:
-                    planQuestion.textContent = 'What plan level do they have?';
-                    planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
-                    planOptions.innerHTML = `
-                        <button class="option-button compatible" onclick="selectPlan('premium')">
-                            <span>✅</span> Premium/Paid plan
-                        </button>
-                        <button class="option-button incompatible" onclick="selectPlan('free')">
-                            <span>❌</span> Free plan
-                        </button>
-                    `;
+    planQuestion.textContent = 'What plan level do they have?';
+    planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
+    planOptions.innerHTML = `
+        <div class="compatibility-section">
+            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('free')">
+                    Free plan
+                </button>
+            </div>
+        </div>
+        <div class="compatibility-section">
+            <div class="compatibility-header compatible">Plans that are compatible:</div>
+            <div class="options-container">
+                <button class="option-button" onclick="selectPlan('premium')">
+                    Premium/Paid plan
+                </button>
+            </div>
+        </div>
+    `;
             }
         }
 
