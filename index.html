@@ -1122,18 +1122,29 @@
         }
 
         function selectPlan(plan) {
-            // Clear previous selections
-            document.querySelectorAll('#step-plan-check .option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Select current
-            event.target.classList.add('selected');
-            wizardData.plan = plan;
-            
-            // Enable continue button
-            document.getElementById('planContinue').disabled = false;
+    // Clear previous selections
+    document.querySelectorAll('#step-plan-check .option-button').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Find the button that was clicked by matching the plan parameter
+    const buttons = document.querySelectorAll('#step-plan-check .option-button');
+    buttons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(plan.toLowerCase()) || 
+            (plan === 'business' && btn.textContent.includes('Business')) ||
+            (plan === 'ecommerce' && btn.textContent.includes('eCommerce')) ||
+            (plan === 'personal' && btn.textContent.includes('Personal')) ||
+            (plan === 'free' && btn.textContent.includes('Free')) ||
+            (plan === 'premium' && btn.textContent.includes('Yes'))) {
+            btn.classList.add('selected');
         }
+    });
+    
+    wizardData.plan = plan;
+    
+    // Enable continue button
+    document.getElementById('planContinue').disabled = false;
+}
 
         function checkPlanCompatibility() {
             const isCompatible = event.target.parentElement.querySelector('.selected').classList.contains('compatible');
