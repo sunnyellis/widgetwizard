@@ -1149,16 +1149,23 @@
     document.getElementById('planContinue').disabled = false;
 }
 
-        function checkPlanCompatibility() {
-            const isCompatible = event.target.parentElement.querySelector('.selected').classList.contains('compatible');
-            
-            if (isCompatible) {
-                nextStep('step-widget-type');
-            } else {
-                showIncompatible();
-            }
-        }
-
+       function checkPlanCompatibility() {
+    // Look directly for the selected button in the plan check step
+    const selectedButton = document.querySelector('#step-plan-check .option-button.selected');
+    
+    if (!selectedButton) {
+        console.error('No plan selected!');
+        return;
+    }
+    
+    const isCompatible = selectedButton.classList.contains('compatible');
+    
+    if (isCompatible) {
+        nextStep('step-widget-type');
+    } else {
+        showIncompatible();
+    }
+}
         function showIncompatible() {
             const incompatibleMessage = document.getElementById('incompatibleMessage');
             const platformName = getPlatformDisplayName(wizardData.platform);
