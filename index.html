@@ -518,6 +518,12 @@
                     <button class="option-button" onclick="selectPlatform('weebly')">
                         <img src="https://i.imgur.com/Q0wBB3c.png" alt="Weebly" style="width: 20px; height: 20px; object-fit: contain;"> Weebly
                     </button>
+                    <button class="option-button" onclick="selectPlatform('google')">
+                        <img src="https://i.imgur.com/b3JHWel.png" alt="Google" style="width: 20px; height: 20px; object-fit: contain;"> Google
+                    </button>
+                    <button class="option-button" onclick="selectPlatform('shopify')">
+                        <img src="https://i.imgur.com/xMpCPxC.png" alt="Shopify" style="width: 20px; height: 20px; object-fit: contain;"> Shopify
+                    </button>
                     <button class="option-button" onclick="selectPlatform('other')">
                         <span>❓</span> Other (specify)
                     </button>
@@ -581,6 +587,66 @@
     </div>
 </div>
 
+ <!-- Google Incompatible -->
+<div id="step-google-incompatible" class="step-container">
+    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+        <strong>⚠️ Unfortunately, widgets won't work with their current setup</strong>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <span style="color: #333;">"After checking, I confirmed that Google doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
+        
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #c8e6c9;">
+            <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+            <div style="margin-bottom: 8px;">
+                <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+            </div>
+            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+            </div>
+            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+    </div>
+</div>
+
+<!-- Shopify Incompatible -->
+<div id="step-shopify-incompatible" class="step-container">
+    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+        <strong>⚠️ Unfortunately, widgets won't work with their current setup</strong>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <span style="color: #333;">"After checking, I confirmed that Shopify doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
+        
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #c8e6c9;">
+            <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+            <div style="margin-bottom: 8px;">
+                <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+            </div>
+            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+            </div>
+            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+            </div>
+        </div>
+    </div>
+
+<div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+    </div>
+</div> 
+    
             <!-- Step 2: Widget Type -->
             <div id="step-widget-type" class="step-container">
                 <div class="step-title">🎯 Step 2: Widget Type Identification</div>
@@ -1028,7 +1094,7 @@
             }
 
             // Skip plan check for Weebly - all plans are compatible
-            if (wizardData.platform === 'weebly') || wizardData.platform === 'godaddy') {
+            if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
                 nextStep('step-widget-type');
                 return;
             }
@@ -1060,7 +1126,7 @@
         <div class="compatibility-section">
             <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('free')">
+                <button class="option-button" onclick="selectPlan(')">
                     Free plan
                 </button>
                 <button class="option-button" onclick="selectPlan('personal')">
@@ -1118,7 +1184,7 @@
         <div class="compatibility-section">
             <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('free')">
+                <button class="option-button" onclick="selectPlan(')">
                     Free plan
                 </button>
             </div>
@@ -1135,7 +1201,6 @@
                 <button class="option-button compatible" onclick="selectPlan('business')">
                     Business plan
                 </button>
-                </button>
                 <button class="option-button compatible" onclick="selectPlan('businesselite')">
                     Business Elite plan
                 </button>
@@ -1151,7 +1216,7 @@
         <div class="compatibility-section">
             <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('free')">
+                <button class="option-button" onclick="selectPlan(')">
                     Free plan
                 </button>
             </div>
@@ -1181,7 +1246,7 @@
             (plan === 'business' && btn.textContent.includes('Business')) ||
             (plan === 'ecommerce' && btn.textContent.includes('eCommerce')) ||
             (plan === 'personal' && btn.textContent.includes('Personal')) ||
-            (plan === 'free' && btn.textContent.includes('Free')) ||
+            (plan === ' && btn.textContent.includes(')) ||
             (plan === 'premium' && btn.textContent.includes('Yes'))) {
             btn.classList.add('selected');
         }
@@ -1214,7 +1279,7 @@
             const incompatibleMessage = document.getElementById('incompatibleMessage');
             const platformName = getPlatformDisplayName(wizardData.platform);
             
-            if (['free', 'personal'].includes(wizardData.plan)) {
+            if (['free', 'personal', 'basic'].includes(wizardData.plan)) {
                 const requiredPlan = getRequiredPlan(wizardData.platform);
                 incompatibleMessage.textContent = `"After checking, it looks like you need to be on the ${requiredPlan} plan with ${platformName} to use Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
             }
@@ -1227,14 +1292,16 @@
             incompatibleMessage.textContent = `"I've checked our resources and ${platformName} doesn't support the custom code needed for our embedded widgets. But don't worry - you can still promote your campaign effectively by sharing your campaign link!"`;
             nextStep('step-incompatible');
         }
-
+        
         function getPlatformDisplayName(platform) {
             const names = {
                 'wordpress': 'WordPress',
                 'squarespace': 'Squarespace',
                 'wix': 'Wix',
                 'godaddy': 'GoDaddy',
-                'weebly': 'Weebly'
+                'weebly': 'Weebly',
+                'google': 'Google',
+                'shopify': 'Shopify'
             };
             return names[platform] || platform;
         }
