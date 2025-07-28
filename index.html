@@ -1126,8 +1126,18 @@
         <div class="compatibility-section">
             <div class="compatibility-header compatible">Plans that are compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('premium')">
-                    Yes (premium plan)
+                <button class="option-button compatible" onclick="selectPlan('light')">
+                    Light plan
+                </button>
+                <button class="option-button compatible" onclick="selectPlan('core')">
+                    Core plan
+                </button>
+                <button class="option-button compatible" onclick="selectPlan('business')">
+                    Business plan
+                </button>
+                </button>
+                <button class="option-button compatible" onclick="selectPlan('businesselite')">
+                    Business Elite plan
                 </button>
             </div>
         </div>
@@ -1232,8 +1242,8 @@
         function getRequiredPlan(platform) {
             const plans = {
                 'wordpress': 'Business or eCommerce',
-                'squarespace': 'Business or Commerce',
-                'wix': 'Premium'
+                'squarespace': 'Core, Plus, or Advanced',
+                'wix': 'Light, Core, Business, or Business Elite'
             };
             return plans[platform] || 'Premium';
         }
