@@ -1093,7 +1093,18 @@
                 }
             }
 
-            // Skip plan check for Weebly - all plans are compatible
+  // Route Google and Shopify to their specific incompatible pages
+    if (wizardData.platform === 'google') {
+        nextStep('step-google-incompatible');
+        return;
+    }
+    
+    if (wizardData.platform === 'shopify') {
+        nextStep('step-shopify-incompatible');
+        return;
+    }
+
+            // Skip plan check for Weebly & GoDaddy - all plans are compatible
             if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
                 nextStep('step-widget-type');
                 return;
