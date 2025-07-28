@@ -39,7 +39,7 @@
         .wizard-header {
             background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
             color: white;
-            padding: 20px;
+            padding: 15px 20px;
             text-align: center;
             position: relative;
         }
@@ -67,26 +67,9 @@
             font-style: italic;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #FFBF00;
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 3px;
-        }
-
         .wizard-content {
             flex: 1;
-            padding: 30px;
+            padding: 20px 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -476,9 +459,6 @@
                 Widget Wizard
             </div>
             <div class="wizard-subtitle">Guided troubleshooting for widget issues</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
         </div>
 
         <div class="wizard-content">
@@ -1018,7 +998,6 @@
             document.getElementById(currentStep).classList.remove('active');
             document.getElementById(stepId).classList.add('active');
             currentStep = stepId;
-            updateProgress();
             updateNavButtons();
         }
 
@@ -1026,7 +1005,6 @@
             document.getElementById(currentStep).classList.remove('active');
             document.getElementById(stepId).classList.add('active');
             currentStep = stepId;
-            updateProgress();
             updateNavButtons();
         }
 
@@ -1035,12 +1013,6 @@
             if (currentIndex > 0) {
                 previousStep(stepOrder[currentIndex - 1]);
             }
-        }
-
-        function updateProgress() {
-            const currentIndex = stepOrder.indexOf(currentStep);
-            const progress = currentIndex >= 0 ? ((currentIndex + 1) / stepOrder.length) * 100 : 10;
-            document.getElementById('progressFill').style.width = `${progress}%`;
         }
 
         function updateNavButtons() {
@@ -1575,7 +1547,6 @@
         }
 
         // Initialize wizard
-        updateProgress();
         updateNavButtons();
     </script>
 </body>
