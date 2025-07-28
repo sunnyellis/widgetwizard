@@ -1028,7 +1028,7 @@
             }
 
             // Skip plan check for Weebly - all plans are compatible
-            if (wizardData.platform === 'weebly') {
+            if (wizardData.platform === 'weebly') || wizardData.platform === 'godaddy') {
                 nextStep('step-widget-type');
                 return;
             }
