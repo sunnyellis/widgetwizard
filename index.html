@@ -1037,6 +1037,12 @@
                     return;
                 }
             }
+
+            // Skip plan check for Weebly - all plans are compatible
+            if (wizardData.platform === 'weebly') {
+                nextStep('step-widget-type');
+                return;
+            }
             
             // Check if skip is checked
             const skipCheck = document.getElementById('skipCheck');
