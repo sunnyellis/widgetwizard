@@ -1093,7 +1093,6 @@
     `;
     break;
                     
-                case 'squarespace':
                     case 'squarespace':
     planQuestion.textContent = 'What Squarespace plan do they have?';
     planDescription.textContent = 'Widgets need Code Injection access.';
@@ -1101,19 +1100,22 @@
         <div class="compatibility-section">
             <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('personal')">
-                    Personal plan
+                <button class="option-button" onclick="selectPlan('basic')">
+                    Basic plan
                 </button>
             </div>
         </div>
         <div class="compatibility-section">
             <div class="compatibility-header compatible">Plans that are compatible:</div>
             <div class="options-container">
-                <button class="option-button" onclick="selectPlan('business')">
-                    Business plan
+                <button class="option-button compatible" onclick="selectPlan('core')">
+                    Core plan
                 </button>
-                <button class="option-button" onclick="selectPlan('commerce')">
-                    Commerce plan
+                <button class="option-button compatible" onclick="selectPlan('plus')">
+                    Plus plan
+                </button>
+                <button class="option-button compatible" onclick="selectPlan('advanced')">
+                    Advanced plan
                 </button>
             </div>
         </div>
