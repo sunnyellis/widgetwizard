@@ -642,6 +642,55 @@
         <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
     </div>
 </div> 
+
+<!-- Other Platform Research -->
+<div id="step-other-research" class="step-container">
+    <div style="color: #333; font-size: 1.0em; margin-bottom: 25px;">
+        <strong>🔍 Looks like we don't have any documentation about widgets and <span id="otherPlatformNameDisplay">[PLATFORM NAME]</span></strong>
+    </div>
+    
+    <div class="educational-tip">
+        <strong>Don't panic, we can still help!</strong><br><br>
+        Ask ChatGPT: does <strong><span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span></strong> support code injection?<br><br>
+        You should get a nice summary of whether Givebutter Widgets will work with <strong><span id="otherPlatformNameSummary">[PLATFORM NAME]</span></strong> as well as any plan requirements!
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-type')">Platform is compatible! →</button>
+        <button class="btn btn-danger" onclick="showIncompatibleFromResearch()">Platform is not compatible</button>
+    </div>
+</div>
+
+<!-- Generic Platform Incompatible -->
+<div id="step-generic-incompatible" class="step-container">
+    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+        <strong> 😞 Darn, widgets won't work with their current setup</strong>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+        <span style="color: #333;" id="genericIncompatibleMessage">"After checking, I confirmed that [PLATFORM NAME] doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
+        
+        <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+            <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+            <div style="margin-bottom: 8px;">
+                <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+            </div>
+            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+            </div>
+            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-other-research')">← Back</button>
+        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+    </div>
+</div>
     
             <!-- Step 2: Widget Type -->
             <div id="step-widget-type" class="step-container">
@@ -1065,176 +1114,187 @@
             }
             wizardData.platform = platform;
             
-            // Enable continue button
-            document.getElementById('platformContinue').disabled = false;
-            
-            // Show skip checkbox for compatible platforms
-            if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform)) {
-                document.getElementById('skipCompatibilityCheck').style.display = 'flex';
-            }
+        // Enable continue button
+document.getElementById('platformContinue').disabled = false;
+
+// Show skip checkbox for compatible platforms
+if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform)) {
+    document.getElementById('skipCompatibilityCheck').style.display = 'flex';
+}
+}
+
+function checkPlatformPlan() {
+    if (wizardData.platform === 'other') {
+        // Handle "Other" platform
+        const platformName = prompt('What website builder are they using?');
+        if (platformName) {
+            // Store the platform name and show the research page
+            wizardData.otherPlatformName = platformName;
+            document.getElementById('otherPlatformNameDisplay').textContent = platformName;
+            document.getElementById('otherPlatformNameChatGPT').textContent = platformName;
+            document.getElementById('otherPlatformNameSummary').textContent = platformName;
+            nextStep('step-other-research');
+            return;
         }
+    }
 
-        function checkPlatformPlan() {
-            if (wizardData.platform === 'other') {
-                // Handle "Other" platform
-                const platformName = prompt('What website builder are they using?');
-                if (platformName) {
-                    showIncompatiblePlatform(platformName);
-                    return;
-                }
-            }
+    // Route Google and Shopify to their specific incompatible pages
+    if (wizardData.platform === 'google') {
+        nextStep('step-google-incompatible');
+        return;
+    }
+    
+    if (wizardData.platform === 'shopify') {
+        nextStep('step-shopify-incompatible');
+        return;
+    }
 
-            // Route Google and Shopify to their specific incompatible pages
-            if (wizardData.platform === 'google') {
-                nextStep('step-google-incompatible');
-                return;
-            }
-            
-            if (wizardData.platform === 'shopify') {
-                nextStep('step-shopify-incompatible');
-                return;
-            }
+    // Skip plan check for Weebly & GoDaddy - all plans are compatible
+    if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
+        nextStep('step-widget-type');
+        return;
+    }
+    
+    // Check if skip is checked
+    const skipCheck = document.getElementById('skipCheck');
+    if (skipCheck && skipCheck.checked) {
+        nextStep('step-widget-type');
+        return;
+    }
+    
+    // Show plan check for supported platforms
+    setupPlanCheck();
+    nextStep('step-plan-check');
+}
 
-            // Skip plan check for Weebly & GoDaddy - all plans are compatible
-            if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
-                nextStep('step-widget-type');
-                return;
-            }
-            
-            // Check if skip is checked
-            const skipCheck = document.getElementById('skipCheck');
-            if (skipCheck && skipCheck.checked) {
-                nextStep('step-widget-type');
-                return;
-            }
-            
-            // Show plan check for supported platforms
-            setupPlanCheck();
-            nextStep('step-plan-check');
-        }
+function showIncompatibleFromResearch() {
+    const platformName = wizardData.otherPlatformName;
+    document.getElementById('genericIncompatibleMessage').textContent = 
+        `"After checking, I confirmed that ${platformName} doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
+    nextStep('step-generic-incompatible');
+}
 
-        function setupPlanCheck() {
-            const planOptions = document.getElementById('planOptions');
-            const planQuestion = document.getElementById('planQuestion');
-            const planDescription = document.getElementById('planCheckDescription');
-            
-            planOptions.innerHTML = '';
-            
-            switch (wizardData.platform) {
-                case 'wordpress':
-                    planQuestion.textContent = 'What WordPress plan do they have?';
-                    planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
-                    planOptions.innerHTML = `
-                        <div class="compatibility-section">
-                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button" onclick="selectPlan('free')">
-                                    Free plan
-                                </button>
-                                <button class="option-button" onclick="selectPlan('personal')">
-                                    Personal plan
-                                </button>
-                            </div>
-                        </div>
-                        <div class="compatibility-section">
-                            <div class="compatibility-header compatible">Plans that are compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button compatible" onclick="selectPlan('business')">
-                                    Business plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('ecommerce')">
-                                    eCommerce plan
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                        
-                case 'squarespace':
-                    planQuestion.textContent = 'What Squarespace plan do they have?';
-                    planDescription.textContent = 'Widgets need Code Injection access.';
-                    planOptions.innerHTML = `
-                        <div class="compatibility-section">
-                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button" onclick="selectPlan('basic')">
-                                    Basic plan
-                                </button>
-                            </div>
-                        </div>
-                        <div class="compatibility-section">
-                            <div class="compatibility-header compatible">Plans that are compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button compatible" onclick="selectPlan('core')">
-                                    Core plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('plus')">
-                                    Plus plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('advanced')">
-                                    Advanced plan
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                        
-                case 'wix':
-                    planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
-                    planDescription.textContent = 'Widgets need the Custom Element feature.';
-                    planOptions.innerHTML = `
-                        <div class="compatibility-section">
-                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button" onclick="selectPlan('free')">
-                                    Free plan
-                                </button>
-                            </div>
-                        </div>
-                        <div class="compatibility-section">
-                            <div class="compatibility-header compatible">Plans that are compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button compatible" onclick="selectPlan('light')">
-                                    Light plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('core')">
-                                    Core plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('business')">
-                                    Business plan
-                                </button>
-                                <button class="option-button compatible" onclick="selectPlan('businesselite')">
-                                    Business Elite plan
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    break;
-                        
-                default:
-                    planQuestion.textContent = 'What plan level do they have?';
-                    planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
-                    planOptions.innerHTML = `
-                        <div class="compatibility-section">
-                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button" onclick="selectPlan('free')">
-                                    Free plan
-                                </button>
-                            </div>
-                        </div>
-                        <div class="compatibility-section">
-                            <div class="compatibility-header compatible">Plans that are compatible:</div>
-                            <div class="options-container">
-                                <button class="option-button compatible" onclick="selectPlan('premium')">
-                                    Premium/Paid plan
-                                </button>
-                            </div>
-                        </div>
-                    `;
-            }
-        }
-
+function setupPlanCheck() {
+    const planOptions = document.getElementById('planOptions');
+    const planQuestion = document.getElementById('planQuestion');
+    const planDescription = document.getElementById('planCheckDescription');
+    
+    planOptions.innerHTML = '';
+    
+    switch (wizardData.platform) {
+        case 'wordpress':
+            planQuestion.textContent = 'What WordPress plan do they have?';
+            planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
+            planOptions.innerHTML = `
+                <div class="compatibility-section">
+                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button" onclick="selectPlan('free')">
+                            Free plan
+                        </button>
+                        <button class="option-button" onclick="selectPlan('personal')">
+                            Personal plan
+                        </button>
+                    </div>
+                </div>
+                <div class="compatibility-section">
+                    <div class="compatibility-header compatible">Plans that are compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button compatible" onclick="selectPlan('business')">
+                            Business plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('ecommerce')">
+                            eCommerce plan
+                        </button>
+                    </div>
+                </div>
+            `;
+            break;
+                
+        case 'squarespace':
+            planQuestion.textContent = 'What Squarespace plan do they have?';
+            planDescription.textContent = 'Widgets need Code Injection access.';
+            planOptions.innerHTML = `
+                <div class="compatibility-section">
+                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button" onclick="selectPlan('basic')">
+                            Basic plan
+                        </button>
+                    </div>
+                </div>
+                <div class="compatibility-section">
+                    <div class="compatibility-header compatible">Plans that are compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button compatible" onclick="selectPlan('core')">
+                            Core plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('plus')">
+                            Plus plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('advanced')">
+                            Advanced plan
+                        </button>
+                    </div>
+                </div>
+            `;
+            break;
+                
+        case 'wix':
+            planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
+            planDescription.textContent = 'Widgets need the Custom Element feature.';
+            planOptions.innerHTML = `
+                <div class="compatibility-section">
+                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button" onclick="selectPlan('free')">
+                            Free plan
+                        </button>
+                    </div>
+                </div>
+                <div class="compatibility-section">
+                    <div class="compatibility-header compatible">Plans that are compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button compatible" onclick="selectPlan('light')">
+                            Light plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('core')">
+                            Core plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('business')">
+                            Business plan
+                        </button>
+                        <button class="option-button compatible" onclick="selectPlan('businesselite')">
+                            Business Elite plan
+                        </button>
+                    </div>
+                </div>
+            `;
+            break;
+                
+        default:
+            planQuestion.textContent = 'What plan level do they have?';
+            planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
+            planOptions.innerHTML = `
+                <div class="compatibility-section">
+                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button" onclick="selectPlan('free')">
+                            Free plan
+                        </button>
+                    </div>
+                </div>
+                <div class="compatibility-section">
+                    <div class="compatibility-header compatible">Plans that are compatible:</div>
+                    <div class="options-container">
+                        <button class="option-button compatible" onclick="selectPlan('premium')">
+                            Premium/Paid plan
+                        </button>
+                    </div>
+                </div>
+            `;
+    }
+}    
         function selectPlan(plan) {
             // Clear previous selections
             document.querySelectorAll('#step-plan-check .option-button').forEach(btn => {
