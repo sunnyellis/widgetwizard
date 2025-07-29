@@ -651,10 +651,18 @@
         You should get a nice summary of whether Givebutter Widgets will work with <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> as well as any plan requirements!<br><br>What's the verdict? Is <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> compatible with Givebutter widgets?
     </div>
 
-   <div class="action-buttons">
+   <div class="options-container">
+    <button class="option-button" onclick="selectCompatibility('not-compatible')">
+        ❌ Not Compatible
+    </button>
+    <button class="option-button" onclick="selectCompatibility('compatible')">
+        ✅ Compatible
+    </button>
+</div>
+
+<div class="action-buttons">
     <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
-    <button class="btn btn-success" onclick="nextStep('step-widget-type')">✅ Compatible!</button>
-    <button class="btn btn-warning" onclick="showIncompatibleFromResearch()">❌ Not Compatible</button>
+    <button class="btn btn-primary" id="compatibilityContinue" onclick="handleCompatibilitySelection()" disabled>Continue →</button>
 </div>
 
 <!-- Generic Platform Incompatible -->
@@ -1029,7 +1037,8 @@
             payoutStatus: null,
             websiteUrl: null,
             libraryCode: null,
-            libraryFound: null
+            libraryFound: null,
+            compatibilityStatus: null
         };
 
         const stepOrder = [
@@ -1083,7 +1092,8 @@
                 payoutStatus: null,
                 websiteUrl: null,
                 libraryCode: null,
-                libraryFound: null
+                libraryFound: null,
+                compatibilityStatus: null
             };
             nextStep('step-welcome');
         }
@@ -1614,6 +1624,28 @@ function setupPlanCheck() {
 
         // Initialize wizard
         updateNavButtons();
+// Compatibility selection functions
+        function selectCompatibility(status) {
+            // Clear previous selections
+            document.querySelectorAll('#step-other-research .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Select current
+            event.target.classList.add('selected');
+            wizardData.compatibilityStatus = status;
+            
+            // Enable continue button
+            document.getElementById('compatibilityContinue').disabled = false;
+        }
+
+        function handleCompatibilitySelection() {
+            if (wizardData.compatibilityStatus === 'compatible') {
+                nextStep('step-widget-type');
+            } else {
+                showIncompatibleFromResearch();
+            }
+        }
     </script>
 </body>
 </html>
