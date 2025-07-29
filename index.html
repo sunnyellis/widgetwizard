@@ -683,6 +683,15 @@
     </div>
 </div>
 
+<div class="options-container">
+    <button class="option-button" onclick="selectCompatibility('not-compatible')">
+        ❌ Not Compatible
+    </button>
+    <button class="option-button" onclick="selectCompatibility('compatible')">
+        ✅ Compatible
+    </button>
+</div>
+
 <div class="action-buttons">
     <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
     <button class="btn btn-primary" id="compatibilityContinue" onclick="handleCompatibilitySelection()" disabled>Continue →</button>
