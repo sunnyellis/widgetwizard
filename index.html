@@ -422,6 +422,35 @@
             font-style: italic;
             color: #2d5016;
        }
+        .educational-tip-structured {
+    background: #def2de;
+    border: 2px solid #a8c8a8;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #2d5016;
+}
+
+.step-header {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #1a3a0d;
+}
+
+.step-item {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.step-item:before {
+    content: "📝";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+        
         .platform-instructions {
             background: #f8f9fa;
             border-left: 4px solid #9c27b0;
@@ -645,19 +674,20 @@
         <strong>🔍 Looks like we don't have any documentation about widgets and <span id="otherPlatformNameDisplay">[PLATFORM NAME]</span></strong>
     </div>
     
-    <div class="educational-tip">
-        <strong>Don't panic, we can still help!</strong><br><br>
-        Ask ChatGPT: does <strong><span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span></strong> support code injection?<br><br>
-        You should get a nice summary of whether Givebutter Widgets will work with <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> as well as any plan requirements!<br><br>What's the verdict? Is <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> compatible with Givebutter widgets?
+    <div class="educational-tip-structured">
+    <div class="step-header">Don't panic, we can still help!</div>
+    
+    <div class="step-item">
+        <strong>🔍 Research Step:</strong> Ask ChatGPT: "Does <span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span> support code injection?"
     </div>
-
-   <div class="options-container">
-    <button class="option-button" onclick="selectCompatibility('not-compatible')">
-        ❌ Not Compatible
-    </button>
-    <button class="option-button" onclick="selectCompatibility('compatible')">
-        ✅ Compatible
-    </button>
+    
+    <div class="step-item">
+        <strong>📝 What you'll get:</strong> A summary of whether Givebutter Widgets work with <span class="otherPlatformName">[PLATFORM NAME]</span> and any plan requirements
+    </div>
+    
+    <div class="step-item">
+        <strong>🤔 Your decision:</strong> Is their <span class="otherPlatformName">[PLATFORM NAME]</span> plan compatible with Givebutter widgets?
+    </div>
 </div>
 
 <div class="action-buttons">
