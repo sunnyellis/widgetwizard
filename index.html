@@ -1364,7 +1364,9 @@ function setupPlanCheck() {
             const isCompatible = selectedButton.classList.contains('compatible');
             
             if (isCompatible) {
-                nextStep('step-widget-type');
+                // Update platform name for the account setup step
+            document.getElementById('platformName').textContent = getPlatformDisplayName(wizardData.platform);
+            nextStep('step-account-setup');
             } else {
                 showIncompatible();
             }
@@ -1663,8 +1665,10 @@ function setupPlanCheck() {
         }
 
         function handleCompatibilitySelection() {
-            if (wizardData.compatibilityStatus === 'compatible') {
-                nextStep('step-widget-type');
+           if (wizardData.compatibilityStatus === 'compatible') {
+    document.getElementById('platformName').textContent = wizardData.otherPlatformName;
+    nextStep('step-account-setup');
+
             } else {
                 showIncompatibleFromResearch();
             }
