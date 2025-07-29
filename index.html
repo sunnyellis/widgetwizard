@@ -648,7 +648,7 @@
     <div class="educational-tip">
         <strong>Don't panic, we can still help!</strong><br><br>
         Ask ChatGPT: does <strong><span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span></strong> support code injection?<br><br>
-        You should get a nice summary of whether Givebutter Widgets will work with <strong><span id="otherPlatformNameSummary">[PLATFORM NAME]</span></strong> as well as any plan requirements! What's the verdict? Is <strong><span id="otherPlatformNameSummary">[PLATFORM NAME]</span></strong> compatible with Givebutter widgets?
+        You should get a nice summary of whether Givebutter Widgets will work with <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> as well as any plan requirements!<br><br>What's the verdict? Is <strong><span class="otherPlatformName">[PLATFORM NAME]</span></strong> compatible with Givebutter widgets?
     </div>
 
    <div class="action-buttons">
@@ -1120,18 +1120,22 @@ if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform))
 
 function checkPlatformPlan() {
     if (wizardData.platform === 'other') {
-        // Handle "Other" platform
-        const platformName = prompt('What website builder are they using?');
-        if (platformName) {
-            // Store the platform name and show the research page
-            wizardData.otherPlatformName = platformName;
-            document.getElementById('otherPlatformNameDisplay').textContent = platformName;
-            document.getElementById('otherPlatformNameChatGPT').textContent = platformName;
-            document.getElementById('otherPlatformNameSummary').textContent = platformName;
-            nextStep('step-other-research');
-            return;
-        }
+    const platformName = prompt('What website builder are they using?');
+    if (platformName) {
+        // Store the platform name and show the research page
+        wizardData.otherPlatformName = platformName;
+        
+        // Update all the spans with the platform name
+        document.getElementById('otherPlatformNameDisplay').textContent = platformName;
+        document.getElementById('otherPlatformNameChatGPT').textContent = platformName;
+        document.querySelectorAll('.otherPlatformName').forEach(span => {
+            span.textContent = platformName;
+        });
+        
+        nextStep('step-other-research'); // ← This is correct!
+        return;
     }
+}
 
     // Route Google and Shopify to their specific incompatible pages
     if (wizardData.platform === 'google') {
