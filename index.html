@@ -23,9 +23,9 @@
         }
 
         .wizard-container {
-            width: 450px;         /* launches at 450px */
-            min-width: 280px;     /* won't go smaller than this */ 
-            max-width: 800px;     /* can expand up to this if users resize */ 
+            width: 450px;
+            min-width: 280px;
+            max-width: 800px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(255, 191, 0, 0.1);
@@ -105,7 +105,7 @@
             line-height: 1.5;
         }
 
-.question {
+        .question {
             font-size: 1.0em;
             font-weight: 600;
             color: #333;
@@ -121,36 +121,34 @@
             color: #2e7d32;
         }
 
-        /* General rule - for platform page and other pages */
-.options-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 25px;
-}
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
 
-        /* Specific rule - for plan check sections (tighter spacing) */
-       .compatibility-section .options-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 15px;
-}
+        .compatibility-section .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
 
-.compatibility-section {
-    margin-bottom: 20px;
-    display: block;  /* ensure sections are full-width blocks */
-}
+        .compatibility-section {
+            margin-bottom: 20px;
+            display: block;
+        }
 
-.compatibility-header {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: #666;
-    margin-bottom: 12px;
-    padding-left: 0px;
-    width: 100%;
-    display: block;  /* ensure headers are full-width blocks */
-}
+        .compatibility-header {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 12px;
+            padding-left: 0px;
+            width: 100%;
+            display: block;
+        }
 
         .option-button {
             background: white;
@@ -421,28 +419,27 @@
             margin: 20px 0;
             font-style: italic;
             color: #2d5016;
-       }
+        }
+
         .educational-tip-structured {
-    background: #def2de;
-    border: 2px solid #a8c8a8;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-    color: #2d5016;
-}
+            background: #def2de;
+            border: 2px solid #a8c8a8;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #2d5016;
+        }
 
-.step-header {
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    color: #1a3a0d;
-}
+        .step-header {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #1a3a0d;
+        }
 
-.step-item {
-    margin-bottom: 15px;
-    padding-left: 0px;
-    position: relative;
-}
+        .step-item {
+            margin-bottom: 15px;
+        }
         
         .platform-instructions {
             background: #f8f9fa;
@@ -464,11 +461,6 @@
             
             .action-buttons {
                 justify-content: center;
-            }
-            
-            .nav-buttons {
-                bottom: 20px;
-                right: 20px;
             }
         }
     </style>
@@ -561,173 +553,6 @@
                 </div>
             </div>
 
-            <!-- Incompatible Plan/Platform -->
-<div id="step-incompatible" class="step-container">
-    <div style="color: #333; font-size: 1.2em; margin-bottom: 15px;">
-        <strong> 😞 Darn, widgets won't work with their current setup</strong>
-    </div>
-    
-    <div class="solution-title">💬 What to tell your customer:</div>
-        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
-             <span id="incompatibleMessage" style="color: #333;"></span>
-            
-            <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
-                <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
-                <div style="margin-bottom: 8px;">
-                    <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
-                </div>
-                <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
-                    https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
-                </div>
-                <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-                    Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
-                </div>
-            </div>
-        </div>
-
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-plan-check')">← Back</button>
-        <button class="btn btn-secondary" onclick="restartWizard()">← Start Over</button>
-    </div>
-</div>
-
- <!-- Google Incompatible -->
-<div id="step-google-incompatible" class="step-container">
-    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
-        <strong> 😞 Darn, widgets won't work with their current setup</strong>
-    </div>
-    
-    <div class="solution-title">💬 What to tell your customer:</div>
-    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
-        <span style="color: #333;">"After checking, I confirmed that Google doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
-        
-        <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
-            <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
-            <div style="margin-bottom: 8px;">
-                <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
-            </div>
-            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
-                https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
-            </div>
-            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-                Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
-            </div>
-        </div>
-    </div>
-
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
-        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
-    </div>
-</div>
-
-<!-- Shopify Incompatible -->
-<div id="step-shopify-incompatible" class="step-container">
-    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
-        <strong> 😞 Darn, widgets won't work with their current setup</strong>
-    </div>
-    
-    <div class="solution-title">💬 What to tell your customer:</div>
-    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
-       <span style="color: #333;">"After checking, I confirmed that Shopify doesn't currently support Givebutter widgets. I'll upvote you on our feature request to integrate Shopify with Givebutter. In the meantime - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span> 
-        
-       <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
-    <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal; font-size: 1.1em;">Additional Resources</div>
-    
-    <div style="margin-bottom: 15px;">
-        <div style="margin-bottom: 8px;">
-            <a href="https://givebutter.canny.io/integration-requests/p/shopify-integration" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">Shopify Canny Request</a>
-        </div>
-        <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
-            https://givebutter.canny.io/integration-requests/p/shopify-integration
-        </div>
-    </div>
-    
-    <div style="margin-bottom: 8px;">
-        <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">Help Article: How to share a campaign</a>
-    </div>
-    <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
-        https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
-    </div>
-    <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-        Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
-    </div>
-</div>
-</div>
-
-<div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
-        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
-    </div>
-</div> 
-
-<!-- Other Platform Research -->
-<div id="step-other-research" class="step-container">
-    <div style="color: #333; font-size: 1.0em; margin-bottom: 25px;">
-        <strong>Looks like we don't have any documentation about widgets and <span id="otherPlatformNameDisplay">[PLATFORM NAME]</span></strong>
-    </div>
-    
-    <div class="educational-tip-structured">
-    <div class="step-header">Don't panic, we can still help!</div>
-    
-    <div class="step-item">
-        <strong>🔍 Research Step:</strong> Ask ChatGPT: "Does <span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span> support code injection?"
-    </div>
-    
-    <div class="step-item">
-        <strong>📝 What you'll get:</strong> A summary of whether Givebutter Widgets work with <span class="otherPlatformName">[PLATFORM NAME]</span> and any plan requirements
-    </div>
-    
-    <div class="step-item">
-        <strong>🤔 Your decision:</strong> Is their <span class="otherPlatformName">[PLATFORM NAME]</span> plan compatible with Givebutter widgets?
-    </div>
-</div>
-
-<div class="options-container">
-    <button class="option-button" onclick="selectCompatibility('not-compatible')">
-        ❌ Not Compatible
-    </button>
-    <button class="option-button" onclick="selectCompatibility('compatible')">
-        ✅ Compatible
-    </button>
-</div>
-
-<div class="action-buttons">
-    <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
-    <button class="btn btn-primary" id="compatibilityContinue" onclick="handleCompatibilitySelection()" disabled>Continue →</button>
-</div>
-</div>
-
-            <!-- Generic Platform Incompatible -->
-<div id="step-generic-incompatible" class="step-container">
-    <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
-        <strong> 😞 Darn, widgets won't work with their current setup</strong>
-    </div>
-    
-    <div class="solution-title">💬 What to tell your customer:</div>
-    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
-        <span style="color: #333;" id="genericIncompatibleMessage">"After checking, I confirmed that [PLATFORM NAME] doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
-        
-        <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
-            <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
-            <div style="margin-bottom: 8px;">
-                <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
-            </div>
-            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
-                https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
-            </div>
-            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-                Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
-            </div>
-        </div>
-    </div>
-
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-other-research')">← Back</button>
-        <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
-    </div>
-</div>
-    
             <!-- Step 2: Widget Type -->
             <div id="step-widget-type" class="step-container">
                 <div class="step-title">🎯 Step 2: Widget Type Identification</div>
@@ -760,10 +585,38 @@
                 </div>
             </div>
 
-            <!-- Step 3: Account Setup Verification -->
-            <div id="step-account-setup" class="step-container">
-                <div class="step-title">✅ Step 3: Account Setup Verification</div>
+            <!-- Step 3: Payout Setup Check -->
+            <div id="step-payout-check" class="step-container">
+                <div class="step-title">✅ Step 3: Payout Setup Check</div>
                 <div class="step-description">Great! <span id="platformName"></span> can definitely support widgets. Now let's check for some quick wins - these are super common issues that are easy to fix!</div>
+                
+                <div class="question">Have they connected their payout method?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Without payout info, widgets appear as blank boxes or load forever.
+                </div>
+                
+                <div class="educational-tip">
+                    <strong>🔍 How to check:</strong> Click on the payouts tab in the customer's dashboard. Accounts that haven't setup their payout method yet will show an error message.
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectPayoutStatus('connected')">
+                        <span>✅</span> Yes, payout is set up
+                    </button>
+                    <button class="option-button" onclick="selectPayoutStatus('not-connected')">
+                        <span>❌</span> No payout information
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-widget-type')">← Back</button>
+                    <button class="btn btn-primary" id="payoutStatusContinue" onclick="handlePayoutStatus()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Step 3.2: Campaign Published Check -->
+            <div id="step-campaign-published" class="step-container">
+                <div class="step-title">✅ Step 3.2: Campaign Published Check</div>
                 
                 <div class="question">Is their campaign published?</div>
                 <div style="color: #666; font-style: italic; margin-bottom: 20px;">
@@ -784,8 +637,201 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-widget-type')">← Back</button>
+                    <button class="btn btn-secondary" onclick="previousStep('step-payout-check')">← Back</button>
                     <button class="btn btn-primary" id="campaignStatusContinue" onclick="handleCampaignStatus()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Incompatible Plan/Platform -->
+            <div id="step-incompatible" class="step-container">
+                <div style="color: #333; font-size: 1.2em; margin-bottom: 15px;">
+                    <strong> 😞 Darn, widgets won't work with their current setup</strong>
+                </div>
+                
+                <div class="solution-title">💬 What to tell your customer:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+                     <span id="incompatibleMessage" style="color: #333;"></span>
+                    
+                    <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                        <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+                        <div style="margin-bottom: 8px;">
+                            <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                            https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+                        </div>
+                        <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                            Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-plan-check')">← Back</button>
+                    <button class="btn btn-secondary" onclick="restartWizard()">← Start Over</button>
+                </div>
+            </div>
+
+            <!-- Google Incompatible -->
+            <div id="step-google-incompatible" class="step-container">
+                <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+                    <strong> 😞 Darn, widgets won't work with their current setup</strong>
+                </div>
+                
+                <div class="solution-title">💬 What to tell your customer:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+                    <span style="color: #333;">"After checking, I confirmed that Google doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
+                    
+                    <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+                        <div style="margin-bottom: 8px;">
+                            <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                            https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+                        </div>
+                        <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                            Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                    <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+                </div>
+            </div>
+
+            <!-- Shopify Incompatible -->
+            <div id="step-shopify-incompatible" class="step-container">
+                <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+                    <strong> 😞 Darn, widgets won't work with their current setup</strong>
+                </div>
+                
+                <div class="solution-title">💬 What to tell your customer:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+                   <span style="color: #333;">"After checking, I confirmed that Shopify doesn't currently support Givebutter widgets. I'll upvote you on our feature request to integrate Shopify with Givebutter. In the meantime - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span> 
+                    
+                   <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal; font-size: 1.1em;">Additional Resources</div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="margin-bottom: 8px;">
+                        <a href="https://givebutter.canny.io/integration-requests/p/shopify-integration" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">Shopify Canny Request</a>
+                    </div>
+                    <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                        https://givebutter.canny.io/integration-requests/p/shopify-integration
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 8px;">
+                    <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">Help Article: How to share a campaign</a>
+                </div>
+                <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                    https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+                </div>
+                <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                    Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+                </div>
+            </div>
+            </div>
+
+            <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                    <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+                </div>
+            </div> 
+
+            <!-- Other Platform Research -->
+            <div id="step-other-research" class="step-container">
+                <div style="color: #333; font-size: 1.0em; margin-bottom: 25px;">
+                    <strong>Looks like we don't have any documentation about widgets and <span id="otherPlatformNameDisplay">[PLATFORM NAME]</span></strong>
+                </div>
+                
+                <div class="educational-tip-structured">
+                <div class="step-header">Don't panic, we can still help!</div>
+                
+                <div class="step-item">
+                    <strong>🔍 Research Step:</strong> Ask ChatGPT: "Does <span id="otherPlatformNameChatGPT">[PLATFORM NAME]</span> support code injection?"
+                </div>
+                
+                <div class="step-item">
+                    <strong>📋 What you'll get:</strong> A summary of whether Givebutter Widgets work with <span class="otherPlatformName">[PLATFORM NAME]</span> and any plan requirements
+                </div>
+                
+                <div class="step-item">
+                    <strong>🤔 Your decision:</strong> Is their <span class="otherPlatformName">[PLATFORM NAME]</span> plan compatible with Givebutter widgets?
+                </div>
+            </div>
+
+            <div class="options-container">
+                <button class="option-button" onclick="selectCompatibility('not-compatible')">
+                    ❌ Not Compatible
+                </button>
+                <button class="option-button" onclick="selectCompatibility('compatible')">
+                    ✅ Compatible
+                </button>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                <button class="btn btn-primary" id="compatibilityContinue" onclick="handleCompatibilitySelection()" disabled>Continue →</button>
+            </div>
+            </div>
+
+            <!-- Generic Platform Incompatible -->
+            <div id="step-generic-incompatible" class="step-container">
+                <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
+                    <strong> 😞 Darn, widgets won't work with their current setup</strong>
+                </div>
+                
+                <div class="solution-title">💬 What to tell your customer:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+                    <span style="color: #333;" id="genericIncompatibleMessage">"After checking, I confirmed that [PLATFORM NAME] doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"</span>
+                    
+                    <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+                        <div style="margin-bottom: 8px;">
+                            <a href="https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to share a campaign</a>
+                        </div>
+                        <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                            https://help.givebutter.com/en/articles/3471486-how-to-share-a-campaign
+                        </div>
+                        <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                            Directions on text-to-donate, QR codes, and the <strong>Share this fundraiser</strong> feature built right into their campaign.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-other-research')">← Back</button>
+                    <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
+                </div>
+            </div>
+
+            <!-- No Payout Solution -->
+            <div id="step-payout-solution" class="step-container">
+                <div class="alert alert-success">
+                    <strong>🎉 Another common culprit! This could be the cause.</strong>
+                </div>
+                
+                <div class="solution-box">
+                    <div class="solution-title">🗣️ Tell your customer:</div>
+                    <div class="code-block">"Ah, it looks like you still need to connect your payout information. That has to be completed before widgets can work. Here are instructions on how to do that."</div>
+                    
+                    <div class="solution-title">📖 Share the payout help article:</div>
+                    <a href="https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect" target="_blank" style="color: #9c27b0; font-weight: 600;">
+                        How to add and edit your payout information with Stripe Connect
+                    </a>
+                </div>
+
+                <div class="confidence-builder">
+                    🕵️ Most agents miss this step - you caught it!
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="markProblemSolved('payout-connected')">Problem Solved! 🎉</button>
+                    <button class="btn btn-warning" onclick="nextStep('step-campaign-published')">Continue troubleshooting</button>
                 </div>
             </div>
 
@@ -813,60 +859,6 @@
 
                 <div class="action-buttons">
                     <button class="btn btn-success" onclick="markProblemSolved('campaign-published')">Problem Solved! 🎉</button>
-                    <button class="btn btn-warning" onclick="nextStep('step-payout-check')">Continue troubleshooting</button>
-                </div>
-            </div>
-
-            <!-- Payout Check -->
-            <div id="step-payout-check" class="step-container">
-                <div class="step-title">✅ Step 3.2: Payout Setup Check</div>
-                
-                <div class="question">Have they connected their payout method?</div>
-                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
-                    Without payout info, widgets appear as blank boxes or load forever.
-                </div>
-                
-                <div class="educational-tip">
-                    <strong>🔍 How to check:</strong> Click on the payouts tab in the customer's dashboard. Accounts that haven't setup their payout method yet will show an error message.
-                </div>
-                
-                <div class="options-container">
-                    <button class="option-button" onclick="selectPayoutStatus('connected')">
-                        <span>✅</span> Yes, payout is set up
-                    </button>
-                    <button class="option-button" onclick="selectPayoutStatus('not-connected')">
-                        <span>❌</span> No payout information
-                    </button>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-                    <button class="btn btn-primary" id="payoutStatusContinue" onclick="handlePayoutStatus()" disabled>Continue →</button>
-                </div>
-            </div>
-
-            <!-- No Payout Solution -->
-            <div id="step-payout-solution" class="step-container">
-                <div class="alert alert-success">
-                    <strong>🎉 Another common culprit! This could be the cause.</strong>
-                </div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">🗣️ Tell your customer:</div>
-                    <div class="code-block">"Ah, it looks like you still need to connect your payout information. That has to be completed before widgets can work. Here are instructions on how to do that."</div>
-                    
-                    <div class="solution-title">📖 Share the payout help article:</div>
-                    <a href="https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect" target="_blank" style="color: #9c27b0; font-weight: 600;">
-                        How to add and edit your payout information with Stripe Connect
-                    </a>
-                </div>
-
-                <div class="confidence-builder">
-                    🕵️ Most agents miss this step - you caught it!
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-success" onclick="markProblemSolved('payout-connected')">Problem Solved! 🎉</button>
                     <button class="btn btn-warning" onclick="nextStep('step-code-collection')">Continue troubleshooting</button>
                 </div>
             </div>
@@ -1066,8 +1058,8 @@
             platform: null,
             plan: null,
             widgetType: null,
-            campaignStatus: null,
             payoutStatus: null,
+            campaignStatus: null,
             websiteUrl: null,
             libraryCode: null,
             libraryFound: null,
@@ -1079,8 +1071,8 @@
             'step-platform', 
             'step-plan-check',
             'step-widget-type',
-            'step-account-setup',
             'step-payout-check',
+            'step-campaign-published',
             'step-code-collection',
             'step-library-check',
             'step-library-inspection'
@@ -1121,8 +1113,8 @@
                 platform: null,
                 plan: null,
                 widgetType: null,
-                campaignStatus: null,
                 payoutStatus: null,
+                campaignStatus: null,
                 websiteUrl: null,
                 libraryCode: null,
                 libraryFound: null,
@@ -1134,216 +1126,204 @@
         function exitWizard() {
             if (confirm('Are you sure you want to exit the Widget Wizard?')) {
                 alert('👋 Thanks for using the Widget Wizard! You\'ll return to the main SALT interface.');
-                // In the real integration, this would close the wizard modal/return to SALT
             }
         }
 
         // Platform selection functions
         function selectPlatform(platform) {
-            // Clear previous selections
             document.querySelectorAll('#step-platform .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Select current - find the button element even if img was clicked
             const button = event.target.closest('.option-button');
             if (button) {
                 button.classList.add('selected');
             }
             wizardData.platform = platform;
             
-        // Enable continue button
-document.getElementById('platformContinue').disabled = false;
+            document.getElementById('platformContinue').disabled = false;
 
-// Show skip checkbox for compatible platforms
-if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform)) {
-    document.getElementById('skipCompatibilityCheck').style.display = 'flex';
-}
-}
+            if (['wordpress', 'squarespace', 'wix', 'godaddy', 'weebly'].includes(platform)) {
+                document.getElementById('skipCompatibilityCheck').style.display = 'flex';
+            }
+        }
 
-function checkPlatformPlan() {
-    if (wizardData.platform === 'other') {
-    const platformName = prompt('What website builder are they using?');
-    if (platformName) {
-        // Store the platform name and show the research page
-        wizardData.otherPlatformName = platformName;
-        
-        // Update all the spans with the platform name
-        document.getElementById('otherPlatformNameDisplay').textContent = platformName;
-        document.getElementById('otherPlatformNameChatGPT').textContent = platformName;
-        document.querySelectorAll('.otherPlatformName').forEach(span => {
-            span.textContent = platformName;
-        });
-        
-        nextStep('step-other-research'); // ← This is correct!
-        return;
-    }
-}
+        function checkPlatformPlan() {
+            if (wizardData.platform === 'other') {
+                const platformName = prompt('What website builder are they using?');
+                if (platformName) {
+                    wizardData.otherPlatformName = platformName;
+                    
+                    document.getElementById('otherPlatformNameDisplay').textContent = platformName;
+                    document.getElementById('otherPlatformNameChatGPT').textContent = platformName;
+                    document.querySelectorAll('.otherPlatformName').forEach(span => {
+                        span.textContent = platformName;
+                    });
+                    
+                    nextStep('step-other-research');
+                    return;
+                }
+            }
 
-    // Route Google and Shopify to their specific incompatible pages
-    if (wizardData.platform === 'google') {
-        nextStep('step-google-incompatible');
-        return;
-    }
-    
-    if (wizardData.platform === 'shopify') {
-        nextStep('step-shopify-incompatible');
-        return;
-    }
+            if (wizardData.platform === 'google') {
+                nextStep('step-google-incompatible');
+                return;
+            }
+            
+            if (wizardData.platform === 'shopify') {
+                nextStep('step-shopify-incompatible');
+                return;
+            }
 
-    // Skip plan check for Weebly & GoDaddy - all plans are compatible
-    if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
-        nextStep('step-widget-type');
-        return;
-    }
-    
-    // Check if skip is checked
-    const skipCheck = document.getElementById('skipCheck');
-    if (skipCheck && skipCheck.checked) {
-        nextStep('step-widget-type');
-        return;
-    }
-    
-    // Show plan check for supported platforms
-    setupPlanCheck();
-    nextStep('step-plan-check');
-}
+            if (wizardData.platform === 'weebly' || wizardData.platform === 'godaddy') {
+                nextStep('step-widget-type');
+                return;
+            }
+            
+            const skipCheck = document.getElementById('skipCheck');
+            if (skipCheck && skipCheck.checked) {
+                nextStep('step-widget-type');
+                return;
+            }
+            
+            setupPlanCheck();
+            nextStep('step-plan-check');
+        }
 
-function showIncompatibleFromResearch() {
-    const platformName = wizardData.otherPlatformName;
-    document.getElementById('genericIncompatibleMessage').textContent = 
-        `"After checking, I confirmed that ${platformName} doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
-    nextStep('step-generic-incompatible');
-}
+        function showIncompatibleFromResearch() {
+            const platformName = wizardData.otherPlatformName;
+            document.getElementById('genericIncompatibleMessage').textContent = 
+                `"After checking, I confirmed that ${platformName} doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
+            nextStep('step-generic-incompatible');
+        }
 
-function setupPlanCheck() {
-    const planOptions = document.getElementById('planOptions');
-    const planQuestion = document.getElementById('planQuestion');
-    const planDescription = document.getElementById('planCheckDescription');
-    
-    planOptions.innerHTML = '';
-    
-    switch (wizardData.platform) {
-        case 'wordpress':
-            planQuestion.textContent = 'What WordPress plan do they have?';
-            planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
-            planOptions.innerHTML = `
-                <div class="compatibility-section">
-                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button" onclick="selectPlan('free')">
-                            Free plan
-                        </button>
-                        <button class="option-button" onclick="selectPlan('personal')">
-                            Personal plan
-                        </button>
-                    </div>
-                </div>
-                <div class="compatibility-section">
-                    <div class="compatibility-header compatible">Plans that are compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button compatible" onclick="selectPlan('business')">
-                            Business plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('ecommerce')">
-                            eCommerce plan
-                        </button>
-                    </div>
-                </div>
-            `;
-            break;
-                
-        case 'squarespace':
-            planQuestion.textContent = 'What Squarespace plan do they have?';
-            planDescription.textContent = 'Widgets need Code Injection access.';
-            planOptions.innerHTML = `
-                <div class="compatibility-section">
-                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button" onclick="selectPlan('basic')">
-                            Basic plan
-                        </button>
-                    </div>
-                </div>
-                <div class="compatibility-section">
-                    <div class="compatibility-header compatible">Plans that are compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button compatible" onclick="selectPlan('core')">
-                            Core plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('plus')">
-                            Plus plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('advanced')">
-                            Advanced plan
-                        </button>
-                    </div>
-                </div>
-            `;
-            break;
-                
-        case 'wix':
-            planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
-            planDescription.textContent = 'Widgets need the Custom Element feature.';
-            planOptions.innerHTML = `
-                <div class="compatibility-section">
-                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button" onclick="selectPlan('free')">
-                            Free plan
-                        </button>
-                    </div>
-                </div>
-                <div class="compatibility-section">
-                    <div class="compatibility-header compatible">Plans that are compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button compatible" onclick="selectPlan('light')">
-                            Light plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('core')">
-                            Core plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('business')">
-                            Business plan
-                        </button>
-                        <button class="option-button compatible" onclick="selectPlan('businesselite')">
-                            Business Elite plan
-                        </button>
-                    </div>
-                </div>
-            `;
-            break;
-                
-        default:
-            planQuestion.textContent = 'What plan level do they have?';
-            planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
-            planOptions.innerHTML = `
-                <div class="compatibility-section">
-                    <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button" onclick="selectPlan('free')">
-                            Free plan
-                        </button>
-                    </div>
-                </div>
-                <div class="compatibility-section">
-                    <div class="compatibility-header compatible">Plans that are compatible:</div>
-                    <div class="options-container">
-                        <button class="option-button compatible" onclick="selectPlan('premium')">
-                            Premium/Paid plan
-                        </button>
-                    </div>
-                </div>
-            `;
-    }
-}    
+        function setupPlanCheck() {
+            const planOptions = document.getElementById('planOptions');
+            const planQuestion = document.getElementById('planQuestion');
+            const planDescription = document.getElementById('planCheckDescription');
+            
+            planOptions.innerHTML = '';
+            
+            switch (wizardData.platform) {
+                case 'wordpress':
+                    planQuestion.textContent = 'What WordPress plan do they have?';
+                    planDescription.textContent = 'Widgets need the ability to install plugins or add custom code.';
+                    planOptions.innerHTML = `
+                        <div class="compatibility-section">
+                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button" onclick="selectPlan('free')">
+                                    Free plan
+                                </button>
+                                <button class="option-button" onclick="selectPlan('personal')">
+                                    Personal plan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="compatibility-section">
+                            <div class="compatibility-header compatible">Plans that are compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button compatible" onclick="selectPlan('business')">
+                                    Business plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('ecommerce')">
+                                    eCommerce plan
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'squarespace':
+                    planQuestion.textContent = 'What Squarespace plan do they have?';
+                    planDescription.textContent = 'Widgets need Code Injection access.';
+                    planOptions.innerHTML = `
+                        <div class="compatibility-section">
+                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button" onclick="selectPlan('basic')">
+                                    Basic plan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="compatibility-section">
+                            <div class="compatibility-header compatible">Plans that are compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button compatible" onclick="selectPlan('core')">
+                                    Core plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('plus')">
+                                    Plus plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('advanced')">
+                                    Advanced plan
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'wix':
+                    planQuestion.textContent = 'Do they have a premium Wix plan with a custom domain (no ads)?';
+                    planDescription.textContent = 'Widgets need the Custom Element feature.';
+                    planOptions.innerHTML = `
+                        <div class="compatibility-section">
+                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button" onclick="selectPlan('free')">
+                                    Free plan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="compatibility-section">
+                            <div class="compatibility-header compatible">Plans that are compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button compatible" onclick="selectPlan('light')">
+                                    Light plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('core')">
+                                    Core plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('business')">
+                                    Business plan
+                                </button>
+                                <button class="option-button compatible" onclick="selectPlan('businesselite')">
+                                    Business Elite plan
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    planQuestion.textContent = 'What plan level do they have?';
+                    planDescription.textContent = 'Let\'s verify they have the right plan for custom code.';
+                    planOptions.innerHTML = `
+                        <div class="compatibility-section">
+                            <div class="compatibility-header not-compatible">Plans that aren't compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button" onclick="selectPlan('free')">
+                                    Free plan
+                                </button>
+                            </div>
+                        </div>
+                        <div class="compatibility-section">
+                            <div class="compatibility-header compatible">Plans that are compatible:</div>
+                            <div class="options-container">
+                                <button class="option-button compatible" onclick="selectPlan('premium')">
+                                    Premium/Paid plan
+                                </button>
+                            </div>
+                        </div>
+                    `;
+            }
+        }
+
         function selectPlan(plan) {
-            // Clear previous selections
             document.querySelectorAll('#step-plan-check .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Find the button that was clicked by matching the plan parameter
             const buttons = document.querySelectorAll('#step-plan-check .option-button');
             buttons.forEach(btn => {
                 if (btn.textContent.toLowerCase().includes(plan.toLowerCase()) || 
@@ -1357,13 +1337,10 @@ function setupPlanCheck() {
             });
             
             wizardData.plan = plan;
-            
-            // Enable continue button
             document.getElementById('planContinue').disabled = false;
         }
 
         function checkPlanCompatibility() {
-            // Look directly for the selected button in the plan check step
             const selectedButton = document.querySelector('#step-plan-check .option-button.selected');
             
             if (!selectedButton) {
@@ -1391,12 +1368,6 @@ function setupPlanCheck() {
             
             nextStep('step-incompatible');
         }
-
-        function showIncompatiblePlatform(platformName) {
-            const incompatibleMessage = document.getElementById('incompatibleMessage');
-            incompatibleMessage.textContent = `"I've checked our resources and ${platformName} doesn't support the custom code needed for our embedded widgets. But don't worry - you can still promote your campaign effectively by sharing your campaign link!"`;
-            nextStep('step-incompatible');
-        }
         
         function getPlatformDisplayName(platform) {
             const names = {
@@ -1422,65 +1393,32 @@ function setupPlanCheck() {
 
         // Widget type selection
         function selectWidgetType(type) {
-            // Clear previous selections
             document.querySelectorAll('#step-widget-type .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Select current
             event.target.classList.add('selected');
             wizardData.widgetType = type;
-            
-            // Enable continue button
             document.getElementById('widgetTypeContinue').disabled = false;
         }
 
         function handleWidgetTypeSelection() {
             if (wizardData.widgetType === 'signup') {
-                // Signup forms skip to code collection
                 nextStep('step-code-collection');
             } else {
-                // Update platform name display
                 document.getElementById('platformName').textContent = getPlatformDisplayName(wizardData.platform);
-                nextStep('step-account-setup');
-            }
-        }
-
-        // Campaign status functions
-        function selectCampaignStatus(status) {
-            // Clear previous selections
-            document.querySelectorAll('#step-account-setup .option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Select current
-            event.target.classList.add('selected');
-            wizardData.campaignStatus = status;
-            
-            // Enable continue button
-            document.getElementById('campaignStatusContinue').disabled = false;
-        }
-
-        function handleCampaignStatus() {
-            if (wizardData.campaignStatus === 'unpublished') {
-                nextStep('step-unpublished-solution');
-            } else {
                 nextStep('step-payout-check');
             }
         }
 
         // Payout status functions
         function selectPayoutStatus(status) {
-            // Clear previous selections
             document.querySelectorAll('#step-payout-check .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Select current
             event.target.classList.add('selected');
             wizardData.payoutStatus = status;
-            
-            // Enable continue button
             document.getElementById('payoutStatusContinue').disabled = false;
         }
 
@@ -1488,7 +1426,46 @@ function setupPlanCheck() {
             if (wizardData.payoutStatus === 'not-connected') {
                 nextStep('step-payout-solution');
             } else {
+                nextStep('step-campaign-published');
+            }
+        }
+
+        // Campaign status functions
+        function selectCampaignStatus(status) {
+            document.querySelectorAll('#step-campaign-published .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            wizardData.campaignStatus = status;
+            document.getElementById('campaignStatusContinue').disabled = false;
+        }
+
+        function handleCampaignStatus() {
+            if (wizardData.campaignStatus === 'unpublished') {
+                nextStep('step-unpublished-solution');
+            } else {
                 nextStep('step-code-collection');
+            }
+        }
+
+        // Compatibility selection functions
+        function selectCompatibility(status) {
+            document.querySelectorAll('#step-other-research .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            wizardData.compatibilityStatus = status;
+            document.getElementById('compatibilityContinue').disabled = false;
+        }
+
+        function handleCompatibilitySelection() {
+            if (wizardData.compatibilityStatus === 'compatible') {
+                document.getElementById('platformName').textContent = wizardData.otherPlatformName;
+                nextStep('step-payout-check');
+            } else {
+                showIncompatibleFromResearch();
             }
         }
 
@@ -1522,16 +1499,12 @@ function setupPlanCheck() {
         }
 
         function selectLibraryFound(status) {
-            // Clear previous selections
             document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
                 btn.classList.remove('selected');
             });
             
-            // Select current
             event.target.classList.add('selected');
             wizardData.libraryFound = status;
-            
-            // Enable continue button
             document.getElementById('libraryFoundContinue').disabled = false;
         }
 
@@ -1560,13 +1533,9 @@ function setupPlanCheck() {
             const instructionsContent = document.getElementById('platformInstructionsContent');
             const libraryCodeDisplay = document.getElementById('libraryCodeDisplay');
             
-            // Update platform name
             document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(platform);
-            
-            // Display the library code
             libraryCodeDisplay.textContent = wizardData.libraryCode;
             
-            // Platform-specific instructions
             let instructions = '';
             switch (platform) {
                 case 'squarespace':
@@ -1657,30 +1626,6 @@ function setupPlanCheck() {
 
         // Initialize wizard
         updateNavButtons();
-// Compatibility selection functions
-        function selectCompatibility(status) {
-            // Clear previous selections
-            document.querySelectorAll('#step-other-research .option-button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Select current
-            event.target.classList.add('selected');
-            wizardData.compatibilityStatus = status;
-            
-            // Enable continue button
-            document.getElementById('compatibilityContinue').disabled = false;
-        }
-
-        function handleCompatibilitySelection() {
-           if (wizardData.compatibilityStatus === 'compatible') {
-    document.getElementById('platformName').textContent = wizardData.otherPlatformName;
-    nextStep('step-account-setup');
-
-            } else {
-                showIncompatibleFromResearch();
-            }
-        }
     </script>
 </body>
 </html>
