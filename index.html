@@ -1406,10 +1406,14 @@
             if (wizardData.widgetType === 'signup') {
                 nextStep('step-code-collection');
             } else {
-                document.getElementById('platformName').textContent = getPlatformDisplayName(wizardData.platform);
-                nextStep('step-payout-check');
-            }
-        }
+       // Set platform name (handles both regular platforms and "other")
+        const displayName = wizardData.platform === 'other' ? 
+            wizardData.otherPlatformName : 
+            getPlatformDisplayName(wizardData.platform);
+        document.getElementById('platformName').textContent = displayName;
+        nextStep('step-payout-check');
+    }
+}
 
         // Payout status functions
         function selectPayoutStatus(status) {
@@ -1463,7 +1467,7 @@
         function handleCompatibilitySelection() {
             if (wizardData.compatibilityStatus === 'compatible') {
                 document.getElementById('platformName').textContent = wizardData.otherPlatformName;
-                nextStep('step-payout-check');
+                nextStep('step-widget-type');
             } else {
                 showIncompatibleFromResearch();
             }
