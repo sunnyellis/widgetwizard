@@ -1499,21 +1499,29 @@
         }
 
         function checkUrlInput() {
-            const url = document.getElementById('websiteUrl').value.trim();
-            const continueBtn = document.getElementById('urlContinue');
-            
-            if (url && url.startsWith('http')) {
-                continueBtn.disabled = false;
-            } else {
-                continueBtn.disabled = true;
-            }
-        }
+    const url = document.getElementById('websiteUrl').value.trim();
+    const continueBtn = document.getElementById('urlContinue');
+    
+    // Accept URLs with or without protocol, as long as they look like a domain
+    if (url && (url.includes('.') || url.startsWith('http'))) {
+        continueBtn.disabled = false;
+    } else {
+        continueBtn.disabled = true;
+    }
+}
 
         function startLibraryInspection() {
-            wizardData.websiteUrl = document.getElementById('websiteUrl').value.trim();
-            document.getElementById('inspectionUrl').textContent = wizardData.websiteUrl;
-            nextStep('step-library-inspection');
-        }
+    let url = document.getElementById('websiteUrl').value.trim();
+    
+    // Add https:// if no protocol is present
+    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+    }
+    
+    wizardData.websiteUrl = url;
+    document.getElementById('inspectionUrl').textContent = url;
+    nextStep('step-library-inspection');
+}
 
         function selectLibraryFound(status) {
             document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
