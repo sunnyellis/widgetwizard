@@ -1374,9 +1374,7 @@ function setupPlanCheck() {
             const isCompatible = selectedButton.classList.contains('compatible');
             
             if (isCompatible) {
-                // Update platform name for the account setup step
-            document.getElementById('platformName').textContent = getPlatformDisplayName(wizardData.platform);
-            nextStep('step-account-setup');
+                nextStep('step-widget-type');
             } else {
                 showIncompatible();
             }
