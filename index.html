@@ -923,13 +923,13 @@
             </div>
 
 
-            <!-- Library Inspection Steps -->
+<!-- Library Inspection Steps -->
 <div id="step-library-inspection" class="step-container">
     <div class="step-title">🕵🏽‍♂️ Library Code Inspection</div>
     <div class="step-description">Time to check if the library code is actually installed on their website.</div>
     
     <div class="educational-tip-structured">
-        <div class="step-header"> How to check:</div>
+        <div class="step-header"> 🔍 How to check:</div>
         
         <div class="step-item">
             <strong>1.</strong> Go to <strong id="inspectionUrl"></strong>
@@ -940,11 +940,19 @@
         </div>
         
         <div class="step-item">
-            <strong>3.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+            <strong>3.</strong> Select the <strong>Elements</strong> tab.
+        </div>
+        
+        <div style="margin: 15px 0;">
+            <img src="https://i.imgur.com/hM7kytT.png" alt="Elements tab location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         </div>
         
         <div class="step-item">
-            <strong>4.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
+            <strong>4.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+        </div>
+        
+        <div class="step-item">
+            <strong>5.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
         </div>
         
         <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
@@ -965,7 +973,6 @@
             <span>❌</span> Nothing found 
         </button>
     </div>
-
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
         <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
