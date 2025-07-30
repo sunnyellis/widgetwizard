@@ -980,29 +980,36 @@
 </div>
 
             <!-- Library Not Found - Install Instructions -->
-            <div id="step-library-install" class="step-container">
-                <div class="step-title">📝 Library Code Installation</div>
-                
-                <div class="alert alert-warning">
-                    <strong>Aha! The library code is missing.</strong> Let's get that fixed! Remember, even if the Givebutter dashboard says the library is installed, that might not be true!
-                </div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">🗣️ Tell your customer:</div>
-                    <div class="code-block">"I double-checked your website, and I see the library code isn't installed yet. Let's get that taken care of. I'd be happy to walk you through step-by-step right now, or I can send you the instructions for that part. What would you like to do?"</div>
-                    
-                    <div style="color: #666; font-style: italic; margin-top: 15px;">
-                        Installing code can be intimidating for many users, so it's important not to send a help article right away without first checking in. When someone reaches out to us, it's because they're looking for guidance—not just information. Giving them this choice empowers them to decide what will help them most.
-                    </div>
-                </div>
+<div id="step-library-install" class="step-container">
+    <div class="step-title">📝 Library Code Installation</div>
+    <div class="step-description">Aha! The library code is missing. Let's get that fixed!</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">💬 What to tell your customer:</div>
+        
+        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em;">
+            "I double-checked your website, and I see the library code isn't installed yet. Let's get that taken care of. I'd be happy to walk you through step-by-step right now, or I can send you the instructions for that part. What would you like to do?"
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+            💛 Installing code can feel overwhelming, so it’s helpful to check in before sending a help article. When someone reaches out, they’re usually looking for support—not just instructions. Offering them a choice shows we’re here to help in whatever way feels best for them.
+        </div>
+    </div>
 
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
-                    <button class="btn btn-primary" onclick="nextStep('step-get-library-code')">Step-by-step help</button>
-                    <button class="btn btn-warning" onclick="nextStep('step-widget-check')">Sending article, let's check the widget</button>
-                    <button class="btn btn-danger" onclick="exitWizard()">Exit wizard</button>
-                </div>
-            </div>
+    <div class="options-container">
+        <button class="option-button" onclick="selectInstallOption('step-by-step')">
+            <span>👥</span> Step-by-step help
+        </button>
+        <button class="option-button" onclick="selectInstallOption('send-article')">
+            <span>📄</span> Sending article, let's check the widget
+        </button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
+        <button class="btn btn-primary" id="installOptionContinue" onclick="handleInstallOption()" disabled>Continue →</button>
+    </div>
+</div>
 
             <!-- Get Library Code -->
             <div id="step-get-library-code" class="step-container">
@@ -1585,6 +1592,24 @@
                 continueBtn.disabled = true;
             }
         }
+
+function selectInstallOption(option) {
+    document.querySelectorAll('#step-library-install .option-button').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    event.target.classList.add('selected');
+    wizardData.installOption = option;
+    document.getElementById('installOptionContinue').disabled = false;
+}
+
+function handleInstallOption() {
+    if (wizardData.installOption === 'step-by-step') {
+        nextStep('step-get-library-code');
+    } else {
+        nextStep('step-widget-check');
+    }
+}
 
         function showPlatformInstructions() {
             const platform = wizardData.platform;
