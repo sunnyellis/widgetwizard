@@ -815,30 +815,34 @@
             </div>
 
             <!-- No Payout Solution -->
-            <div id="step-payout-solution" class="step-container">
-                <div class="alert alert-success">
-                    <strong>🎉 Another common culprit! This could be the cause.</strong>
-                </div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">🗣️ Tell your customer:</div>
-                    <div class="code-block">"Ah, it looks like you still need to connect your payout information. That has to be completed before widgets can work. Here are instructions on how to do that."</div>
-                    
-                    <div class="solution-title">📖 Share the payout help article:</div>
-                    <a href="https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect" target="_blank" style="color: #9c27b0; font-weight: 600;">
-                        How to add and edit your payout information with Stripe Connect
-                    </a>
-                </div>
-
-                <div class="confidence-builder">
-                    🕵️ Most agents miss this step - you caught it!
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-success" onclick="markProblemSolved('payout-connected')">Problem Solved! 🎉</button>
-                    <button class="btn btn-warning" onclick="nextStep('step-campaign-published')">Continue troubleshooting</button>
-                </div>
+           <div id="step-payout-solution" class="step-container">
+    <div style="color: #333; font-size: 1.2em; margin-bottom: 15px;">
+        <strong>🎉 Another common culprit! This could be the cause.</strong>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+        <span style="color: #333;">"Ah, it looks like you still need to connect your payout information. That has to be completed before widgets can work. Here are instructions on how to do that."</span>
+        
+        <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+            <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">Relevant Help Article</div>
+            <div style="margin-bottom: 8px;">
+                <a href="https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">How to add and edit your payout information with Stripe Connect</a>
             </div>
+            <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                https://help.givebutter.com/en/articles/10401823-how-to-add-and-edit-your-payout-information-with-stripe-connect
+            </div>
+            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                🕵️ Most agents miss this step - you caught it!
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-payout-check')">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep('step-campaign-published')">Continue →</button>
+    </div>
+</div>
 
             <!-- Campaign Not Published Solution -->
             <div id="step-unpublished-solution" class="step-container">
