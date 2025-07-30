@@ -922,107 +922,117 @@
                 </div>
             </div>
 
-
-<!-- Library Inspection Steps -->
-<div id="step-library-inspection" class="step-container">
-    <div class="step-title">🕵🏽‍♂️ Library Code Inspection</div>
-    <div class="step-description">Time to check if the library code is actually installed on their website.</div>
-    
-    <div class="educational-tip-structured">
-        <div class="step-header"> 🔍 How to check:</div>
-        
-        <div class="step-item">
-            <strong>1.</strong> Go to <strong id="inspectionUrl"></strong>
-        </div>
-        
-        <div class="step-item">
-            <strong>2.</strong> Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)
-        </div>
-        
-        <div class="step-item">
-            <strong>3.</strong> Select the <strong>Elements</strong> tab.
-        </div>
-        
-        <div style="margin: 15px 0;">
-            <img src="https://i.imgur.com/wWGoMNl.png" alt="Elements tab location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        </div>
-        
-        <div class="step-item">
-            <strong>4.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
-        </div>
-        
-        <div class="step-item">
-            <strong>5.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
-        </div>
-        
-        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-            ❗️ Remember - even if the Givebutter dashboard says the library is installed, that might not be true! This manual check is the only way to be sure.
-        </div>
-    </div>
-    
-    <div class="question">Does anything highlight in yellow or show up in the search results?</div>
-    <div style="color: #666; font-style: italic; margin-bottom: 20px;">
-        Leave their webpage and that search box open; we might need it again in a minute.
-    </div>
-    
-    <div class="options-container">
-        <button class="option-button" onclick="selectLibraryFound('found')">
-            <span>✅</span> Found it! 
-        </button>
-        <button class="option-button" onclick="selectLibraryFound('not-found')">
-            <span>❌</span> Nothing found 
-        </button>
-    </div>
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
-        <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
-    </div>
-</div>
+            <!-- Library Inspection Steps -->
+            <div id="step-library-inspection" class="step-container">
+                <div class="step-title">🕵🏽‍♂️ Library Code Inspection</div>
+                <div class="step-description">Time to check if the library code is actually installed on their website.</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header"> 🔍 How to check:</div>
+                    
+                    <div class="step-item">
+                        <strong>1.</strong> Go to <strong id="inspectionUrl"></strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2.</strong> Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3.</strong> Select the <strong>Elements</strong> tab.
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <img src="https://i.imgur.com/wWGoMNl.png" alt="Elements tab location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>5.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                        ❗️ Remember - even if the Givebutter dashboard says the library is installed, that might not be true! This manual check is the only way to be sure.
+                    </div>
+                </div>
+                
+                <div class="question">Does anything highlight in yellow or show up in the search results?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Leave their webpage and that search box open; we might need it again in a minute.
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectLibraryFound('found')">
+                        <span>✅</span> Found it! 
+                    </button>
+                    <button class="option-button" onclick="selectLibraryFound('not-found')">
+                        <span>❌</span> Nothing found 
+                    </button>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
+                    <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
+                </div>
+            </div>
 
             <!-- Library Not Found - Install Instructions -->
-<div id="step-library-install" class="step-container">
-    <div class="step-title">📝 Library Code Installation</div>
-    <div class="step-description">Aha! The library code is missing. Let's get that fixed!</div>
-    
-    <div class="educational-tip-structured">
-        <div class="step-header">💬 What to tell your customer:</div>
-        
-        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em;">
-            "I double-checked your website, and I see the library code isn't installed yet. Let's get that taken care of. I'd be happy to walk you through step-by-step right now, or I can send you the instructions for that part. What would you like to do?"
-        </div>
-        
-        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-            💛 Installing code can feel overwhelming, so it’s helpful to check in before sending a help article. When someone reaches out, they’re often looking for emotional support—not just instructions. Offering them a choice shows we’re here to help in whatever way feels best for them.
-        </div>
-    </div>
+            <div id="step-library-install" class="step-container">
+                <div class="step-title">📝 Library Code Installation</div>
+                <div class="step-description">Aha! The library code is missing. Let's get that fixed!</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">💬 What to tell your customer:</div>
+                    
+                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em;">
+                        "I double-checked your website, and I see the library code isn't installed yet. Let's get that taken care of. I'd be happy to walk you through step-by-step right now, or I can send you the instructions for that part. What would you like to do?"
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                        💛 Installing code can feel overwhelming, so it's helpful to check in before sending a help article. When someone reaches out, they're often looking for emotional support—not just instructions. Offering them a choice shows we're here to help in whatever way feels best for them.
+                    </div>
+                </div>
 
-    <div class="options-container">
-        <button class="option-button" onclick="selectInstallOption('step-by-step')">
-            <span>📋</span> Step-by-step help
-        </button>
-        <button class="option-button" onclick="selectInstallOption('send-article')">
-            <span>➡️</span> Check widget code
-        </button>
-    </div>
+                <div class="options-container">
+                    <button class="option-button" onclick="selectInstallOption('step-by-step')">
+                        <span>📋</span> Step-by-step help
+                    </button>
+                    <button class="option-button" onclick="selectInstallOption('send-article')">
+                        <span>➡️</span> Check widget code
+                    </button>
+                </div>
 
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
-        <button class="btn btn-primary" id="installOptionContinue" onclick="handleInstallOption()" disabled>Continue →</button>
-    </div>
-</div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
+                    <button class="btn btn-primary" id="installOptionContinue" onclick="handleInstallOption()" disabled>Continue →</button>
+                </div>
+            </div>
 
             <!-- Get Library Code -->
             <div id="step-get-library-code" class="step-container">
                 <div class="step-title">📋 Get Their Library Code</div>
+                <div class="step-description">Since we know which campaign this is for, let's grab their specific library code.</div>
                 
-                <div class="solution-box">
-                    <div class="solution-title">📝 Since we already know which campaign this is for:</div>
-                    <ol class="step-list">
-                        <li>Go to the campaign in their dashboard</li>
-                        <li>Go to the sharing tab</li>
-                        <li>Click "Installation" and choose <strong id="selectedPlatformName"></strong></li>
-                        <li>Copy the entire code that contains <code>https://widgets.givebutter.com/latest</code></li>
-                    </ol>
+                <div class="educational-tip-structured">
+                    <div class="step-header">📝 How to get their library code:</div>
+                    
+                    <div class="step-item">
+                        <strong>1.</strong> Go to the campaign in their dashboard
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2.</strong> Go to the sharing tab
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3.</strong> Click "Installation" and choose <strong id="selectedPlatformName"></strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4.</strong> Copy the entire code that contains <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">https://widgets.givebutter.com/latest</code>
+                    </div>
                 </div>
                 
                 <div class="question">📋 Paste their library code here:</div>
@@ -1037,38 +1047,52 @@
             <!-- Platform Installation Instructions -->
             <div id="step-platform-instructions" class="step-container">
                 <div class="step-title">🔧 Platform Installation Instructions</div>
+                <div class="step-description">Here are the step-by-step instructions for their specific platform.</div>
                 
-                <div class="solution-box">
-                    <div class="solution-title">🗣️ Tell your customer:</div>
-                    <div class="platform-instructions" id="platformInstructionsContent">
+                <div class="educational-tip-structured">
+                    <div class="step-header">💬 What to tell your customer:</div>
+                    
+                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em;" id="platformInstructionsContent">
                         <!-- Content will be populated based on platform -->
                     </div>
                     
-                    <div class="solution-title">📝 Library Code to Install:</div>
-                    <div class="code-block" id="libraryCodeDisplay"></div>
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9;">
+                        <div style="font-weight: 600; color: #1a3a0d; margin-bottom: 15px;">📝 Library Code to Install:</div>
+                        <div style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9em; overflow-x: auto; white-space: pre-wrap;" id="libraryCodeDisplay"></div>
+                    </div>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectPlatformInstructionChoice('solved')">
+                        <span>✅</span> Done, that solved it!
+                    </button>
+                    <button class="option-button" onclick="selectPlatformInstructionChoice('widget-check')">
+                        <span>➡️</span> Now check widget code
+                    </button>
                 </div>
 
                 <div class="action-buttons">
                     <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back</button>
-                    <button class="btn btn-success" onclick="markProblemSolved('library-installed')">Done, that solved the issue!</button>
-                    <button class="btn btn-warning" onclick="nextStep('step-widget-check')">Done, now let's work on the widget code</button>
-                    <button class="btn btn-danger" onclick="exitWizard()">Exit</button>
+                    <button class="btn btn-primary" id="platformInstructionsContinue" onclick="handlePlatformInstructions()" disabled>Continue →</button>
                 </div>
             </div>
 
             <!-- Problem Solved -->
             <div id="step-problem-solved" class="step-container">
-                <div class="alert alert-success">
-                    <strong>🎉 Fantastic! You're really turning into a Widget expert!</strong>
-                </div>
+                <div class="step-title">🎉 Fantastic! Widget Issue Resolved!</div>
+                <div class="step-description">You successfully diagnosed and solved the widget issue!</div>
                 
-                <div class="confidence-builder">
-                    🧈 You successfully diagnosed and solved the widget issue! The customer should now have a working widget on their website.
-                </div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">✅ What was solved:</div>
-                    <div id="solutionSummary"></div>
+                <div class="educational-tip-structured">
+                    <div class="step-header">✅ What was solved:</div>
+                    
+                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em; text-align: center;">
+                        🧈 The customer should now have a working widget on their website!
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9;">
+                        <div style="font-weight: 600; color: #1a3a0d; margin-bottom: 10px;">Resolution Summary:</div>
+                        <div id="solutionSummary" style="color: #2d5016; font-size: 1.0em;"></div>
+                    </div>
                 </div>
 
                 <div class="action-buttons">
@@ -1077,13 +1101,21 @@
                 </div>
             </div>
 
-            <!-- Widget Check (Placeholder for now) -->
+            <!-- Widget Check -->
             <div id="step-widget-check" class="step-container">
                 <div class="step-title">📝 Step 4.2: Widget Code Check</div>
-                <div class="step-description">Now let's check if the widget code itself is installed...</div>
+                <div class="step-description">Now let's check if the widget code itself is installed on their website.</div>
                 
-                <div class="alert alert-info">
-                    <strong>🚧 Coming Soon:</strong> This section is still being built out. For now, you can use the knowledge from the previous steps to guide the customer through widget code installation.
+                <div class="educational-tip-structured">
+                    <div class="step-header">🚧 This section is being built!</div>
+                    
+                    <div class="step-item">
+                        For now, you can use the troubleshooting knowledge from the previous steps to guide the customer through widget code installation.
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                        💡 This workflow will be completed soon with the same systematic approach as the library code check!
+                    </div>
                 </div>
 
                 <div class="action-buttons">
@@ -1106,7 +1138,9 @@
             websiteUrl: null,
             libraryCode: null,
             libraryFound: null,
-            compatibilityStatus: null
+            compatibilityStatus: null,
+            installOption: null,
+            platformInstructionChoice: null
         };
 
         const stepOrder = [
@@ -1121,7 +1155,7 @@
             'step-library-inspection'
         ];
 
-// Prevent accidental navigation away from wizard
+        // Prevent accidental navigation away from wizard
         window.addEventListener('beforeunload', function(e) {
             // Only show warning if user has made progress past the welcome step
             if (currentStep !== 'step-welcome') {
@@ -1171,7 +1205,9 @@
                 websiteUrl: null,
                 libraryCode: null,
                 libraryFound: null,
-                compatibilityStatus: null
+                compatibilityStatus: null,
+                installOption: null,
+                platformInstructionChoice: null
             };
             nextStep('step-welcome');
         }
@@ -1459,14 +1495,14 @@
             if (wizardData.widgetType === 'signup') {
                 nextStep('step-code-collection');
             } else {
-       // Set platform name (handles both regular platforms and "other")
-        const displayName = wizardData.platform === 'other' ? 
-            wizardData.otherPlatformName : 
-            getPlatformDisplayName(wizardData.platform);
-        document.getElementById('platformName').textContent = displayName;
-        nextStep('step-payout-check');
-    }
-}
+                // Set platform name (handles both regular platforms and "other")
+                const displayName = wizardData.platform === 'other' ? 
+                    wizardData.otherPlatformName : 
+                    getPlatformDisplayName(wizardData.platform);
+                document.getElementById('platformName').textContent = displayName;
+                nextStep('step-payout-check');
+            }
+        }
 
         // Payout status functions
         function selectPayoutStatus(status) {
@@ -1539,29 +1575,29 @@
         }
 
         function checkUrlInput() {
-    const url = document.getElementById('websiteUrl').value.trim();
-    const continueBtn = document.getElementById('urlContinue');
-    
-    // Accept URLs with or without protocol, as long as they look like a domain
-    if (url && (url.includes('.') || url.startsWith('http'))) {
-        continueBtn.disabled = false;
-    } else {
-        continueBtn.disabled = true;
-    }
-}
+            const url = document.getElementById('websiteUrl').value.trim();
+            const continueBtn = document.getElementById('urlContinue');
+            
+            // Accept URLs with or without protocol, as long as they look like a domain
+            if (url && (url.includes('.') || url.startsWith('http'))) {
+                continueBtn.disabled = false;
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
 
         function startLibraryInspection() {
-    let url = document.getElementById('websiteUrl').value.trim();
-    
-    // Add https:// if no protocol is present
-    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
-    }
-    
-    wizardData.websiteUrl = url;
-    document.getElementById('inspectionUrl').textContent = url;
-    nextStep('step-library-inspection');
-}
+            let url = document.getElementById('websiteUrl').value.trim();
+            
+            // Add https:// if no protocol is present
+            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            
+            wizardData.websiteUrl = url;
+            document.getElementById('inspectionUrl').textContent = url;
+            nextStep('step-library-inspection');
+        }
 
         function selectLibraryFound(status) {
             document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
@@ -1593,23 +1629,41 @@
             }
         }
 
-function selectInstallOption(option) {
-    document.querySelectorAll('#step-library-install .option-button').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    
-    event.target.classList.add('selected');
-    wizardData.installOption = option;
-    document.getElementById('installOptionContinue').disabled = false;
-}
+        function selectInstallOption(option) {
+            document.querySelectorAll('#step-library-install .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            wizardData.installOption = option;
+            document.getElementById('installOptionContinue').disabled = false;
+        }
 
-function handleInstallOption() {
-    if (wizardData.installOption === 'step-by-step') {
-        nextStep('step-get-library-code');
-    } else {
-        nextStep('step-widget-check');
-    }
-}
+        function handleInstallOption() {
+            if (wizardData.installOption === 'step-by-step') {
+                nextStep('step-get-library-code');
+            } else {
+                nextStep('step-widget-check');
+            }
+        }
+
+        function selectPlatformInstructionChoice(choice) {
+            document.querySelectorAll('#step-platform-instructions .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            wizardData.platformInstructionChoice = choice;
+            document.getElementById('platformInstructionsContinue').disabled = false;
+        }
+
+        function handlePlatformInstructions() {
+            if (wizardData.platformInstructionChoice === 'solved') {
+                markProblemSolved('library-installed');
+            } else {
+                nextStep('step-widget-check');
+            }
+        }
 
         function showPlatformInstructions() {
             const platform = wizardData.platform;
