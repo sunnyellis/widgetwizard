@@ -1029,18 +1029,12 @@
                     <div class="step-item">
                         <strong>3.</strong> Click "Installation" and choose <strong id="selectedPlatformName"></strong>
                     </div>
-                    
-                    <div class="step-item">
-                        <strong>4.</strong> Copy the entire code that contains <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">https://widgets.givebutter.com/latest</code>
-                    </div>
-                </div>
 
-<div class="step-item">
-    <strong>4.</strong> Copy the entire code that contains <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">https://widgets.givebutter.com/latest</code>
-</div>
-
-<div style="margin: 15px 0;">
+                    <div style="margin: 15px 0;">
     <img src="https://i.imgur.com/T8HEVex.png" alt="Library code example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+</div>  
+                    <div class="step-item">
+    <strong>4.</strong> Copy the entire code that contains <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">https://widgets.givebutter.com/latest</code>
 </div>
                 
                 <div class="question">📋 Paste their library code here:</div>
@@ -1647,10 +1641,14 @@
             document.getElementById('installOptionContinue').disabled = false;
         }
 
-       function handleInstallOption() {
+      function handleInstallOption() {
     if (wizardData.installOption === 'step-by-step') {
         // Set the platform name for the library code page
-        document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
+        if (wizardData.platform === 'other') {
+            document.getElementById('selectedPlatformName').textContent = 'Other';
+        } else {
+            document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
+        }
         nextStep('step-get-library-code');
     } else {
         nextStep('step-widget-check');
