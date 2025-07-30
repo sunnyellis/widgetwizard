@@ -922,39 +922,55 @@
                 </div>
             </div>
 
-            <!-- Library Inspection Steps -->
-            <div id="step-library-inspection" class="step-container">
-                <div class="step-title">🔍 Library Code Inspection</div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">📝 Instructions for you:</div>
-                    <ol class="step-list">
-                        <li>Go to <strong id="inspectionUrl"></strong></li>
-                        <li>Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)</li>
-                        <li>Press Ctrl+F (or Cmd+F on Mac) to open the search box</li>
-                        <li>Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code></li>
-                    </ol>
-                </div>
-                
-                <div class="question">Does anything highlight in yellow or show up in the search results?</div>
-                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
-                    Leave this page and search box open, we might need it again in a minute.
-                </div>
-                
-                <div class="options-container">
-                    <button class="option-button" onclick="selectLibraryFound('found')">
-                        <span>✅</span> Found it! Something highlighted
-                    </button>
-                    <button class="option-button" onclick="selectLibraryFound('not-found')">
-                        <span>❌</span> Nothing found / No results
-                    </button>
-                </div>
 
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
-                    <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
-                </div>
-            </div>
+            <!-- Library Inspection Steps -->
+<div id="step-library-inspection" class="step-container">
+    <div class="step-title">🔍 Library Code Inspection</div>
+    <div class="step-description">Time to check if the library code is actually installed on their website.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 Your detective work:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> Go to <strong id="inspectionUrl"></strong>
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+        </div>
+        
+        <div class="step-item">
+            <strong>4.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+            ❗️ Remember - even if the Givebutter dashboard says the library is installed, that might not be true! This manual check is the only way to be sure.
+        </div>
+    </div>
+    
+    <div class="question">Does anything highlight in yellow or show up in the search results?</div>
+    <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+        Leave their webpage and that search box open; we might need it again in a minute.
+    </div>
+    
+    <div class="options-container">
+        <button class="option-button" onclick="selectLibraryFound('found')">
+            <span>✅</span> Found it! 
+        </button>
+        <button class="option-button" onclick="selectLibraryFound('not-found')">
+            <span>❌</span> Nothing found 
+        </button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
+        <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
+    </div>
+</div>
 
             <!-- Library Not Found - Install Instructions -->
             <div id="step-library-install" class="step-container">
