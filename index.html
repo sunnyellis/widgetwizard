@@ -850,31 +850,33 @@
 
             <!-- Campaign Not Published Solution -->
             <div id="step-unpublished-solution" class="step-container">
-                <div class="alert alert-success">
-                    <strong>🎉 Found it! That "Unpublished" label is the first issue.</strong>
-                </div>
-                
-                <div class="solution-box">
-                    <div class="solution-title">🗣️ Tell your customer:</div>
-                    <div class="code-block">"I found the issue! Your campaign needs to be published before the widget can work. Let's get that published, and see if your widget starts working properly."</div>
-                    
-                    <div class="solution-title">📝 Steps to share:</div>
-                    <ol class="step-list">
-                        <li>Go to your campaign in your dashboard. On the top right corner, click the blue button that says "Publish"</li>
-                        <li>The "Unpublished" label should disappear</li>
-                        <li>Try your widget again!</li>
-                    </ol>
-                </div>
-
-                <div class="confidence-builder">
-                    🎯 You're doing great! This is exactly the right approach!
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-success" onclick="markProblemSolved('campaign-published')">Problem Solved! 🎉</button>
-                    <button class="btn btn-warning" onclick="nextStep('step-code-collection')">Continue troubleshooting</button>
-                </div>
+    <div style="color: #333; font-size: 1.2em; margin-bottom: 15px;">
+        <strong>This is probably why the widget isn't working.</strong>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+        <span style="color: #333;">"I found the issue! Your campaign needs to be published before the widget can work. Let's get that published, and see if your widget starts working properly."</span>
+        
+        <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+            <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">📝 Steps to share:</div>
+            <div style="color: #333; line-height: 1.5;">
+                <strong>1.</strong> Go to your campaign in your dashboard. On the top right corner, click the blue button that says "Publish"<br>
+                <strong>2.</strong> The "Unpublished" label should disappear<br>
+                <strong>3.</strong> Try your widget again!
             </div>
+            <img src="https://i.imgur.com/9zoPDFp.png" alt="Widget working example" style="width: 100%; max-width: 400px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em; margin-top: 15px;">
+                🎯 You're doing great! This is exactly the right approach!
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-campaign-published')">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep('step-code-collection')">Continue →</button>
+    </div>
+</div>
 
             <!-- Step 4: Code Collection -->
             <div id="step-code-collection" class="step-container">
