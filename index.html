@@ -1046,6 +1046,37 @@
                 </div>
             </div>
 
+<!-- Get Library Code - WordPress -->
+<div id="step-get-library-code-wordpress" class="step-container">
+    <div class="step-title">📋 WordPress Library Setup</div>
+    <div class="step-description">WordPress uses the Givebutter plugin instead of manual code installation.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 WordPress-specific steps:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> [WordPress instruction 1 - placeholder]
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> [WordPress instruction 2 - placeholder]
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> [WordPress instruction 3 - placeholder]
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+            💡 WordPress plugin makes this much easier than manual code installation!
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+        <button class="btn btn-primary" onclick="nextStep('step-platform-instructions')">Continue →</button>
+    </div>
+</div>
+
             <!-- Platform Installation Instructions -->
             <div id="step-platform-instructions" class="step-container">
                 <div class="step-title">🔧 Platform Installation Instructions</div>
@@ -1643,13 +1674,17 @@
 
       function handleInstallOption() {
     if (wizardData.installOption === 'step-by-step') {
-        // Set the platform name for the library code page
-        if (wizardData.platform === 'other') {
-            document.getElementById('selectedPlatformName').textContent = 'Other';
+        if (wizardData.platform === 'wordpress') {
+            nextStep('step-get-library-code-wordpress');
         } else {
-            document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
+            // Set the platform name for the library code page
+            if (wizardData.platform === 'other') {
+                document.getElementById('selectedPlatformName').textContent = 'Other';
+            } else {
+                document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
+            }
+            nextStep('step-get-library-code');
         }
-        nextStep('step-get-library-code');
     } else {
         nextStep('step-widget-check');
     }
