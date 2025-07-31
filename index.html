@@ -1137,10 +1137,10 @@
         </div>
         
         <div style="margin-top: 20px; text-align: center;">
-            <button onclick="copyWordPressInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-                📋 Copy Instructions for Customer
-            </button>
-        </div>
+    <button onclick="copyInstructionBox('wordpressCustomerInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+        📋 Copy Instructions for Customer
+    </button>
+</div>
     </div>
     
     <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em; margin: 20px 0;">
@@ -1182,7 +1182,7 @@
         <div class="code-block" id="squarespaceLibraryCodeDisplay">[Library code will appear here]</div>
         
         <div style="margin-top: 20px; text-align: center;">
-            <button onclick="copySquarespaceInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <button onclick="copyInstructionBox('squarespaceCustomerInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
                 📋 Copy Instructions for Customer
             </button>
         </div>
@@ -1972,6 +1972,52 @@ function copyWordPressInstructions() {
         document.execCommand('copy');
         document.body.removeChild(textarea);
     }
+
+    // Universal copy function for instruction boxes
+function copyInstructionBox(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error('Container not found:', containerId);
+        return;
+    }
+    
+    // Get the HTML content
+    const htmlContent = container.innerHTML;
+    
+    // Create plain text version by removing HTML tags
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+    
+    // Copy as rich text with fallback to plain text
+    if (navigator.clipboard && window.ClipboardItem) {
+        navigator.clipboard.write([
+            new ClipboardItem({
+                'text/html': new Blob([htmlContent], {type: 'text/html'}),
+                'text/plain': new Blob([plainText], {type: 'text/plain'})
+            })
+        ]);
+    } else {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = plainText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+    
+    // Show success feedback
+    const button = event.target;
+    const originalText = button.innerHTML;
+    button.innerHTML = '✅ Copied!';
+    button.style.background = '#4CAF50';
+    
+    setTimeout(() => {
+        button.innerHTML = originalText;
+        button.style.background = '#9c27b0';
+    }, 2000);
+}
     
     // Show success feedback
     const button = event.target;
