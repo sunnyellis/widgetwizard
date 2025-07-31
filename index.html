@@ -1206,7 +1206,7 @@
         <div class="code-block" id="squarespaceLibraryCodeDisplay">[Library code will appear here]</div>
         
         <div style="margin-top: 20px; text-align: center;">
-            <button onclick="copyPlatformInstructions('Squarespace', 'squarespace')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <button onclick="copySquarespaceInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
                 📋 Copy Instructions for Customer
             </button>
         </div>
@@ -1238,7 +1238,7 @@
         <div class="code-block" id="godaddyLibraryCodeDisplay">[Library code will appear here]</div>
         
         <div style="margin-top: 20px; text-align: center;">
-            <button onclick="copyPlatformInstructions('GoDaddy', 'godaddy')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <button onclick="copyGoDaddyInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
                 📋 Copy Instructions for Customer
             </button>
         </div>
@@ -1488,7 +1488,7 @@
         function showIncompatibleFromResearch() {
             const platformName = wizardData.otherPlatformName;
             document.getElementById('genericIncompatibleMessage').textContent = 
-                `"After checking, I confirmed that ${platformName} doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
+                '"After checking, I confirmed that ' + platformName + ' doesn\'t currently support Givebutter widgets. But don\'t worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"';
             nextStep('step-generic-incompatible');
         }
 
@@ -1658,7 +1658,7 @@
             
             if (['free', 'personal', 'basic'].includes(wizardData.plan)) {
                 const requiredPlan = getRequiredPlan(wizardData.platform);
-                incompatibleMessage.textContent = `"After checking, it looks like you need to be on the ${requiredPlan} plan with ${platformName} to use Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
+                incompatibleMessage.textContent = '"After checking, it looks like you need to be on the ' + requiredPlan + ' plan with ' + platformName + ' to use Givebutter widgets. But don\'t worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"';
             }
             
             nextStep('step-incompatible');
@@ -2003,18 +2003,10 @@
             const accountId = document.getElementById('wordpressAccountId').value.trim();
             
             // Create rich text version (HTML) that matches what's displayed
-            const htmlContent = `Great news! Since you're using WordPress, you don't need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.<br><br><strong>1.</strong> Log in to your WordPress dashboard<br><strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br><strong>3.</strong> Search for Givebutter in the search box<br><strong>4.</strong> Click <strong>Install Now</strong> on the official Givebutter plugin<br><strong>5.</strong> After installation, click <strong>Activate Plugin</strong><br><strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: ${accountId}<br><strong>7.</strong> Save settings - your library code is now automatically installed!`;
+            const htmlContent = 'Great news! Since you\'re using WordPress, you don\'t need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.<br><br><strong>1.</strong> Log in to your WordPress dashboard<br><strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br><strong>3.</strong> Search for Givebutter in the search box<br><strong>4.</strong> Click <strong>Install Now</strong> on the official Givebutter plugin<br><strong>5.</strong> After installation, click <strong>Activate Plugin</strong><br><strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: ' + accountId + '<br><strong>7.</strong> Save settings - your library code is now automatically installed!';
             
             // Plain text fallback
-            const plainText = `Great news! Since you're using WordPress, you don't need to install code manually. 🎉 WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.
-
-1. Log in to your WordPress dashboard
-2. Go to Plugins → Add New in the left menu
-3. Search for Givebutter in the search box
-4. Click Install Now on the official Givebutter plugin
-5. After installation, click Activate Plugin
-6. Go to Settings → Givebutter and enter this Account ID: ${accountId}
-7. Save settings - your library code is now automatically installed!`;
+            const plainText = 'Great news! Since you\'re using WordPress, you don\'t need to install code manually. 🎉 WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.\n\n1. Log in to your WordPress dashboard\n2. Go to Plugins → Add New in the left menu\n3. Search for Givebutter in the search box\n4. Click Install Now on the official Givebutter plugin\n5. After installation, click Activate Plugin\n6. Go to Settings → Givebutter and enter this Account ID: ' + accountId + '\n7. Save settings - your library code is now automatically installed!';
 
             // Copy as rich text with fallback to plain text
             if (navigator.clipboard && window.ClipboardItem) {
@@ -2046,25 +2038,48 @@
             }, 2000);
         }
 
-        // Generic platform copy function
-        function copyPlatformInstructions(platformName, platformId) {
+        // Platform-specific copy functions using safe string concatenation
+        function copySquarespaceInstructions() {
             const libraryCode = wizardData.libraryCode || '<script src="https://widgets.givebutter.com/latest.umd.cjs"></script>';
             
-            // Get the steps content
-            const instructionsContainer = document.getElementById(platformId + 'CustomerInstructions');
-            const stepsDiv = instructionsContainer.querySelector('div[style*="margin-top: 20px"]');
+            const htmlContent = 'To install the library on your Squarespace website, please follow these steps:<br><br><strong>1.</strong> Click on the <strong>Website</strong> heading in your Squarespace account.<br><strong>2.</strong> Scroll down, and under the <strong>Utilities</strong> heading, click <strong>Website Tools</strong>.<br><strong>3.</strong> Click <strong>Code Injection</strong>.<br><strong>4.</strong> Under the <strong>Header</strong> section, paste the library code below, and save.<br><br>' + libraryCode;
             
-            // Create plain text version
-            const plainText = `To install the library on your ${platformName} website, please follow these steps:
+            const plainText = 'To install the library on your Squarespace website, please follow these steps:\n\n1. Click on the Website heading in your Squarespace account.\n2. Scroll down, and under the Utilities heading, click Website Tools.\n3. Click Code Injection.\n4. Under the Header section, paste the library code below, and save.\n\n' + libraryCode;
 
-${stepsDiv.textContent.trim()}
+            if (navigator.clipboard && window.ClipboardItem) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'text/html': new Blob([htmlContent], {type: 'text/html'}),
+                        'text/plain': new Blob([plainText], {type: 'text/plain'})
+                    })
+                ]);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = plainText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ Copied!';
+            button.style.background = '#4CAF50';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '#9c27b0';
+            }, 2000);
+        }
 
-${libraryCode}`;
+        function copyGoDaddyInstructions() {
+            const libraryCode = wizardData.libraryCode || '<script src="https://widgets.givebutter.com/latest.umd.cjs"></script>';
+            
+            const htmlContent = 'To install the library on your GoDaddy website, please follow these steps:<br><br><strong>1.</strong> Log in to your GoDaddy account.<br><strong>2.</strong> Scroll to <strong>Websites + Marketing</strong> and select <strong>Manage</strong> next to your website to open your site.<br><strong>3.</strong> Select <strong>Edit Website</strong> or <strong>Edit Site</strong> to open your website builder.<br><strong>4.</strong> Go to the page and location you want to add your custom code, and add a section.<br><strong>5.</strong> Search for <strong>HTML section</strong> and select <strong>Add</strong>. Paste the code below in the Custom Code field.<br><br>' + libraryCode;
+            
+            const plainText = 'To install the library on your GoDaddy website, please follow these steps:\n\n1. Log in to your GoDaddy account.\n2. Scroll to Websites + Marketing and select Manage next to your website to open your site.\n3. Select Edit Website or Edit Site to open your website builder.\n4. Go to the page and location you want to add your custom code, and add a section.\n5. Search for HTML section and select Add. Paste the code below in the Custom Code field.\n\n' + libraryCode;
 
-            // Create HTML version  
-            const htmlContent = `To install the library on your ${platformName} website, please follow these steps:<br><br>${stepsDiv.innerHTML}<br><br>${libraryCode}`;
-
-            // Standard copy logic
             if (navigator.clipboard && window.ClipboardItem) {
                 navigator.clipboard.write([
                     new ClipboardItem({
@@ -2104,7 +2119,7 @@ ${libraryCode}`;
                     summary = 'Payout method was not connected - provided customer with payout setup instructions.';
                     break;
                 case 'library-installed':
-                    summary = `Library code was missing - provided ${getPlatformDisplayName(wizardData.platform)}-specific installation instructions.`;
+                    summary = 'Library code was missing - provided ' + getPlatformDisplayName(wizardData.platform) + '-specific installation instructions.';
                     break;
                 case 'manual-completion':
                     summary = 'Issue resolved through manual troubleshooting steps.';
@@ -2132,12 +2147,6 @@ ${libraryCode}`;
                     element.textContent = libraryCode;
                 }
             });
-        }
-
-        // Call this when showing platform pages
-        function showPlatformPage(platform) {
-            updateLibraryCodeDisplays();
-            nextStep(`step-get-library-code-${platform}`);
         }
     </script>
 </body>
