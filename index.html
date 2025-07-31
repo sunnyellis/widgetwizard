@@ -1011,41 +1011,32 @@
             </div>
 
             <!-- Get Library Code -->
-            <div id="step-get-library-code" class="step-container">
-                <div class="step-title">📖 Get Their Library Code</div>
-                <div class="step-description">Let's grab their specific library code so they don't have to hunt for it</div>
-                
-                <div class="educational-tip-structured">
-                    <div class="step-header">📝 How to get their library code:</div>
-                    
-                    <div class="step-item">
-                        <strong>1.</strong> Go to the campaign in their dashboard
-                    </div>
-                    
-                    <div class="step-item">
-                        <strong>2.</strong> Go to the sharing tab
-                    </div>
-                    
-                    <div class="step-item">
-                        <strong>3.</strong> Click "Installation" and choose <strong id="selectedPlatformName"></strong>
-                    </div>
-
-                    <div style="margin: 15px 0;">
-    <img src="https://i.imgur.com/T8HEVex.png" alt="Library code example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-</div>  
-                    <div class="step-item">
-    <strong>4.</strong> Copy the entire code that contains <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">https://widgets.givebutter.com/latest</code>
-</div>
-</div>
-                
-                <div class="question">📋 Paste their library code here:</div>
-                <textarea class="large-textarea" id="libraryCode" placeholder="Paste the library code here..." onkeyup="checkLibraryCode()"></textarea>
-
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
-                    <button class="btn btn-primary" id="libraryCodeContinue" onclick="showPlatformInstructions()" disabled>Continue →</button>
-                </div>
-            </div>
+<div id="step-get-library-code" class="step-container">
+    <div class="step-title">Great, we'll walk them through installing the library code together.</div>
+    
+    <div style="color: #666; margin-bottom: 20px;">
+        You'll need to find the user's library code for the next step. Follow these instructions to get their specific code.
+    </div>
+    
+    <div class="educational-tip-structured">
+        <div style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: #1a3a0d;">📝 Steps for you:</div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>3.</strong> Click <strong>Widgets</strong>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>4.</strong> Click the blue text that says <strong>Installation</strong>
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/T8HEVex.png" alt="Installation button location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px
 
 <!-- Get Library Code - WordPress -->
 <div id="step-get-library-code-wordpress" class="step-container">
@@ -1724,16 +1715,18 @@
         }
 
         function checkLibraryCode() {
-            const code = document.getElementById('libraryCode').value.trim();
-            const continueBtn = document.getElementById('libraryCodeContinue');
-            
-            if (code && code.includes('widgets.givebutter.com')) {
-                continueBtn.disabled = false;
-                wizardData.libraryCode = code;
-            } else {
-                continueBtn.disabled = true;
-            }
-        }
+    const code = document.getElementById('libraryCode').value.trim();
+    const continueBtn = document.getElementById('libraryCodeContinue');
+    
+    if (code && code.includes('widgets.givebutter.com')) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.libraryCode = code;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
 
         function selectInstallOption(option) {
             document.querySelectorAll('#step-library-install .option-button').forEach(btn => {
