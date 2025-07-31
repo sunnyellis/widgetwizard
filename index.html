@@ -1130,8 +1130,8 @@
             <strong>1.</strong> Log in to your WordPress dashboard<br>
             <strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br>
             <strong>3.</strong> Search for "Givebutter" in the search box<br>
-            <strong>4.</strong> Click <strong>"Install Now"</strong> on the official Givebutter plugin<br>
-            <strong>5.</strong> After installation, click <strong>"Activate Plugin"</strong><br>
+            <strong>4.</strong> Click <strong>Install Now</strong> on the official Givebutter plugin<br>
+            <strong>5.</strong> After installation, click <strong>Activate Plugin</strong><br>
             <strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: <span id="wordpressDisplayAccountId" style="background: #2d3748; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-weight: bold;">[Account ID will appear here]</span><br>
             <strong>7.</strong> Save settings - your library code is now automatically installed!
         </div>
@@ -1155,9 +1155,6 @@
         <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
             https://wordpress.org/plugins/givebutter/
         </div>
-        <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-            The official plugin from the WordPress repository - safe and automatically updated.
-        </div>
     </div>
 
     <div class="action-buttons">
@@ -1166,6 +1163,36 @@
     </div>
 </div>
 
+<!-- Get Library Code - Squarespace -->
+<div id="step-get-library-code-squarespace" class="step-container">
+    <!-- Page 2: Customer Instructions -->
+    <div class="step-title">Give your customer these steps to install the widget library on their Squarespace site.</div>
+    
+    <div class="solution-title">💬 What to tell your customer:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="squarespaceCustomerInstructions">
+        To install the library on your Squarespace website, please follow these steps:
+        
+        <div style="margin-top: 20px;">
+            <strong>1.</strong> Click on the <strong>Website</strong> heading in your Squarespace account.<br>
+            <strong>2.</strong> Scroll down, and under the <strong>Utilities</strong> heading, click <strong>Website Tools</strong>.<br>
+            <strong>3.</strong> Click <strong>Code Injection</strong>.<br>
+            <strong>4.</strong> Under the <strong>Header</strong> section, paste the library code below, and save.
+        </div>
+        
+        <div class="code-block" id="squarespaceLibraryCodeDisplay">[Library code will appear here]</div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <button onclick="copySquarespaceInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                📋 Copy Instructions for Customer
+            </button>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+    </div>
+</div>
             <!-- Platform Installation Instructions -->
             <div id="step-platform-instructions" class="step-container">
                 <div class="step-title">🔧 Platform Installation Instructions</div>
@@ -1741,12 +1768,17 @@
         }
 
         function handleLibraryResult() {
-            if (wizardData.libraryFound === 'found') {
-                nextStep('step-widget-check');
-            } else {
-                nextStep('step-library-install');
-            }
+    if (wizardData.libraryFound === 'found') {
+        nextStep('step-widget-check');
+    } else {
+        // Wix is special - library and widget code install together
+        if (wizardData.platform === 'wix') {
+            nextStep('step-wix-install');
+        } else {
+            nextStep('step-library-install');
         }
+    }
+}
 
         function checkLibraryCode() {
     const code = document.getElementById('libraryCode').value.trim();
