@@ -1049,32 +1049,102 @@
 
 <!-- Get Library Code - WordPress -->
 <div id="step-get-library-code-wordpress" class="step-container">
-    <div class="step-title">📋 WordPress Library Setup</div>
-    <div class="step-description">WordPress uses the Givebutter plugin instead of manual code installation.</div>
-    
-    <div class="educational-tip-structured">
-        <div class="step-header">📝 WordPress-specific steps:</div>
+    <!-- Page 1: Get Account ID -->
+    <div id="wordpress-page1">
+        <div class="step-title">Great, we'll walk them through installing the library code together.</div>
         
-        <div class="step-item">
-            <strong>1.</strong> [WordPress instruction 1 - placeholder]
+        <div style="color: #666; margin-bottom: 20px;">
+            You'll need to find the user's Givebutter Account ID for the next step. This is not the same account ID found in their URL or in Forest. The only place to find it is by following these instructions.
         </div>
         
-        <div class="step-item">
-            <strong>2.</strong> [WordPress instruction 2 - placeholder]
+        <div class="educational-tip-structured">
+            <div style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: #1a3a0d;">📝 Steps for you:</div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>3.</strong> Click <strong>Widgets</strong>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>4.</strong> Click the blue text that says <strong>Installation</strong>
+                <div style="margin: 15px 0;">
+                    <img src="https://i.imgur.com/T8HEVex.png" alt="Installation button location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>5.</strong> Choose <strong>WordPress</strong>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>6.</strong> Copy the long string of letters and numbers in the Account ID box
+                <div style="margin: 15px 0;">
+                    <img src="https://i.imgur.com/Aa44RVU.png" alt="Account ID box location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                </div>
+            </div>
         </div>
         
-        <div class="step-item">
-            <strong>3.</strong> [WordPress instruction 3 - placeholder]
+        <div style="margin: 20px 0;">
+            <label for="wordpressAccountId" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their Account ID here:</label>
+            <input type="text" id="wordpressAccountId" placeholder="Paste the Account ID here..." style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 12px; font-size: 1em; outline: none;" onkeyup="checkWordPressAccountId()">
         </div>
-        
-        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-            💡 WordPress plugin makes this much easier than manual code installation!
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+            <button class="btn btn-primary" id="wordpressContinueBtn" onclick="showWordPressPage2()" disabled style="opacity: 0.5;">Got the Account ID →</button>
         </div>
     </div>
 
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
-        <button class="btn btn-primary" onclick="nextStep('step-platform-instructions')">Continue →</button>
+    <!-- Page 2: Customer Instructions -->
+    <div id="wordpress-page2" style="display: none;">
+        <div class="step-title">WordPress uses the Givebutter plugin for easier setup!</div>
+        
+        <div class="solution-title">💬 What to tell your customer:</div>
+        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+            <span style="color: #333;">"Great news! Since you're using WordPress, you don't need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it."</span>
+            
+            <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">📝 Steps to share:</div>
+                <div style="color: #333; line-height: 1.5;">
+                    <strong>1.</strong> Log in to your WordPress dashboard<br>
+                    <strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br>
+                    <strong>3.</strong> Search for "Givebutter" in the search box<br>
+                    <strong>4.</strong> Click <strong>"Install Now"</strong> on the official Givebutter plugin<br>
+                    <strong>5.</strong> After installation, click <strong>"Activate Plugin"</strong><br>
+                    <strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: <span id="wordpressDisplayAccountId" style="background: #2d3748; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-weight: bold;">[Account ID will appear here]</span><br>
+                    <strong>7.</strong> Save settings - your library code is now automatically installed!
+                </div>
+                
+                <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em; margin-top: 15px;">
+                    🎯 Much easier than manual code installation! WordPress plugins handle all the technical stuff automatically.
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
+                <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">Plugin Link</div>
+                <div style="margin-bottom: 8px;">
+                    <a href="https://wordpress.org/plugins/givebutter/" target="_blank" style="color: #333; font-weight: 600; text-decoration: none;">Official Givebutter WordPress Plugin</a>
+                </div>
+                <div style="color: #666; font-size: 0.9em; margin-bottom: 8px; word-break: break-all;">
+                    https://wordpress.org/plugins/givebutter/
+                </div>
+                <div style="color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                    The official plugin from the WordPress repository - safe and automatically updated.
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="showWordPressPage1()">← Back to Account ID</button>
+            <button class="btn btn-primary" onclick="nextStep('step-platform-instructions')">Continue →</button>
+        </div>
     </div>
 </div>
 
@@ -1779,6 +1849,33 @@
             instructionsContent.innerHTML = instructions;
             nextStep('step-platform-instructions');
         }
+
+// WordPress-specific functions
+function checkWordPressAccountId() {
+    const accountId = document.getElementById('wordpressAccountId').value.trim();
+    const continueBtn = document.getElementById('wordpressContinueBtn');
+    
+    if (accountId) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function showWordPressPage2() {
+    const accountId = document.getElementById('wordpressAccountId').value.trim();
+    document.getElementById('wordpressDisplayAccountId').textContent = accountId;
+    
+    document.getElementById('wordpress-page1').style.display = 'none';
+    document.getElementById('wordpress-page2').style.display = 'block';
+}
+
+function showWordPressPage1() {
+    document.getElementById('wordpress-page1').style.display = 'block';
+    document.getElementById('wordpress-page2').style.display = 'none';
+}
 
         function markProblemSolved(solutionType) {
             const solutionSummary = document.getElementById('solutionSummary');
