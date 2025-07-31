@@ -1700,34 +1700,35 @@
     const url = document.getElementById('websiteUrl').value.trim();
     const continueBtn = document.getElementById('urlContinue');
     
-    // Check if URL has a proper domain ending (at least 2 characters after the last dot)
-    const domainPattern = /\.[a-zA-Z]{2,}$/;
-    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
-    
-    if (url && hasValidDomain) {
+    // Always enable continue button if they've typed something
+    if (url) {
         continueBtn.disabled = false;
     } else {
         continueBtn.disabled = true;
-        
-        // Show popup if they tried to enter something but it's missing domain ending
-        if (url && !hasValidDomain) {
-            alert('Please make sure you include an ending for the website, such as .com or .org');
-        }
     }
 }
 
-        function startLibraryInspection() {
-            let url = document.getElementById('websiteUrl').value.trim();
-            
-            // Add https:// if no protocol is present
-            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
-            }
-            
-            wizardData.websiteUrl = url;
-            document.getElementById('inspectionUrl').textContent = url;
-            nextStep('step-library-inspection');
-        }
+       function startLibraryInspection() {
+    let url = document.getElementById('websiteUrl').value.trim();
+    
+    // Validate domain ending when they click continue
+    const domainPattern = /\.[a-zA-Z]{2,}$/;
+    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
+    
+    if (!hasValidDomain) {
+        alert('Please make sure you include an ending for the website, such as .com or .org');
+        return; // Stop here, don't proceed
+    }
+    
+    // Add https:// if no protocol is present
+    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+    }
+    
+    wizardData.websiteUrl = url;
+    document.getElementById('inspectionUrl').textContent = url;
+    nextStep('step-library-inspection');
+}
 
         function selectLibraryFound(status) {
             document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
