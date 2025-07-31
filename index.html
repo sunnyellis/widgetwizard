@@ -1936,43 +1936,8 @@ function showWordPressPage2() {
     document.getElementById('wordpress-page1').style.display = 'none';
     document.getElementById('wordpress-page2').style.display = 'block';
 }
-
-function copyWordPressInstructions() {
-    const accountId = document.getElementById('wordpressAccountId').value.trim();
     
-    // Create rich text version (HTML) that matches what's displayed
-    const htmlContent = `Great news! Since you're using WordPress, you don't need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.<br><br><strong>1.</strong> Log in to your WordPress dashboard<br><strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br><strong>3.</strong> Search for "Givebutter" in the search box<br><strong>4.</strong> Click <strong>"Install Now"</strong> on the official Givebutter plugin<br><strong>5.</strong> After installation, click <strong>"Activate Plugin"</strong><br><strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: ${accountId}<br><strong>7.</strong> Save settings - your library code is now automatically installed!`;
-    
-    // Plain text fallback
-    const plainText = `Great news! Since you're using WordPress, you don't need to install code manually. 🎉 WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.
-
-1. Log in to your WordPress dashboard
-2. Go to Plugins → Add New in the left menu
-3. Search for "Givebutter" in the search box
-4. Click "Install Now" on the official Givebutter plugin
-5. After installation, click "Activate Plugin"
-6. Go to Settings → Givebutter and enter this Account ID: ${accountId}
-7. Save settings - your library code is now automatically installed!`;
-
-    // Copy as rich text with fallback to plain text
-    if (navigator.clipboard && window.ClipboardItem) {
-        navigator.clipboard.write([
-            new ClipboardItem({
-                'text/html': new Blob([htmlContent], {type: 'text/html'}),
-                'text/plain': new Blob([plainText], {type: 'text/plain'})
-            })
-        ]);
-    } else {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = plainText;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-    }
-
-    // Universal copy function for instruction boxes
+// Universal copy function for instruction boxes
 function copyInstructionBox(containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -2005,18 +1970,6 @@ function copyInstructionBox(containerId) {
         document.execCommand('copy');
         document.body.removeChild(textarea);
     }
-    
-    // Show success feedback
-    const button = event.target;
-    const originalText = button.innerHTML;
-    button.innerHTML = '✅ Copied!';
-    button.style.background = '#4CAF50';
-    
-    setTimeout(() => {
-        button.innerHTML = originalText;
-        button.style.background = '#9c27b0';
-    }, 2000);
-}
     
     // Show success feedback
     const button = event.target;
