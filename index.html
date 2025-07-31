@@ -1697,16 +1697,24 @@
         }
 
         function checkUrlInput() {
-            const url = document.getElementById('websiteUrl').value.trim();
-            const continueBtn = document.getElementById('urlContinue');
-            
-            // Accept URLs with or without protocol, as long as they look like a domain
-            if (url && (url.includes('.') || url.startsWith('http'))) {
-                continueBtn.disabled = false;
-            } else {
-                continueBtn.disabled = true;
-            }
+    const url = document.getElementById('websiteUrl').value.trim();
+    const continueBtn = document.getElementById('urlContinue');
+    
+    // Check if URL has a proper domain ending (at least 2 characters after the last dot)
+    const domainPattern = /\.[a-zA-Z]{2,}$/;
+    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
+    
+    if (url && hasValidDomain) {
+        continueBtn.disabled = false;
+    } else {
+        continueBtn.disabled = true;
+        
+        // Show popup if they tried to enter something but it's missing domain ending
+        if (url && !hasValidDomain) {
+            alert('Please make sure you include an ending for the website, such as .com or .org');
         }
+    }
+}
 
         function startLibraryInspection() {
             let url = document.getElementById('websiteUrl').value.trim();
