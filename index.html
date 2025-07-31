@@ -1036,7 +1036,32 @@
         <div style="margin-bottom: 15px;">
             <strong>4.</strong> Click the blue text that says <strong>Installation</strong>
             <div style="margin: 15px 0;">
-                <img src="https://i.imgur.com/T8HEVex.png" alt="Installation button location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px
+                <img src="https://i.imgur.com/T8HEVex.png" alt="Installation button location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>5.</strong> Choose <strong><span id="selectedPlatformName">[Platform Name]</span></strong>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong>6.</strong> Copy the library code
+            <div style="margin: 15px 0;">
+                <img src="https://https://i.imgur.com/hxx9XQQ.png" alt="Library code location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <label for="libraryCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their library code here:</label>
+        <textarea id="libraryCode" placeholder="Paste the library code here..." style="width: 100%; min-height: 80px; padding: 15px; border: 2px solid #ddd; border-radius: 12px; font-size: 1em; outline: none; resize: vertical;" rows="3" onkeyup="checkLibraryCode()"></textarea>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+        <button class="btn btn-primary" id="libraryCodeContinue" onclick="showPlatformInstructions()" disabled style="opacity: 0.5;">Got the Library Code →</button>
+    </div>
+</div>
 
 <!-- Get Library Code - WordPress -->
 <div id="step-get-library-code-wordpress" class="step-container">
