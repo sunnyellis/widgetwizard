@@ -1841,76 +1841,47 @@
         }
 
         function showPlatformInstructions() {
-            const platform = wizardData.platform;
-            const instructionsContent = document.getElementById('platformInstructionsContent');
-            const libraryCodeDisplay = document.getElementById('libraryCodeDisplay');
-            
-            document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(platform);
-            libraryCodeDisplay.textContent = wizardData.libraryCode;
-            
-            let instructions = '';
-            switch (platform) {
-                case 'squarespace':
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        1. Click on the <strong>Website</strong> heading in your Squarespace account.<br>
-                        2. Scroll down, and under the <strong>Utilities</strong> heading, click <strong>Website Tools</strong>.<br>
-                        3. Click <strong>Code Injection</strong>.<br>
-                        4. Under the <strong>Header</strong> section, paste the library code below, and save.
-                    `;
-                    break;
-                    
-                case 'wordpress':
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        1. Download and install the Givebutter WordPress plugin.<br>
-                        2. Go to your WordPress admin dashboard.<br>
-                        3. Navigate to the Givebutter plugin settings.<br>
-                        4. Enter your Givebutter account ID and save.
-                    `;
-                    break;
-                    
-                case 'wix':
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        1. Go to your Wix editor.<br>
-                        2. Click on the <strong>+</strong> button to add elements.<br>
-                        3. Go to <strong>Embed</strong> and select <strong>Custom Element</strong>.<br>
-                        4. Paste the library code in the HTML settings.
-                    `;
-                    break;
-                    
-                case 'godaddy':
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        1. Log in to your GoDaddy account.<br>
-                        2. Scroll to Websites + Marketing and select Manage next to your website.<br>
-                        3. Select Edit Website or Edit Site to open your website builder.<br>
-                        4. Go to the page and location you want to add your custom code, and add a section.<br>
-                        5. Search for HTML section and select Add. Paste the code below in the Custom Code field.
-                    `;
-                    break;
-                    
-                case 'weebly':
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        1. Log in to your Weebly account.<br>
-                        2. Navigate to Settings > SEO > Header code.<br>
-                        3. Copy and paste the code below in the Header Type text field.
-                    `;
-                    break;
-                    
-                default:
-                    instructions = `
-                        <em>To install the library on your webpage:</em><br>
-                        Please refer to your website builder's documentation for adding custom HTML/JavaScript code to the header section of your site.
-                    `;
-            }
-            
-            instructionsContent.innerHTML = instructions;
-            nextStep('step-platform-instructions');
-        }
-
+    const platform = wizardData.platform;
+    const libraryCode = document.getElementById('libraryCode').value.trim();
+    wizardData.libraryCode = libraryCode;
+    
+    // Route to platform-specific pages
+    if (platform === 'squarespace') {
+        document.getElementById('squarespaceLibraryCodeDisplay').textContent = libraryCode;
+        nextStep('step-get-library-code-squarespace');
+        return;
+    }
+    
+    if (platform === 'godaddy') {
+        // Will route to step-get-library-code-godaddy when that page is created
+        document.getElementById('godaddyLibraryCodeDisplay').textContent = libraryCode;
+        nextStep('step-get-library-code-godaddy');
+        return;
+    }
+    
+    if (platform === 'weebly') {
+        // Will route to step-get-library-code-weebly when that page is created
+        document.getElementById('weeblyLibraryCodeDisplay').textContent = libraryCode;
+        nextStep('step-get-library-code-weebly');
+        return;
+    }
+    
+    // For other platforms, use the generic platform instructions page
+    const instructionsContent = document.getElementById('platformInstructionsContent');
+    const libraryCodeDisplay = document.getElementById('libraryCodeDisplay');
+    
+    document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(platform);
+    libraryCodeDisplay.textContent = libraryCode;
+    
+    // Simple generic instructions for other platforms
+    const instructions = `
+        <em>To install the library on your webpage:</em><br>
+        Please refer to your website builder's documentation for adding custom HTML/JavaScript code to the header section of your site.
+    `;
+    
+    instructionsContent.innerHTML = instructions;
+    nextStep('step-platform-instructions');
+}
 // WordPress-specific functions
 function checkWordPressAccountId() {
     const accountId = document.getElementById('wordpressAccountId').value.trim();
