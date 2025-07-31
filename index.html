@@ -747,7 +747,7 @@
 
             <div class="action-buttons">
                     <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
-                    <button class="btn btn-secondary" onclick="restartWizard()">← Start Over</button>
+                    <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
                 </div>
             </div> 
 
@@ -1010,29 +1010,6 @@
                 </div>
             </div>
 
-            <!-- Wix Install (Special) -->
-            <div id="step-wix-install" class="step-container">
-                <div class="step-title">🎨 Wix Installation (Special)</div>
-                <div class="step-description">Wix is special - library and widget code are installed together in one Custom Element!</div>
-                
-                <div class="educational-tip-structured">
-                    <div class="step-header">🚧 This section is being built!</div>
-                    
-                    <div class="step-item">
-                        Wix uses Custom Elements that contain both library and widget code together. This makes it different from other platforms.
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-                        💡 This workflow will be completed soon with Wix-specific troubleshooting steps!
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
-                    <button class="btn btn-success" onclick="markProblemSolved('manual-completion')">Mark as resolved (manual)</button>
-                </div>
-            </div>
-
             <!-- Get Library Code -->
 <div id="step-get-library-code" class="step-container">
     <div class="step-title">Great, we'll walk them through installing the library code together.</div>
@@ -1152,7 +1129,7 @@
         <div style="margin-top: 20px;">
             <strong>1.</strong> Log in to your WordPress dashboard<br>
             <strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br>
-            <strong>3.</strong> Search for Givebutter in the search box<br>
+            <strong>3.</strong> Search for "Givebutter" in the search box<br>
             <strong>4.</strong> Click <strong>Install Now</strong> on the official Givebutter plugin<br>
             <strong>5.</strong> After installation, click <strong>Activate Plugin</strong><br>
             <strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: <span id="wordpressDisplayAccountId" style="background: #2d3748; color: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-weight: bold;">[Account ID will appear here]</span><br>
@@ -1182,9 +1159,8 @@
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="showWordPressPage1()">← Back to Account ID</button>
-        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+        <button class="btn btn-primary" onclick="nextStep('step-platform-instructions')">Continue →</button>
     </div>
-</div>
 </div>
 
 <!-- Get Library Code - Squarespace -->
@@ -1217,39 +1193,6 @@
         <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
     </div>
 </div>
-
-<!-- Get Library Code - GoDaddy -->
-<div id="step-get-library-code-godaddy" class="step-container">
-    <!-- Page 2: Customer Instructions -->
-    <div class="step-title">Give your customer these steps to install the widget library on their GoDaddy site.</div>
-    
-    <div class="solution-title">💬 What to tell your customer:</div>
-    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="godaddyCustomerInstructions">
-        To install the library on your GoDaddy website, please follow these steps:
-        
-        <div style="margin-top: 20px;">
-            <strong>1.</strong> Log in to your GoDaddy account.<br>
-            <strong>2.</strong> Scroll to <strong>Websites + Marketing</strong> and select <strong>Manage</strong> next to your website to open your site.<br>
-            <strong>3.</strong> Select <strong>Edit Website</strong> or <strong>Edit Site</strong> to open your website builder.<br>
-            <strong>4.</strong> Go to the page and location you want to add your custom code, and add a section.<br>
-            <strong>5.</strong> Search for <strong>HTML section</strong> and select <strong>Add</strong>. Paste the code below in the Custom Code field.
-        </div>
-        
-        <div class="code-block" id="godaddyLibraryCodeDisplay">[Library code will appear here]</div>
-        
-        <div style="margin-top: 20px; text-align: center;">
-            <button onclick="copyGoDaddyInstructions()" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-                📋 Copy Instructions for Customer
-            </button>
-        </div>
-    </div>
-
-    <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
-        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
-    </div>
-</div>
-
             <!-- Platform Installation Instructions -->
             <div id="step-platform-instructions" class="step-container">
                 <div class="step-title">🔧 Platform Installation Instructions</div>
@@ -1488,7 +1431,7 @@
         function showIncompatibleFromResearch() {
             const platformName = wizardData.otherPlatformName;
             document.getElementById('genericIncompatibleMessage').textContent = 
-                '"After checking, I confirmed that ' + platformName + ' doesn\'t currently support Givebutter widgets. But don\'t worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"';
+                `"After checking, I confirmed that ${platformName} doesn't currently support Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
             nextStep('step-generic-incompatible');
         }
 
@@ -1658,7 +1601,7 @@
             
             if (['free', 'personal', 'basic'].includes(wizardData.plan)) {
                 const requiredPlan = getRequiredPlan(wizardData.platform);
-                incompatibleMessage.textContent = '"After checking, it looks like you need to be on the ' + requiredPlan + ' plan with ' + platformName + ' to use Givebutter widgets. But don\'t worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"';
+                incompatibleMessage.textContent = `"After checking, it looks like you need to be on the ${requiredPlan} plan with ${platformName} to use Givebutter widgets. But don't worry - you can still share your campaign link directly on your website and on social media. 😊 Would you like directions on how to do that?"`;
             }
             
             nextStep('step-incompatible');
@@ -1781,38 +1724,38 @@
         }
 
         function checkUrlInput() {
-            const url = document.getElementById('websiteUrl').value.trim();
-            const continueBtn = document.getElementById('urlContinue');
-            
-            // Always enable continue button if they've typed something
-            if (url) {
-                continueBtn.disabled = false;
-            } else {
-                continueBtn.disabled = true;
-            }
-        }
+    const url = document.getElementById('websiteUrl').value.trim();
+    const continueBtn = document.getElementById('urlContinue');
+    
+    // Always enable continue button if they've typed something
+    if (url) {
+        continueBtn.disabled = false;
+    } else {
+        continueBtn.disabled = true;
+    }
+}
 
-        function startLibraryInspection() {
-            let url = document.getElementById('websiteUrl').value.trim();
-            
-            // Validate domain ending when they click continue
-            const domainPattern = /\.[a-zA-Z]{2,}$/;
-            const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
-            
-            if (!hasValidDomain) {
-                alert('Please make sure you include an ending for the website, such as .com or .org');
-                return; // Stop here, don't proceed
-            }
-            
-            // Add https:// if no protocol is present
-            if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
-            }
-            
-            wizardData.websiteUrl = url;
-            document.getElementById('inspectionUrl').textContent = url;
-            nextStep('step-library-inspection');
-        }
+       function startLibraryInspection() {
+    let url = document.getElementById('websiteUrl').value.trim();
+    
+    // Validate domain ending when they click continue
+    const domainPattern = /\.[a-zA-Z]{2,}$/;
+    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
+    
+    if (!hasValidDomain) {
+        alert('Please make sure you include an ending for the website, such as .com or .org');
+        return; // Stop here, don't proceed
+    }
+    
+    // Add https:// if no protocol is present
+    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+    }
+    
+    wizardData.websiteUrl = url;
+    document.getElementById('inspectionUrl').textContent = url;
+    nextStep('step-library-inspection');
+}
 
         function selectLibraryFound(status) {
             document.querySelectorAll('#step-library-inspection .option-button').forEach(btn => {
@@ -1825,31 +1768,31 @@
         }
 
         function handleLibraryResult() {
-            if (wizardData.libraryFound === 'found') {
-                nextStep('step-widget-check');
-            } else {
-                // Wix is special - library and widget code install together
-                if (wizardData.platform === 'wix') {
-                    nextStep('step-wix-install');
-                } else {
-                    nextStep('step-library-install');
-                }
-            }
+    if (wizardData.libraryFound === 'found') {
+        nextStep('step-widget-check');
+    } else {
+        // Wix is special - library and widget code install together
+        if (wizardData.platform === 'wix') {
+            nextStep('step-wix-install');
+        } else {
+            nextStep('step-library-install');
         }
+    }
+}
 
         function checkLibraryCode() {
-            const code = document.getElementById('libraryCode').value.trim();
-            const continueBtn = document.getElementById('libraryCodeContinue');
-            
-            if (code && code.includes('widgets.givebutter.com')) {
-                continueBtn.disabled = false;
-                continueBtn.style.opacity = '1';
-                wizardData.libraryCode = code;
-            } else {
-                continueBtn.disabled = true;
-                continueBtn.style.opacity = '0.5';
-            }
-        }
+    const code = document.getElementById('libraryCode').value.trim();
+    const continueBtn = document.getElementById('libraryCodeContinue');
+    
+    if (code && code.includes('widgets.givebutter.com')) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.libraryCode = code;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
 
         function selectInstallOption(option) {
             document.querySelectorAll('#step-library-install .option-button').forEach(btn => {
@@ -1861,27 +1804,23 @@
             document.getElementById('installOptionContinue').disabled = false;
         }
 
-        function handleInstallOption() {
-            if (wizardData.installOption === 'step-by-step') {
-                if (wizardData.platform === 'wordpress') {
-                    nextStep('step-get-library-code-wordpress');
-                } else if (wizardData.platform === 'squarespace') {
-                    nextStep('step-get-library-code-squarespace');
-                } else if (wizardData.platform === 'godaddy') {
-                    nextStep('step-get-library-code-godaddy');
-                } else {
-                    // Set the platform name for the library code page
-                    if (wizardData.platform === 'other') {
-                        document.getElementById('selectedPlatformName').textContent = 'Other';
-                    } else {
-                        document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
-                    }
-                    nextStep('step-get-library-code');
-                }
+      function handleInstallOption() {
+    if (wizardData.installOption === 'step-by-step') {
+        if (wizardData.platform === 'wordpress') {
+            nextStep('step-get-library-code-wordpress');
+        } else {
+            // Set the platform name for the library code page
+            if (wizardData.platform === 'other') {
+                document.getElementById('selectedPlatformName').textContent = 'Other';
             } else {
-                nextStep('step-widget-check');
+                document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
             }
+            nextStep('step-get-library-code');
         }
+    } else {
+        nextStep('step-widget-check');
+    }
+}
 
         function selectPlatformInstructionChoice(choice) {
             document.querySelectorAll('#step-platform-instructions .option-button').forEach(btn => {
@@ -1972,140 +1911,79 @@
             nextStep('step-platform-instructions');
         }
 
-        // WordPress-specific functions
-        function checkWordPressAccountId() {
-            const accountId = document.getElementById('wordpressAccountId').value.trim();
-            const continueBtn = document.getElementById('wordpressContinueBtn');
-            
-            if (accountId) {
-                continueBtn.disabled = false;
-                continueBtn.style.opacity = '1';
-            } else {
-                continueBtn.disabled = true;
-                continueBtn.style.opacity = '0.5';
-            }
-        }
+// WordPress-specific functions
+function checkWordPressAccountId() {
+    const accountId = document.getElementById('wordpressAccountId').value.trim();
+    const continueBtn = document.getElementById('wordpressContinueBtn');
+    
+    if (accountId) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
 
-        function showWordPressPage1() {
-            document.getElementById('wordpress-page1').style.display = 'block';
-            document.getElementById('wordpress-page2').style.display = 'none';
-        }
+function showWordPressPage1() {
+    document.getElementById('wordpress-page1').style.display = 'block';
+    document.getElementById('wordpress-page2').style.display = 'none';
+}
 
-        function showWordPressPage2() {
-            const accountId = document.getElementById('wordpressAccountId').value.trim();
-            document.getElementById('wordpressDisplayAccountId').textContent = accountId;
-            
-            document.getElementById('wordpress-page1').style.display = 'none';
-            document.getElementById('wordpress-page2').style.display = 'block';
-        }
+function showWordPressPage2() {
+    const accountId = document.getElementById('wordpressAccountId').value.trim();
+    document.getElementById('wordpressDisplayAccountId').textContent = accountId;
+    
+    document.getElementById('wordpress-page1').style.display = 'none';
+    document.getElementById('wordpress-page2').style.display = 'block';
+}
 
-        function copyWordPressInstructions() {
-            const accountId = document.getElementById('wordpressAccountId').value.trim();
-            
-            // Create rich text version (HTML) that matches what's displayed
-            const htmlContent = 'Great news! Since you\'re using WordPress, you don\'t need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.<br><br><strong>1.</strong> Log in to your WordPress dashboard<br><strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br><strong>3.</strong> Search for Givebutter in the search box<br><strong>4.</strong> Click <strong>Install Now</strong> on the official Givebutter plugin<br><strong>5.</strong> After installation, click <strong>Activate Plugin</strong><br><strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: ' + accountId + '<br><strong>7.</strong> Save settings - your library code is now automatically installed!';
-            
-            // Plain text fallback
-            const plainText = 'Great news! Since you\'re using WordPress, you don\'t need to install code manually. 🎉 WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.\n\n1. Log in to your WordPress dashboard\n2. Go to Plugins → Add New in the left menu\n3. Search for Givebutter in the search box\n4. Click Install Now on the official Givebutter plugin\n5. After installation, click Activate Plugin\n6. Go to Settings → Givebutter and enter this Account ID: ' + accountId + '\n7. Save settings - your library code is now automatically installed!';
+function copyWordPressInstructions() {
+    const accountId = document.getElementById('wordpressAccountId').value.trim();
+    
+    // Create rich text version (HTML) that matches what's displayed
+    const htmlContent = `Great news! Since you're using WordPress, you don't need to install code manually. WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.<br><br><strong>1.</strong> Log in to your WordPress dashboard<br><strong>2.</strong> Go to <strong>Plugins → Add New</strong> in the left menu<br><strong>3.</strong> Search for "Givebutter" in the search box<br><strong>4.</strong> Click <strong>"Install Now"</strong> on the official Givebutter plugin<br><strong>5.</strong> After installation, click <strong>"Activate Plugin"</strong><br><strong>6.</strong> Go to <strong>Settings → Givebutter</strong> and enter this Account ID: ${accountId}<br><strong>7.</strong> Save settings - your library code is now automatically installed!`;
+    
+    // Plain text fallback
+    const plainText = `Great news! Since you're using WordPress, you don't need to install code manually. 🎉 WordPress has a much easier way - we have an official Givebutter plugin that handles everything automatically. Let me walk you through installing it.
 
-            // Copy as rich text with fallback to plain text
-            if (navigator.clipboard && window.ClipboardItem) {
-                navigator.clipboard.write([
-                    new ClipboardItem({
-                        'text/html': new Blob([htmlContent], {type: 'text/html'}),
-                        'text/plain': new Blob([plainText], {type: 'text/plain'})
-                    })
-                ]);
-            } else {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = plainText;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-            
-            // Show success feedback
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '✅ Copied!';
-            button.style.background = '#4CAF50';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '#9c27b0';
-            }, 2000);
-        }
+1. Log in to your WordPress dashboard
+2. Go to Plugins → Add New in the left menu
+3. Search for "Givebutter" in the search box
+4. Click "Install Now" on the official Givebutter plugin
+5. After installation, click "Activate Plugin"
+6. Go to Settings → Givebutter and enter this Account ID: ${accountId}
+7. Save settings - your library code is now automatically installed!`;
 
-        // Platform-specific copy functions using safe string concatenation
-        function copySquarespaceInstructions() {
-            const libraryCode = wizardData.libraryCode || '<script src="https://widgets.givebutter.com/latest.umd.cjs"></script>';
-            
-            const htmlContent = 'To install the library on your Squarespace website, please follow these steps:<br><br><strong>1.</strong> Click on the <strong>Website</strong> heading in your Squarespace account.<br><strong>2.</strong> Scroll down, and under the <strong>Utilities</strong> heading, click <strong>Website Tools</strong>.<br><strong>3.</strong> Click <strong>Code Injection</strong>.<br><strong>4.</strong> Under the <strong>Header</strong> section, paste the library code below, and save.<br><br>' + libraryCode;
-            
-            const plainText = 'To install the library on your Squarespace website, please follow these steps:\n\n1. Click on the Website heading in your Squarespace account.\n2. Scroll down, and under the Utilities heading, click Website Tools.\n3. Click Code Injection.\n4. Under the Header section, paste the library code below, and save.\n\n' + libraryCode;
-
-            if (navigator.clipboard && window.ClipboardItem) {
-                navigator.clipboard.write([
-                    new ClipboardItem({
-                        'text/html': new Blob([htmlContent], {type: 'text/html'}),
-                        'text/plain': new Blob([plainText], {type: 'text/plain'})
-                    })
-                ]);
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = plainText;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-            
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '✅ Copied!';
-            button.style.background = '#4CAF50';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '#9c27b0';
-            }, 2000);
-        }
-
-        function copyGoDaddyInstructions() {
-            const libraryCode = wizardData.libraryCode || '<script src="https://widgets.givebutter.com/latest.umd.cjs"></script>';
-            
-            const htmlContent = 'To install the library on your GoDaddy website, please follow these steps:<br><br><strong>1.</strong> Log in to your GoDaddy account.<br><strong>2.</strong> Scroll to <strong>Websites + Marketing</strong> and select <strong>Manage</strong> next to your website to open your site.<br><strong>3.</strong> Select <strong>Edit Website</strong> or <strong>Edit Site</strong> to open your website builder.<br><strong>4.</strong> Go to the page and location you want to add your custom code, and add a section.<br><strong>5.</strong> Search for <strong>HTML section</strong> and select <strong>Add</strong>. Paste the code below in the Custom Code field.<br><br>' + libraryCode;
-            
-            const plainText = 'To install the library on your GoDaddy website, please follow these steps:\n\n1. Log in to your GoDaddy account.\n2. Scroll to Websites + Marketing and select Manage next to your website to open your site.\n3. Select Edit Website or Edit Site to open your website builder.\n4. Go to the page and location you want to add your custom code, and add a section.\n5. Search for HTML section and select Add. Paste the code below in the Custom Code field.\n\n' + libraryCode;
-
-            if (navigator.clipboard && window.ClipboardItem) {
-                navigator.clipboard.write([
-                    new ClipboardItem({
-                        'text/html': new Blob([htmlContent], {type: 'text/html'}),
-                        'text/plain': new Blob([plainText], {type: 'text/plain'})
-                    })
-                ]);
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = plainText;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-            
-            const button = event.target;
-            const originalText = button.innerHTML;
-            button.innerHTML = '✅ Copied!';
-            button.style.background = '#4CAF50';
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.style.background = '#9c27b0';
-            }, 2000);
-        }
+    // Copy as rich text with fallback to plain text
+    if (navigator.clipboard && window.ClipboardItem) {
+        navigator.clipboard.write([
+            new ClipboardItem({
+                'text/html': new Blob([htmlContent], {type: 'text/html'}),
+                'text/plain': new Blob([plainText], {type: 'text/plain'})
+            })
+        ]);
+    } else {
+        // Fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = plainText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+    
+    // Show success feedback
+    const button = event.target;
+    const originalText = button.innerHTML;
+    button.innerHTML = '✅ Copied!';
+    button.style.background = '#4CAF50';
+    
+    setTimeout(() => {
+        button.innerHTML = originalText;
+        button.style.background = '#9c27b0';
+    }, 2000);
+}
 
         function markProblemSolved(solutionType) {
             const solutionSummary = document.getElementById('solutionSummary');
@@ -2119,7 +1997,7 @@
                     summary = 'Payout method was not connected - provided customer with payout setup instructions.';
                     break;
                 case 'library-installed':
-                    summary = 'Library code was missing - provided ' + getPlatformDisplayName(wizardData.platform) + '-specific installation instructions.';
+                    summary = `Library code was missing - provided ${getPlatformDisplayName(wizardData.platform)}-specific installation instructions.`;
                     break;
                 case 'manual-completion':
                     summary = 'Issue resolved through manual troubleshooting steps.';
@@ -2134,20 +2012,6 @@
 
         // Initialize wizard
         updateNavButtons();
-
-        // Update library code displays when navigating to platform-specific pages
-        function updateLibraryCodeDisplays() {
-            const libraryCode = wizardData.libraryCode || '<script src="https://widgets.givebutter.com/latest.umd.cjs"></script>';
-            
-            // Update all platform-specific displays
-            const displays = ['squarespaceLibraryCodeDisplay', 'godaddyLibraryCodeDisplay'];
-            displays.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = libraryCode;
-                }
-            });
-        }
     </script>
 </body>
 </html>
