@@ -1194,6 +1194,68 @@
         <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
     </div>
 </div>
+
+<!-- Get Library Code - GoDaddy -->
+<div id="step-get-library-code-godaddy" class="step-container">
+    <!-- Page 2: User Instructions -->
+    <div class="step-title">Give your User these steps to install the widget library on their GoDaddy site.</div>
+    
+    <div class="solution-title">💬 What to tell your User:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="godaddyUserInstructions">
+        To install the library on your GoDaddy website, please follow these steps:
+        
+        <div style="margin-top: 20px;">
+            <strong>1.</strong> Log in to your GoDaddy account.<br>
+            <strong>2.</strong> Scroll to <strong>Websites + Marketing</strong> and select <strong>Manage</strong> next to your website to open your site.<br>
+            <strong>3.</strong> Select <strong>Edit Website</strong> or <strong>Edit Site</strong> to open your website builder.<br>
+            <strong>4.</strong> Go to the page and location you want to add your custom code, and add a section.<br>
+            <strong>5.</strong> Search for <strong>HTML section</strong> and select <strong>Add</strong>. Paste the code below in the <strong>Custom Code</strong> field.
+        </div>
+        
+        <div class="code-block" id="godaddyLibraryCodeDisplay">[Library code will appear here]</div>
+    </div>
+        
+        <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+            <button onclick="copyInstructionBox('godaddyUserInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                📋 Copy Instructions for User
+            </button>
+        </div>
+
+    <!-- Get Library Code - Weebly -->
+<div id="step-get-library-code-weebly" class="step-container">
+    <!-- Page 2: User Instructions -->
+    <div class="step-title">Give your User these steps to install the widget library on their Weebly site.</div>
+    
+    <div class="solution-title">💬 What to tell your User:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="weeblyUserInstructions">
+        To install the library on your Weebly website, please follow these steps:
+        
+        <div style="margin-top: 20px;">
+            <strong>1.</strong> Log in to your Weebly account.<br>
+            <strong>2.</strong> Navigate to <strong>Settings → SEO → Header code</strong>.<br>
+            <strong>3.</strong> Copy and paste the code below in the <strong>Header Type</strong> text field.
+        </div>
+        
+        <div class="code-block" id="weeblyLibraryCodeDisplay">[Library code will appear here]</div>
+    </div>
+        
+        <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+            <button onclick="copyInstructionBox('weeblyUserInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                📋 Copy Instructions for User
+            </button>
+        </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+    </div>
+</div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+    </div>
+</div>
             <!-- Platform Installation Instructions -->
             <div id="step-platform-instructions" class="step-container">
                 <div class="step-title">🔧 Platform Installation Instructions</div>
