@@ -915,7 +915,7 @@
 
                 <div class="action-buttons">
                     <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-                    <button class="btn btn-primary" onclick="nextStep('step-library-check')">Check Library Code →</button>
+                    <button class="btn btn-primary" id="libraryCheckButton" onclick="nextStep('step-library-check')">Check Library Code →</button>
                 </div>
             </div>
 
@@ -1906,7 +1906,7 @@ function getWidgetTypeDisplayName(type) {
 
         function toggleLibraryConfirmed() {
     const checkbox = document.getElementById('libraryConfirmed');
-    const continueButton = document.querySelector('button[onclick="nextStep(\'step-library-check\')"]');
+    const continueButton = document.getElementById('libraryCheckButton');
     
     if (checkbox.checked) {
         continueButton.textContent = 'Continue →';
