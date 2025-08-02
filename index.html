@@ -900,7 +900,7 @@
                 <div class="action-buttons">
                     <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                     <button class="btn btn-primary" onclick="nextStep('step-library-check')">Check Library Code →</button>
-                    <button class="btn btn-warning" id="skipToWidget" onclick="nextStep('step-widget-check')" style="display: none;">Skip to Widget Check →</button>
+                    <button class="btn btn-warning" id="skipToWidget" onclick="nextStep('step-widget-code-detection')" style="display: none;">Skip to Widget Check →</button>
                 </div>
             </div>
 
@@ -1271,7 +1271,7 @@
                     <button class="option-button" onclick="selectPlatformInstructionChoice('solved')">
                         <span>✅</span> Done, that solved it!
                     </button>
-                    <button class="option-button" onclick="selectPlatformInstructionChoice('widget-check')">
+                    <button class="option-button" onclick="selectPlatformInstructionChoice('widget-detection')">
                         <span>➡️</span> Now check widget code
                     </button>
                 </div>
@@ -1306,30 +1306,109 @@
                 </div>
             </div>
 
-            <!-- Widget Check -->
-            <div id="step-widget-check" class="step-container">
-                <div class="step-title">📝 Step 4.2: Widget Code Check</div>
-                <div class="step-description">Now let's check if the widget code itself is installed on their website.</div>
-                
-                <div class="educational-tip-structured">
-                    <div class="step-header">🚧 This section is being built!</div>
-                    
-                    <div class="step-item">
-                        For now, you can use the troubleshooting knowledge from the previous steps to guide the User through widget code installation.
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
-                        💡 This workflow will be completed soon with the same systematic approach as the library code check!
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-                    <button class="btn btn-success" onclick="markProblemSolved('manual-completion')">Mark as resolved (manual)</button>
-                </div>
-            </div>
+            <!-- Step 5: Widget Code Detection -->
+<div id="step-widget-code-detection" class="step-container">
+    <div class="step-title">📝 Step 5: Widget Code Detection</div>
+    <div class="step-description">Time to find their specific <strong id="widgetTypeDisplay">Button Widget</strong> code and check if it's installed correctly.</div>
+    
+    <div style="background: #e3f2fd; border: 2px solid #2196F3; border-radius: 12px; padding: 15px; margin: 10px 0 20px 0; color: #1565c0;">
+        <strong>💡 Quick note:</strong> More than one widget can be installed on a website. For now, we'll troubleshoot the specific widget they asked about. You can follow these instructions for any additional widgets that might be causing them trouble.
+    </div>
+    
+    <div style="color: #666; margin-bottom: 20px;">
+        Follow this guide to find the user's exact widget code.
+    </div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 Steps for you:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> Click <strong>Widgets</strong>
+        </div>
+        
+        <div class="step-item">
+            <strong>4.</strong> Find their <strong id="widgetTypeDisplay2">Button Widget</strong> and click the <strong>Embed</strong> button.
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/example-widget-selection.png" alt="Widget selection location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Selection Screenshot]</div>
+        </div>
+        
+        <div class="step-item">
+            <strong>5.</strong> Copy the entire widget code block
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/example-widget-code.png" alt="Widget code location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Code Screenshot]</div>
         </div>
     </div>
+    
+    <div style="margin: 20px 0;">
+        <label for="userWidgetCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <span id="widgetTypeDisplay3">Button Widget</span> code here:</label>
+        <textarea id="userWidgetCode" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="3" onkeyup="checkWidgetCode()"></textarea>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="widgetCodeContinue" onclick="proceedToWidgetSearch()" disabled style="opacity: 0.5;">Got the Widget Code →</button>
+    </div>
+</div>
+
+<!-- Step 5: Widget Code Detection -->
+<div id="step-widget-code-detection" class="step-container">
+    <div class="step-title">📝 Step 5: Widget Code Detection</div>
+    <div class="step-description">Time to find their specific <strong id="widgetTypeDisplay">Button Widget</strong> code and check if it's installed correctly.</div>
+    
+    <div style="background: #e3f2fd; border: 2px solid #2196F3; border-radius: 12px; padding: 15px; margin: 10px 0 20px 0; color: #1565c0;">
+        <strong>💡 Quick note:</strong> More than one widget can be installed on a website. For now, we'll troubleshoot the specific widget they asked about. You can follow these instructions for any additional widgets that might be causing them trouble.
+    </div>
+    
+    <div style="color: #666; margin-bottom: 20px;">
+        Follow this guide to find the user's exact widget code.
+    </div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 Steps for you:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> Click <strong>Widgets</strong>
+        </div>
+        
+        <div class="step-item">
+            <strong>4.</strong> Find their <strong id="widgetTypeDisplay2">Button Widget</strong> and click the <strong>Embed</strong> button.
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/example-widget-selection.png" alt="Widget selection location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Selection Screenshot]</div>
+        </div>
+        
+        <div class="step-item">
+            <strong>5.</strong> Copy the entire widget code block
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/example-widget-code.png" alt="Widget code location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Code Screenshot]</div>
+        </div>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <label for="userWidgetCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <span id="widgetTypeDisplay3">Button Widget</span> code here:</label>
+        <textarea id="userWidgetCode" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="3" onkeyup="checkWidgetCode()"></textarea>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="widgetCodeContinue" onclick="proceedToWidgetSearch()" disabled style="opacity: 0.5;">Got the Widget Code →</button>
+    </div>
+</div>
 
     <script>
         // Global state
@@ -1345,7 +1424,9 @@
             libraryFound: null,
             compatibilityStatus: null,
             installOption: null,
-            platformInstructionChoice: null
+            platformInstructionChoice: null,
+            widgetCode: null,
+            widgetFound: null
         };
 
         const stepOrder = [
@@ -1697,17 +1778,33 @@
         }
 
         function handleWidgetTypeSelection() {
-            if (wizardData.widgetType === 'signup') {
-                nextStep('step-code-collection');
-            } else {
-                // Set platform name (handles both regular platforms and "other")
-                const displayName = wizardData.platform === 'other' ? 
-                    wizardData.otherPlatformName : 
-                    getPlatformDisplayName(wizardData.platform);
-                document.getElementById('platformName').textContent = displayName;
-                nextStep('step-payout-check');
-            }
-        }
+    // Update widget type display throughout the wizard
+    const widgetTypeText = getWidgetTypeDisplayName(wizardData.widgetType);
+    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4').forEach(element => {
+        element.textContent = widgetTypeText;
+    });
+    
+    if (wizardData.widgetType === 'signup') {
+        nextStep('step-code-collection');
+    } else {
+        // Set platform name (handles both regular platforms and "other")
+        const displayName = wizardData.platform === 'other' ? 
+            wizardData.otherPlatformName : 
+            getPlatformDisplayName(wizardData.platform);
+        document.getElementById('platformName').textContent = displayName;
+        nextStep('step-payout-check');
+    }
+}
+
+function getWidgetTypeDisplayName(type) {
+    const names = {
+        'button': 'Button Widget',
+        'form': 'Form Widget',
+        'goalbar': 'Goal Bar Widget',
+        'signup': 'Signup Form Widget'
+    };
+    return names[type] || 'Widget';
+}
 
         // Payout status functions
         function selectPayoutStatus(status) {
@@ -2035,6 +2132,66 @@ function copyInstructionBox(containerId) {
             solutionSummary.textContent = summary;
             nextStep('step-problem-solved');
         }
+
+// Widget code detection functions
+function checkWidgetCode() {
+    const code = document.getElementById('userWidgetCode').value.trim();
+    const continueBtn = document.getElementById('widgetCodeContinue');
+    
+    if (code && code.includes('givebutter-widget')) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.widgetCode = code;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function proceedToWidgetSearch() {
+    // Check if we already have website URL from library check
+    if (wizardData.websiteUrl) {
+        // Skip URL collection and go straight to widget search
+        nextStep('step-widget-search');
+    } else {
+        // Need to collect website URL first
+        nextStep('step-website-url');
+    }
+}
+
+function checkWidgetUrlInput() {
+    const url = document.getElementById('widgetWebsiteUrl').value.trim();
+    const continueBtn = document.getElementById('widgetUrlContinue');
+    
+    if (url) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function proceedToWidgetInspection() {
+    let url = document.getElementById('widgetWebsiteUrl').value.trim();
+    
+    // Validate domain ending
+    const domainPattern = /\.[a-zA-Z]{2,}$/;
+    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
+    
+    if (!hasValidDomain) {
+        alert('Please make sure you include an ending for the website, such as .com or .org');
+        return;
+    }
+    
+    // Add https:// if no protocol is present
+    if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+    }
+    
+    wizardData.websiteUrl = url;
+    nextStep('step-widget-search');
+}
 
         // Initialize wizard
         updateNavButtons();
