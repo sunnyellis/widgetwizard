@@ -900,7 +900,6 @@
                 <div class="action-buttons">
                     <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                     <button class="btn btn-primary" onclick="nextStep('step-library-check')">Check Library Code →</button>
-                    <button class="btn btn-warning" id="skipToWidget" onclick="nextStep('step-widget-code-detection')" style="display: none;">Skip to Widget Check →</button>
                 </div>
             </div>
 
@@ -1862,17 +1861,17 @@ function getWidgetTypeDisplayName(type) {
 
         function toggleLibraryConfirmed() {
     const checkbox = document.getElementById('libraryConfirmed');
-    const checkButton = document.querySelector('button[onclick="nextStep(\'step-library-check\')"]');
-    const skipButton = document.getElementById('skipToWidget');
+    const continueButton = document.querySelector('button[onclick="nextStep(\'step-library-check\')"]');
     
     if (checkbox.checked) {
-        checkButton.style.display = 'none';
-        skipButton.style.display = 'inline-flex';
+        continueButton.textContent = 'Continue →';
+        continueButton.onclick = function() { nextStep('step-widget-code-detection'); };
     } else {
-        checkButton.style.display = 'inline-flex';
-        skipButton.style.display = 'none';
+        continueButton.textContent = 'Check Library Code →';
+        continueButton.onclick = function() { nextStep('step-library-check'); };
     }
 }
+
         function checkUrlInput() {
     const url = document.getElementById('websiteUrl').value.trim();
     const continueBtn = document.getElementById('urlContinue');
