@@ -1433,7 +1433,9 @@
             'step-campaign-published',
             'step-code-collection',
             'step-library-check',
-            'step-library-inspection'
+            'step-library-inspection',
+             'step-widget-code-detection',
+             'step-website-url'
         ];
 
         // Prevent accidental navigation away from wizard
@@ -1462,11 +1464,38 @@
         }
 
         function goToPreviousStep() {
-            const currentIndex = stepOrder.indexOf(currentStep);
-            if (currentIndex > 0) {
-                previousStep(stepOrder[currentIndex - 1]);
-            }
+    // Handle special cases where steps were skipped
+    if (currentStep === 'step-widget-type') {
+        // If they skipped plan check, go back to platform
+        const skipCheck = document.getElementById('skipCheck');
+        if (skipCheck && skipCheck.checked) {
+            previousStep('step-platform');
+            return;
         }
+    }
+    
+    if (currentStep === 'step-widget-code-detection') {
+        // If they skipped library check, go back to code collection
+        const libraryConfirmed = document.getElementById('libraryConfirmed');
+        if (libraryConfirmed && libraryConfirmed.checked) {
+            previousStep('step-code-collection');
+            return;
+        }
+    }
+    
+    // Default behavior - use step order
+    const currentIndex = stepOrder.indexOf(currentStep);
+    if (currentIndex > 0) {
+        previousStep(stepOrder[currentIndex - 1]);
+    }
+}
+    
+    // Default behavior - use step order
+    const currentIndex = stepOrder.indexOf(currentStep);
+    if (currentIndex > 0) {
+        previousStep(stepOrder[currentIndex - 1]);
+    }
+}
 
         function updateNavButtons() {
             const prevBtn = document.getElementById('prevBtn');
