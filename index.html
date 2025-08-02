@@ -1864,18 +1864,19 @@ function getWidgetTypeDisplayName(type) {
             }
         }
 
-        // Library code functions
         function toggleLibraryConfirmed() {
-            const checkbox = document.getElementById('libraryConfirmed');
-            const skipButton = document.getElementById('skipToWidget');
-            
-            if (checkbox.checked) {
-                skipButton.style.display = 'inline-flex';
-            } else {
-                skipButton.style.display = 'none';
-            }
-        }
-
+    const checkbox = document.getElementById('libraryConfirmed');
+    const checkButton = document.querySelector('button[onclick="nextStep(\'step-library-check\')"]');
+    const skipButton = document.getElementById('skipToWidget');
+    
+    if (checkbox.checked) {
+        checkButton.style.display = 'none';
+        skipButton.style.display = 'inline-flex';
+    } else {
+        checkButton.style.display = 'inline-flex';
+        skipButton.style.display = 'none';
+    }
+}
         function checkUrlInput() {
     const url = document.getElementById('websiteUrl').value.trim();
     const continueBtn = document.getElementById('urlContinue');
