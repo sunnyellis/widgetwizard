@@ -1409,12 +1409,12 @@
     
     <div style="margin: 20px 0 0 0;">
         <label for="userWidgetCodeWordpress" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong id="widgetTypeDisplayWP3">Button Widget</strong> code here:</label>
-        <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" onkeyup="checkWordpressWidgetCode()"></textarea>
+        <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px;" onkeyup="checkWordpressWidgetCode()"></textarea>
     </div>
 
     <div style="margin: 0 0 20px 0;">
         <label for="userShortcode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong>shortcode</strong> here:</label>
-        <input type="text" id="userShortcode" placeholder='Paste the shortcode here (should look like [givebutter id="..."])' class="shortcode-input" onkeyup="checkWordpressShortcode()">
+        <textarea id="userShortcode" placeholder='Paste the shortcode here (should look like [givebutter id="..."])' class="large-textarea" rows="1" style="min-height: 50px; resize: none;" onkeyup="checkWordpressShortcode()"></textarea>
     </div>
 
     <div class="action-buttons">
