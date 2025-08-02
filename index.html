@@ -1189,7 +1189,7 @@
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
-        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
     </div>
 </div>
 
@@ -1244,7 +1244,7 @@
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
-        <button class="btn btn-primary" onclick="nextStep('step-widget-check')">Continue →</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
     </div>
 </div>
 
@@ -1328,13 +1328,13 @@
         <div class="step-item">
             <strong>4.</strong> Find their <strong id="widgetTypeDisplay2">Button Widget</strong> and click the <strong>Embed</strong> button.
             <div style="margin: 15px 0;">
-                <img src="https://i.imgur.com/B7FJqig.png" alt="Embed button" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Selection Screenshot]</div>
+                <img src="https://i.imgur.com/B7FJqig.png" alt="Embed button" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">[Widget Selection Screenshot]</div>
         </div>
         
         <div class="step-item">
             <strong>5.</strong> Copy the entire widget code block
             <div style="margin: 15px 0;">
-                <img src="https://i.imgur.com/vhpSzj8.png" alt="Widget code example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; color: #666;">[Widget Code Screenshot]</div>
+                <img src="https://i.imgur.com/vhpSzj8.png" alt="Widget code example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">[Widget Code Screenshot]</div>
         </div>
     </div>
     
@@ -1345,7 +1345,7 @@
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-        <button class="btn btn-primary" id="widgetCodeContinue" onclick="proceedToWidgetSearch()" disabled style="opacity: 0.5;">Got the Widget Code →</button>
+        <button class="btn btn-primary" id="widgetCodeContinue" onclick="proceedToWidgetSearch()" disabled style="opacity: 0.5;">Continue →</button>
     </div>
 </div>
 
@@ -1936,7 +1936,7 @@ function getWidgetTypeDisplayName(type) {
 
         function handleLibraryResult() {
     if (wizardData.libraryFound === 'found') {
-        nextStep('step-widget-check');
+        nextStep('step-widget-code-detection');
     } else {
         // Wix is special - library and widget code install together
         if (wizardData.platform === 'wix') {
@@ -1985,7 +1985,7 @@ function getWidgetTypeDisplayName(type) {
             nextStep('step-get-library-code');
         }
     } else {
-        nextStep('step-widget-check');
+        nextStep('step-widget-code-detection');
     }
 }
 
@@ -2003,7 +2003,7 @@ function getWidgetTypeDisplayName(type) {
             if (wizardData.platformInstructionChoice === 'solved') {
                 markProblemSolved('library-installed');
             } else {
-                nextStep('step-widget-check');
+                nextStep('step-widget-code-detection');
             }
         }
 
