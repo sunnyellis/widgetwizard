@@ -462,7 +462,23 @@
             .action-buttons {
                 justify-content: center;
             }
-        }
+            .shortcode-input {
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-family: monospace;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.shortcode-input:focus {
+    border-color: #9c27b0;
+    box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+}
+        
     </style>
 </head>
 <body>
@@ -1349,6 +1365,64 @@
     </div>
 </div>
 
+            <!-- Step 5: Widget Code Detection - WordPress -->
+<div id="step-widget-code-detection-wordpress" class="step-container">
+    <div class="step-title">📝 Step 5: Widget Code Detection</div>
+    <div class="step-description">Time to find their specific <strong id="widgetTypeDisplayWP">Button Widget</strong> code and check if it's installed correctly. More than one widget can be installed on a website. For now, we'll troubleshoot the specific widget they asked about. You can follow these instructions for any additional widgets that might be causing them trouble.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 Steps for you:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> Click <strong>Widgets</strong>
+        </div>
+        
+        <div class="step-item">
+            <strong>4.</strong> Find their <strong id="widgetTypeDisplayWP2">Button Widget</strong> and click the <strong>Embed</strong> button.
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/B7FJqig.png" alt="Embed button" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+        
+        <div class="step-item">
+            <strong>5.</strong> Copy the entire widget code block and paste in the first box below.
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/vhpSzj8.png" alt="Widget code example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+        
+        <div class="step-item">
+            <strong>6.</strong> Also copy the shortcode. Paste that in the second box below.
+            <div style="margin: 15px 0;">
+                <img src="https://i.imgur.com/oHKF69U.png" alt="Shortcode example" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin: 20px 0 0 0;">
+        <label for="userWidgetCodeWordpress" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong id="widgetTypeDisplayWP3">Button Widget</strong> code here:</label>
+        <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" onkeyup="checkWordpressWidgetCode()"></textarea>
+    </div>
+
+    <div style="margin: 0 0 20px 0;">
+        <label for="userShortcode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong>shortcode</strong> here:</label>
+        <input type="text" id="userShortcode" placeholder='Paste the shortcode here (should look like [givebutter id="..."])' class="shortcode-input" onkeyup="checkWordpressShortcode()">
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="wordpressWidgetCodeContinue" onclick="proceedToWordpressWidgetSearch()" disabled style="opacity: 0.5;">Got the widget code →</button>
+    </div>
+</div>
+            
     <script>
         // Global state
         let currentStep = 'step-welcome';
@@ -1365,7 +1439,8 @@
             installOption: null,
             platformInstructionChoice: null,
             widgetCode: null,
-            widgetFound: null
+            widgetFound: null,
+            shortcode: null
         };
 
         const stepOrder = [
@@ -1379,6 +1454,7 @@
             'step-library-check',
             'step-library-inspection',
              'step-widget-code-detection',
+            'step-widget-code-detection-wordpress',
              'step-website-url'
         ];
 
@@ -1454,7 +1530,10 @@
                 libraryFound: null,
                 compatibilityStatus: null,
                 installOption: null,
-                platformInstructionChoice: null
+                platformInstructionChoice: null,
+                widgetCode: null,
+                widgetFound: null,
+                shortcode: null
             };
             nextStep('step-welcome');
         }
@@ -1831,7 +1910,11 @@ function getWidgetTypeDisplayName(type) {
     
     if (checkbox.checked) {
         continueButton.textContent = 'Continue →';
-        continueButton.onclick = function() { nextStep('step-widget-code-detection'); };
+        if (wizardData.platform === 'wordpress') {
+            continueButton.onclick = function() { nextStep('step-widget-code-detection-wordpress'); };
+        } else {
+            continueButton.onclick = function() { nextStep('step-widget-code-detection'); };
+        }
     } else {
         continueButton.textContent = 'Check Library Code →';
         continueButton.onclick = function() { nextStep('step-library-check'); };
@@ -1882,9 +1965,13 @@ function getWidgetTypeDisplayName(type) {
             document.getElementById('libraryFoundContinue').disabled = false;
         }
 
-        function handleLibraryResult() {
+       function handleLibraryResult() {
     if (wizardData.libraryFound === 'found') {
-        nextStep('step-widget-code-detection');
+        if (wizardData.platform === 'wordpress') {
+            nextStep('step-widget-code-detection-wordpress');
+        } else {
+            nextStep('step-widget-code-detection');
+        }
     } else {
         // Wix is special - library and widget code install together
         if (wizardData.platform === 'wix') {
@@ -1933,7 +2020,11 @@ function getWidgetTypeDisplayName(type) {
             nextStep('step-get-library-code');
         }
     } else {
-        nextStep('step-widget-code-detection');
+        if (wizardData.platform === 'wordpress') {
+            nextStep('step-widget-code-detection-wordpress');
+        } else {
+            nextStep('step-widget-code-detection');
+        }
     }
 }
 
@@ -1948,13 +2039,16 @@ function getWidgetTypeDisplayName(type) {
         }
 
         function handlePlatformInstructions() {
-            if (wizardData.platformInstructionChoice === 'solved') {
-                markProblemSolved('library-installed');
-            } else {
-                nextStep('step-widget-code-detection');
-            }
+    if (wizardData.platformInstructionChoice === 'solved') {
+        markProblemSolved('library-installed');
+    } else {
+        if (wizardData.platform === 'wordpress') {
+            nextStep('step-widget-code-detection-wordpress');
+        } else {
+            nextStep('step-widget-code-detection');
         }
-
+    }
+}
         function showPlatformInstructions() {
     const platform = wizardData.platform;
     const libraryCode = document.getElementById('libraryCode').value.trim();
@@ -2115,6 +2209,43 @@ function proceedToWidgetSearch() {
     if (wizardData.websiteUrl) {
         // Skip URL collection and go straight to widget search
         nextStep('step-widget-search');
+    } else {
+        // Need to collect website URL first
+        nextStep('step-website-url');
+    }
+}
+
+// WordPress widget code detection functions
+function checkWordpressWidgetCode() {
+    const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
+    const shortcode = document.getElementById('userShortcode').value.trim();
+    const continueBtn = document.getElementById('wordpressWidgetCodeContinue');
+    
+    // Check if both fields have content
+    const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
+    const shortcodeValid = shortcode && shortcode.includes('[givebutter');
+    
+    if (widgetCodeValid && shortcodeValid) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.widgetCode = widgetCode;
+        wizardData.shortcode = shortcode;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function checkWordpressShortcode() {
+    // Call the same validation function since they both affect the continue button
+    checkWordpressWidgetCode();
+}
+
+function proceedToWordpressWidgetSearch() {
+    // Check if we already have website URL from library check
+    if (wizardData.websiteUrl) {
+        // Skip URL collection and go straight to widget search
+        alert('WordPress widget search will be built next!\n\nWe have URL: ' + wizardData.websiteUrl + '\nWidget Code: ' + wizardData.widgetCode + '\nShortcode: ' + wizardData.shortcode);
     } else {
         // Need to collect website URL first
         nextStep('step-website-url');
