@@ -892,9 +892,9 @@
                     🚨 Sometimes, the Givebutter dashboard says the library is installed when it's actually not. Only check the button below if you have manually confirmed the library code is present on the user's website.
                 </div>
                 
-                <div class="checkbox-container">
-                    <input type="checkbox" id="libraryConfirmed" onchange="toggleLibraryConfirmed()">
-                    <label for="libraryConfirmed">✅ I already confirmed they have the library code installed</label>
+               <div class="checkbox-container" id="librarySkipCheck" onclick="toggleLibraryConfirmed()" style="cursor: pointer;">
+                <input type="checkbox" id="libraryConfirmed">
+                <label for="libraryConfirmed">I already confirmed they have the library code installed</label>
                 </div>
 
                 <div class="action-buttons">
