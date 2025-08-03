@@ -1511,7 +1511,8 @@
             platformInstructionChoice: null,
             widgetCode: null,
             widgetFound: null,
-            shortcode: null
+            shortcode: null,
+            previousStep: null
         };
 
         const stepOrder = [
@@ -1540,44 +1541,15 @@
         });
 
         // Navigation functions
-        function nextStep(stepId) {
-            document.getElementById(currentStep).classList.remove('active');
-            document.getElementById(stepId).classList.add('active');
-            currentStep = stepId;
-            updateNavButtons();
-        }
-
-        function previousStep(stepId) {
-            document.getElementById(currentStep).classList.remove('active');
-            document.getElementById(stepId).classList.add('active');
-            currentStep = stepId;
-            updateNavButtons();
-        }
-
         function goToPreviousStep() {
-    // Handle special cases where steps were skipped
-    if (currentStep === 'step-widget-type') {
-        // If they skipped plan check, go back to platform
-        const skipCheck = document.getElementById('skipCheck');
-        if (skipCheck && skipCheck.checked) {
-            previousStep('step-platform');
-            return;
+    if (wizardData.previousStep) {
+        previousStep(wizardData.previousStep);
+    } else {
+        // Fallback if no previous step tracked (like after page refresh)
+        const currentIndex = stepOrder.indexOf(currentStep);
+        if (currentIndex > 0) {
+            previousStep(stepOrder[currentIndex - 1]);
         }
-    }
-    
-    if (currentStep === 'step-widget-code-detection') {
-        // If they skipped library check, go back to code collection
-        const libraryConfirmed = document.getElementById('libraryConfirmed');
-        if (libraryConfirmed && libraryConfirmed.checked) {
-            previousStep('step-code-collection');
-            return;
-        }
-    }
-    
-    // Default behavior - use step order
-    const currentIndex = stepOrder.indexOf(currentStep);
-    if (currentIndex > 0) {
-        previousStep(stepOrder[currentIndex - 1]);
     }
 }
 
