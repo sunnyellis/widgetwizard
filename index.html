@@ -2659,6 +2659,41 @@ function checkWidgetCode() {
     }
 }
 
+        function checkWordpressWidgetCode() {
+    const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
+    const shortcode = document.getElementById('userShortcode').value.trim();
+    const continueBtn = document.getElementById('wordpressWidgetCodeContinue');
+    const widgetError = document.getElementById('widgetCodeError');
+    const shortcodeError = document.getElementById('shortcodeError');
+    
+    // Validate widget code
+    const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
+    if (widgetCode && !widgetCodeValid) {
+        widgetError.style.display = 'block';
+    } else {
+        widgetError.style.display = 'none';
+    }
+    
+    // Validate shortcode
+    const shortcodeValid = shortcode && shortcode.includes('[givebutter');
+    if (shortcode && !shortcodeValid) {
+        shortcodeError.style.display = 'block';
+    } else {
+        shortcodeError.style.display = 'none';
+    }
+    
+    // Enable button only if both are valid
+    if (widgetCodeValid && shortcodeValid) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.widgetCode = widgetCode;
+        wizardData.shortcode = shortcode;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
 function checkWordpressShortcode() {
     // Call the same validation function since they both affect the continue button
     checkWordpressWidgetCode();
