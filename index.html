@@ -1357,6 +1357,9 @@
     <div style="margin: 20px 0;">
         <label for="userWidgetCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <span id="widgetTypeDisplay3">Button Widget</span> code here:</label>
         <textarea id="userWidgetCode" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px;" onkeyup="checkWidgetCode()"></textarea>
+<div id="regularWidgetCodeError" style="color: #c62828; font-size: 0.9em; margin-top: 5px; display: none;">
+    ⚠️ Widget code should start with &lt;givebutter-widget id=
+</div>
     </div>
 
     <div class="action-buttons">
@@ -1410,11 +1413,17 @@
     <div style="margin: 20px 0 0 0;">
         <label for="userWidgetCodeWordpress" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong id="widgetTypeDisplayWP3">Button Widget</strong> code here:</label>
         <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px;" onkeyup="checkWordpressWidgetCode()"></textarea>
+<div id="widgetCodeError" style="color: #c62828; font-size: 0.9em; margin-top: 5px; display: none;">
+    ⚠️ Widget code should start with &lt;givebutter-widget id=
+</div>
     </div>
 
     <div style="margin: 0 0 20px 0;">
         <label for="userShortcode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong>shortcode</strong> here:</label>
         <textarea id="userShortcode" placeholder='Paste the shortcode here (should look like [givebutter id="..."])' class="large-textarea" rows="1" style="min-height: 50px; resize: none;" onkeyup="checkWordpressShortcode()"></textarea>
+<div id="shortcodeError" style="color: #c62828; font-size: 0.9em; margin-top: 5px; display: none;">
+    ⚠️ Shortcode should start with [givebutter id=
+</div>
     </div>
 
     <div class="action-buttons">
@@ -2624,20 +2633,26 @@ function proceedToWidgetSearch() {
 }
 
 // WordPress widget code detection functions
-function checkWordpressWidgetCode() {
-    const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
-    const shortcode = document.getElementById('userShortcode').value.trim();
-    const continueBtn = document.getElementById('wordpressWidgetCodeContinue');
+function checkWidgetCode() {
+    const code = document.getElementById('userWidgetCode').value.trim();
+    const continueBtn = document.getElementById('widgetCodeContinue');
+    const errorDiv = document.getElementById('regularWidgetCodeError');
     
-    // Check if both fields have content
-    const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
-    const shortcodeValid = shortcode && shortcode.includes('[givebutter');
+    // Validate widget code
+    const isValid = code && code.includes('givebutter-widget');
     
-    if (widgetCodeValid && shortcodeValid) {
+    // Show/hide error message
+    if (code && !isValid) {
+        errorDiv.style.display = 'block';
+    } else {
+        errorDiv.style.display = 'none';
+    }
+    
+    // Enable/disable button
+    if (isValid) {
         continueBtn.disabled = false;
         continueBtn.style.opacity = '1';
-        wizardData.widgetCode = widgetCode;
-        wizardData.shortcode = shortcode;
+        wizardData.widgetCode = code;
     } else {
         continueBtn.disabled = true;
         continueBtn.style.opacity = '0.5';
