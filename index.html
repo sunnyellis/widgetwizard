@@ -1439,6 +1439,60 @@
                     <button class="btn btn-primary" id="widgetUrlContinue" onclick="proceedToWidgetInspection()" disabled>Continue →</button>
                 </div>
             </div>
+
+<!-- Widget Code Inspection -->
+            <div id="step-widget-inspection" class="step-container">
+                <div class="step-title">🕵🏽‍♂️ Widget Code Inspection</div>
+                <div class="step-description">Let's check if their <strong id="widgetTypeDisplayInspection">Button Widget</strong> code is correctly installed on their website.</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">🔍 How to check:</div>
+                    
+                    <div class="step-item">
+                        <strong>1.</strong> Go to <strong id="widgetInspectionUrl"></strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2.</strong> Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3.</strong> Select the <strong>Elements</strong> tab.
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <img src="https://i.imgur.com/wWGoMNl.png" alt="Elements tab location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>5.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace;" id="widgetSearchTerm">givebutter-widget id="abc123"</code>
+                    </div>
+
+                    <div class="step-item" id="shortcodeSearchStep" style="display: none;">
+                        <strong>6.</strong> Also search for their shortcode: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace;" id="shortcodeSearchTerm">[givebutter id="abc123"]</code>
+                    </div>
+                </div>
+                
+                <div class="question">Does anything highlight in yellow or show up in the search results?</div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetFound('found')">
+                        <span>✅</span> Found it! 
+                    </button>
+                    <button class="option-button" onclick="selectWidgetFound('not-found')">
+                        <span>❌</span> Nothing found 
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="widgetInspectionBackBtn" onclick="goBackFromWidgetInspection()">← Back</button>
+                    <button class="btn btn-primary" id="widgetFoundContinue" onclick="handleWidgetResult()" disabled>Continue →</button>
+                </div>
+            </div>
             
     <script>
         // Global state
@@ -1837,7 +1891,7 @@
         function handleWidgetTypeSelection() {
     // Update widget type display throughout the wizard
     const widgetTypeText = getWidgetTypeDisplayName(wizardData.widgetType);
-    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL').forEach(element => {
+    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL, #widgetTypeDisplayInspection').forEach(element => {
         element.textContent = widgetTypeText;
     });
     
@@ -1998,6 +2052,69 @@ function getWidgetTypeDisplayName(type) {
         }
     }
 }
+
+// Widget inspection functions
+        function selectWidgetFound(status) {
+            document.querySelectorAll('#step-widget-inspection .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.closest('.option-button').classList.add('selected');
+            wizardData.widgetFound = status;
+            document.getElementById('widgetFoundContinue').disabled = false;
+        }
+
+        function handleWidgetResult() {
+            if (wizardData.widgetFound === 'found') {
+                markProblemSolved('widget-working');
+            } else {
+                nextStep('step-widget-install');
+            }
+        }
+
+        function goBackFromWidgetInspection() {
+            // Check if they came from widget code detection or website URL collection
+            if (wizardData.websiteUrl && document.getElementById('libraryConfirmed') && document.getElementById('libraryConfirmed').checked) {
+                // They skipped library check, came from widget code detection
+                if (wizardData.platform === 'wordpress') {
+                    previousStep('step-widget-code-detection-wordpress');
+                } else {
+                    previousStep('step-widget-code-detection');
+                }
+            } else {
+                // They came from website URL collection
+                previousStep('step-website-url');
+            }
+        }
+
+function setupWidgetInspection() {
+            // Set the website URL
+            document.getElementById('widgetInspectionUrl').textContent = wizardData.websiteUrl;
+            
+            // Extract and set the widget search term from the widget code
+            const widgetCode = wizardData.widgetCode;
+            if (widgetCode) {
+                // Extract the ID from something like: <givebutter-widget id="abc123">
+                const idMatch = widgetCode.match(/id="([^"]+)"/);
+                if (idMatch) {
+                    const widgetId = idMatch[1];
+                    document.getElementById('widgetSearchTerm').textContent = `givebutter-widget id="${widgetId}"`;
+                }
+            }
+            
+            // Show shortcode search step only for WordPress
+            const shortcodeStep = document.getElementById('shortcodeSearchStep');
+            if (wizardData.platform === 'wordpress' && wizardData.shortcode) {
+                shortcodeStep.style.display = 'block';
+                // Extract and set shortcode search term
+                const shortcodeMatch = wizardData.shortcode.match(/\[givebutter[^\]]+\]/);
+                if (shortcodeMatch) {
+                    document.getElementById('shortcodeSearchTerm').textContent = shortcodeMatch[0];
+                }
+            } else {
+                shortcodeStep.style.display = 'none';
+            }
+        }
 
         function checkLibraryCode() {
     const code = document.getElementById('libraryCode').value.trim();
@@ -2224,8 +2341,9 @@ function checkWidgetCode() {
 function proceedToWidgetSearch() {
     // Check if we already have website URL from library check
     if (wizardData.websiteUrl) {
-        // Skip URL collection and go straight to widget search
-        nextStep('step-widget-search');
+        // Skip URL collection and go straight to widget inspection
+        setupWidgetInspection();
+        nextStep('step-widget-inspection');
     } else {
         // Need to collect website URL first
         nextStep('step-website-url');
@@ -2261,8 +2379,9 @@ function checkWordpressShortcode() {
 function proceedToWordpressWidgetSearch() {
     // Check if we already have website URL from library check
     if (wizardData.websiteUrl) {
-        // Skip URL collection and go straight to widget search
-        alert('WordPress widget search will be built next!\n\nWe have URL: ' + wizardData.websiteUrl + '\nWidget Code: ' + wizardData.widgetCode + '\nShortcode: ' + wizardData.shortcode);
+        // Skip URL collection and go straight to widget inspection
+        setupWidgetInspection();
+        nextStep('step-widget-inspection');
     } else {
         // Need to collect website URL first
         nextStep('step-website-url');
@@ -2300,7 +2419,8 @@ function proceedToWidgetInspection() {
     }
     
     wizardData.websiteUrl = url;
-    nextStep('step-widget-search');
+    setupWidgetInspection();
+    nextStep('step-widget-inspection');
 }
 
         // Initialize wizard
