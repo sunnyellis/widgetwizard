@@ -2533,9 +2533,16 @@ function copyInstructionBox(containerId) {
     // Get the HTML content
     const htmlContent = container.innerHTML;
     
-    // Create plain text version by removing HTML tags
+    // Create plain text version with better line break handling
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
+    
+    // Add line breaks after each step div
+    const stepDivs = tempDiv.querySelectorAll('div[style*="margin-bottom: 8px"]');
+    stepDivs.forEach(div => {
+        div.innerHTML = div.innerHTML + '\n';
+    });
+    
     const plainText = tempDiv.textContent || tempDiv.innerText || '';
     
     // Copy as rich text with fallback to plain text
