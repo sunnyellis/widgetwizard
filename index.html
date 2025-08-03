@@ -1300,24 +1300,15 @@
             <!-- Problem Solved -->
             <div id="step-problem-solved" class="step-container">
                 <div class="step-title">🎉 Fantastic! Widget Issue Resolved!</div>
-                <div class="step-description">You successfully diagnosed and solved the widget issue!</div>
+                <div class="step-description">You successfully diagnosed and solved the widget issue!<br>You're officially a Widget Wizard!</div>
                 
-                <div class="educational-tip-structured">
-                    <div class="step-header">✅ What was solved:</div>
-                    
-                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em; text-align: center;">
-                        🧈 The User should now have a working widget on their website!
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9;">
-                        <div style="font-weight: 600; color: #1a3a0d; margin-bottom: 10px;">Resolution Summary:</div>
-                        <div id="solutionSummary" style="color: #2d5016; font-size: 1.0em;"></div>
-                    </div>
+                <div style="text-align: center; margin: 30px 0;">
+                    <img src="https://i.imgur.com/C63gJlP.png" alt="Widget Wizard Achievement" style="max-width: 100%; height: auto; border: 3px solid #000; border-radius: 12px;">
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="restartWizard()">Help another widget issue 🔄</button>
-                    <button class="btn btn-secondary" onclick="exitWizard()">Return to SALT</button>
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="restartWizard()">Start over</button>
                 </div>
             </div>
 
