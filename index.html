@@ -1493,6 +1493,207 @@
                     <button class="btn btn-primary" id="widgetFoundContinue" onclick="handleWidgetResult()" disabled>Continue →</button>
                 </div>
             </div>
+
+<!-- Widget Installation Choice -->
+            <div id="step-widget-install-choice" class="step-container">
+                <div class="step-title">📝 <span id="widgetTypeDisplayInstallChoice">Button Widget</span> Installation</div>
+                <div class="step-description">Aha! The <span id="widgetTypeDisplayInstallChoice2">Button Widget</span> code is missing. Let's get that fixed!</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">💬 What to tell your User:</div>
+                    
+                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 15px 0; font-size: 1.0em;">
+                        "I took a look at your site and noticed the widget code still needs to be added. We can take care of that now—I'm happy to guide you through it step-by-step, or I can share the setup instructions for you to follow on your own. What works best for you?"
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #c8e6c9; color: #2e7d32; font-style: italic; line-height: 1.4; font-size: 0.9em;">
+                        😊 Installing code can be intimidating, so check in first. People often need reassurance as much as instructions. Offering options shows we're here for them either way.
+                    </div>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetInstallOption('step-by-step')">
+                        <span>📋</span> Step-by-step help
+                    </button>
+                    <button class="option-button" onclick="selectWidgetInstallOption('send-instructions')">
+                        <span>➡️</span> Send instructions
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="widgetInstallChoiceContinue" onclick="handleWidgetInstallChoice()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- WordPress Widget Installation -->
+            <div id="step-widget-install-wordpress" class="step-container">
+                <div class="step-title">🔧 WordPress - <span id="widgetTypeDisplayWPInstall">Button Widget</span> Installation</div>
+                
+                <div class="solution-title">💬 What to tell your User:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="wordpressWidgetInstructions">
+                    To install your <span id="widgetTypeDisplayWPInstall2">Button Widget</span> on your WordPress website, please follow these steps:
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="margin-bottom: 8px;"><strong>1.</strong> In the WordPress dashboard, select <strong>Pages</strong> from the left-hand navigation menu.</div>
+                        <div style="margin-bottom: 8px;"><strong>2.</strong> Select the page you'd like to embed the widget on.</div>
+                        <div style="margin-bottom: 8px;"><strong>3.</strong> Once in the editor, click the <strong>+ button</strong> to add a new block. Select <strong>Custom HTML</strong>. You may need to search for this block.</div>
+                        <div style="margin-bottom: 8px;"><strong>4.</strong> Copy and paste the below code into the HTML block and click <strong>Update</strong>.</div>
+                    </div>
+                    
+                    <div class="code-block" id="wordpressWidgetCodeDisplay">&lt;givebutter-widget id="abc123"&gt;&lt;/givebutter-widget&gt;</div>
+                    
+                    <div style="margin-bottom: 8px;"><strong>5.</strong> Alternatively, you can utilize the shortcode below to embed the widget.</div>
+                    
+                    <div class="code-block" id="wordpressShortcodeDisplay">[givebutter id="abc123"]</div>
+                </div>
+                
+                <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                    <button onclick="copyInstructionBox('wordpressWidgetInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        📋 Copy Instructions for User
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Did this solve the issue?</strong>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+                        <span>✅</span> Yes, widget is working!
+                    </button>
+                    <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+                        <span>❌</span> Still not working
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="wordpressInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Squarespace Widget Installation -->
+            <div id="step-widget-install-squarespace" class="step-container">
+                <div class="step-title">🎨 Squarespace - <span id="widgetTypeDisplaySSInstall">Button Widget</span> Installation</div>
+                
+                <div class="solution-title">💬 What to tell your User:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="squarespaceWidgetInstructions">
+                    To install your <span id="widgetTypeDisplaySSInstall2">Button Widget</span> on your Squarespace website, please follow these steps:
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="margin-bottom: 8px;"><strong>1.</strong> Select <strong>Pages</strong> from the main dashboard and navigate to the specific page where you want to add the widget.</div>
+                        <div style="margin-bottom: 8px;"><strong>2.</strong> Click the <strong>+ Add</strong> icon to add a new block and select <strong>Code</strong> from the menu. Copy the code below for your created widget and paste it into the code block and <strong>save</strong>.</div>
+                    </div>
+                    
+                    <div class="code-block" id="squarespaceWidgetCodeDisplay">&lt;givebutter-widget id="abc123"&gt;&lt;/givebutter-widget&gt;</div>
+                </div>
+                
+                <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                    <button onclick="copyInstructionBox('squarespaceWidgetInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        📋 Copy Instructions for User
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Did this solve the issue?</strong>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+                        <span>✅</span> Yes, widget is working!
+                    </button>
+                    <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+                        <span>❌</span> Still not working
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="squarespaceInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- GoDaddy Widget Installation -->
+            <div id="step-widget-install-godaddy" class="step-container">
+                <div class="step-title">🌐 GoDaddy - <span id="widgetTypeDisplayGDInstall">Button Widget</span> Installation</div>
+                
+                <div class="solution-title">💬 What to tell your User:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="godaddyWidgetInstructions">
+                    To install your <span id="widgetTypeDisplayGDInstall2">Button Widget</span> on your GoDaddy website, please follow these steps:
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="margin-bottom: 8px;"><strong>1.</strong> Click on the HTML section where you've inserted the library code, and paste your widget's code immediately below it.</div>
+                    </div>
+                    
+                    <div class="code-block" id="godaddyWidgetCodeDisplay">&lt;givebutter-widget id="abc123"&gt;&lt;/givebutter-widget&gt;</div>
+                </div>
+                
+                <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                    <button onclick="copyInstructionBox('godaddyWidgetInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        📋 Copy Instructions for User
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Did this solve the issue?</strong>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+                        <span>✅</span> Yes, widget is working!
+                    </button>
+                    <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+                        <span>❌</span> Still not working
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="godaddyInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Weebly Widget Installation -->
+            <div id="step-widget-install-weebly" class="step-container">
+                <div class="step-title">🏗️ Weebly - <span id="widgetTypeDisplayWeeblyInstall">Button Widget</span> Installation</div>
+                
+                <div class="solution-title">💬 What to tell your User:</div>
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="weeblyWidgetInstructions">
+                    To install your <span id="widgetTypeDisplayWeeblyInstall2">Button Widget</span> on your Weebly website, please follow these steps:
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="margin-bottom: 8px;"><strong>1.</strong> On the left sidebar, find the <strong>Embed Code</strong> element under the <strong>Basic</strong> section. Click on it, drag it to where you want your widget to appear.</div>
+                        <div style="margin-bottom: 8px;"><strong>2.</strong> Click on <strong>Click to set custom HTML</strong>, paste your widget's HTML code into the provided space and <strong>save</strong>.</div>
+                    </div>
+                    
+                    <div class="code-block" id="weeblyWidgetCodeDisplay">&lt;givebutter-widget id="abc123"&gt;&lt;/givebutter-widget&gt;</div>
+                </div>
+                
+                <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                    <button onclick="copyInstructionBox('weeblyWidgetInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        📋 Copy Instructions for User
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Did this solve the issue?</strong>
+                </div>
+
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+                        <span>✅</span> Yes, widget is working!
+                    </button>
+                    <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+                        <span>❌</span> Still not working
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="weeblyInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+                </div>
+            </div>
             
     <script>
         // Global state
@@ -1513,7 +1714,8 @@
             widgetFound: null,
             shortcode: null,
             previousStep: null,
-            previousStep: null
+            widgetInstallOption: null,
+            widgetInstallResult: null
         };
 
         const stepOrder = [
@@ -1592,7 +1794,9 @@
                 widgetCode: null,
                 widgetFound: null,
                 shortcode: null,
-                previousStep: null
+                previousStep: null,
+                widgetInstallOption: null,
+                widgetInstallResult: null
             };
             nextStep('step-welcome');
         }
@@ -1879,7 +2083,7 @@
         function handleWidgetTypeSelection() {
     // Update widget type display throughout the wizard
     const widgetTypeText = getWidgetTypeDisplayName(wizardData.widgetType);
-    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL, #widgetTypeDisplayInspection').forEach(element => {
+    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL, #widgetTypeDisplayInspection, #widgetTypeDisplayInstallChoice, #widgetTypeDisplayInstallChoice2, #widgetTypeDisplayWPInstall, #widgetTypeDisplayWPInstall2, #widgetTypeDisplaySSInstall, #widgetTypeDisplaySSInstall2, #widgetTypeDisplayGDInstall, #widgetTypeDisplayGDInstall2, #widgetTypeDisplayWeeblyInstall, #widgetTypeDisplayWeeblyInstall2').forEach(element => {
         element.textContent = widgetTypeText;
     });
     
@@ -2053,12 +2257,12 @@ function getWidgetTypeDisplayName(type) {
         }
 
         function handleWidgetResult() {
-            if (wizardData.widgetFound === 'found') {
-                markProblemSolved('widget-working');
-            } else {
-                nextStep('step-widget-install');
-            }
-        }
+    if (wizardData.widgetFound === 'found') {
+        markProblemSolved('widget-working');
+    } else {
+        nextStep('step-widget-install-choice');
+    }
+}
 
         function goBackFromWidgetInspection() {
             // Check if they came from widget code detection or website URL collection
@@ -2104,6 +2308,84 @@ function setupWidgetInspection() {
             }
         }
 
+// Widget installation functions
+        function selectWidgetInstallOption(option) {
+            document.querySelectorAll('#step-widget-install-choice .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.closest('.option-button').classList.add('selected');
+            wizardData.widgetInstallOption = option;
+            document.getElementById('widgetInstallChoiceContinue').disabled = false;
+        }
+
+        function handleWidgetInstallChoice() {
+            if (wizardData.widgetInstallOption === 'step-by-step') {
+                // Route to platform-specific installation page
+                setupWidgetInstallation();
+                const platform = wizardData.platform;
+                if (platform === 'wordpress') {
+                    nextStep('step-widget-install-wordpress');
+                } else if (platform === 'squarespace') {
+                    nextStep('step-widget-install-squarespace');
+                } else if (platform === 'godaddy') {
+                    nextStep('step-widget-install-godaddy');
+                } else if (platform === 'weebly') {
+                    nextStep('step-widget-install-weebly');
+                }
+            } else {
+                // Send instructions - this would skip to success page
+                markProblemSolved('widget-instructions-sent');
+            }
+        }
+
+        function setupWidgetInstallation() {
+            const widgetCode = wizardData.widgetCode;
+            const shortcode = wizardData.shortcode;
+            
+            // Populate widget code displays for all platforms
+            if (widgetCode) {
+                document.getElementById('wordpressWidgetCodeDisplay').textContent = widgetCode;
+                document.getElementById('squarespaceWidgetCodeDisplay').textContent = widgetCode;
+                document.getElementById('godaddyWidgetCodeDisplay').textContent = widgetCode;
+                document.getElementById('weeblyWidgetCodeDisplay').textContent = widgetCode;
+            }
+            
+            // Populate shortcode display for WordPress
+            if (shortcode) {
+                document.getElementById('wordpressShortcodeDisplay').textContent = shortcode;
+            }
+        }
+
+        function selectWidgetInstallResult(result) {
+            document.querySelectorAll('.option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.closest('.option-button').classList.add('selected');
+            wizardData.widgetInstallResult = result;
+            
+            // Enable the appropriate continue button based on current step
+            const currentStepId = currentStep;
+            if (currentStepId.includes('wordpress')) {
+                document.getElementById('wordpressInstallResultContinue').disabled = false;
+            } else if (currentStepId.includes('squarespace')) {
+                document.getElementById('squarespaceInstallResultContinue').disabled = false;
+            } else if (currentStepId.includes('godaddy')) {
+                document.getElementById('godaddyInstallResultContinue').disabled = false;
+            } else if (currentStepId.includes('weebly')) {
+                document.getElementById('weeblyInstallResultContinue').disabled = false;
+            }
+        }
+
+        function handleWidgetInstallResult() {
+            if (wizardData.widgetInstallResult === 'solved') {
+                markProblemSolved('widget-installed');
+            } else {
+                // Still not working - could lead to further troubleshooting
+                markProblemSolved('needs-further-help');
+            }
+        }
         function checkLibraryCode() {
     const code = document.getElementById('libraryCode').value.trim();
     const continueBtn = document.getElementById('libraryCodeContinue');
