@@ -2533,17 +2533,14 @@ function copyInstructionBox(containerId) {
     // Get the HTML content
     const htmlContent = container.innerHTML;
     
-    // Create plain text version with better line break handling
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlContent;
+    // Create plain text version with manual line break insertion
+    let plainText = container.textContent || container.innerText || '';
     
-    // Add line breaks after each step div
-    const stepDivs = tempDiv.querySelectorAll('div[style*="margin-bottom: 8px"]');
-    stepDivs.forEach(div => {
-        div.innerHTML = div.innerHTML + '\n';
-    });
+    // Add line breaks after numbered steps (look for pattern like "1. text 2. text")
+    plainText = plainText.replace(/(\d+\.\s[^0-9]+?)(\d+\.)/g, '$1\n$2');
     
-    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+    // Add line break before "Alternatively" or similar continuation text
+    plainText = plainText.replace(/(Alternatively,|Also search for)/g, '\n$1');
     
     // Copy as rich text with fallback to plain text
     if (navigator.clipboard && window.ClipboardItem) {
@@ -2574,7 +2571,6 @@ function copyInstructionBox(containerId) {
         button.style.background = '#9c27b0';
     }, 2000);
 }
-
         function markProblemSolved(solutionType) {
             const solutionSummary = document.getElementById('solutionSummary');
             
