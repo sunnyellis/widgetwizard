@@ -1542,6 +1542,20 @@
         });
 
         // Navigation functions
+        function nextStep(stepId) {
+            wizardData.previousStep = currentStep; // Track where they came from
+            document.getElementById(currentStep).classList.remove('active');
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+            updateNavButtons();
+        }
+
+        function previousStep(stepId) {
+            document.getElementById(currentStep).classList.remove('active');
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepId;
+            updateNavButtons();
+        }
         function goToPreviousStep() {
     if (wizardData.previousStep) {
         previousStep(wizardData.previousStep);
@@ -1577,7 +1591,8 @@
                 platformInstructionChoice: null,
                 widgetCode: null,
                 widgetFound: null,
-                shortcode: null
+                shortcode: null,
+                previousStep: null
             };
             nextStep('step-welcome');
         }
