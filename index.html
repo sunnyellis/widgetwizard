@@ -1422,6 +1422,23 @@
         <button class="btn btn-primary" id="wordpressWidgetCodeContinue" onclick="proceedToWordpressWidgetSearch()" disabled style="opacity: 0.5;">Got the widget code →</button>
     </div>
 </div>
+
+<!-- Website URL Collection (when skipped from library check) -->
+            <div id="step-website-url" class="step-container">
+                <div class="step-title">🌐 Website address</div>
+                
+                <div class="question">What's the website URL where their <strong id="widgetTypeDisplayURL">Button Widget</strong> should appear?</div>
+                <div style="color: #666; font-style: italic; margin-bottom: 20px;">
+                    Make sure this is the exact page URL they want the widget on, not just their home page.
+                </div>
+                
+                <input type="text" class="text-input" id="widgetWebsiteUrl" placeholder="https://example.com/donate" onkeyup="checkWidgetUrlInput()">
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="previousStep('step-code-collection')">← Back</button>
+                    <button class="btn btn-primary" id="widgetUrlContinue" onclick="proceedToWidgetInspection()" disabled>Continue →</button>
+                </div>
+            </div>
             
     <script>
         // Global state
@@ -1820,7 +1837,7 @@
         function handleWidgetTypeSelection() {
     // Update widget type display throughout the wizard
     const widgetTypeText = getWidgetTypeDisplayName(wizardData.widgetType);
-    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4').forEach(element => {
+    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL').forEach(element => {
         element.textContent = widgetTypeText;
     });
     
