@@ -1694,6 +1694,97 @@
                     <button class="btn btn-primary" id="weeblyInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
                 </div>
             </div>
+
+<!-- Wix Code Collection -->
+            <div id="step-wix-code-collection" class="step-container">
+                <div class="step-title">📝 Code Collection</div>
+                
+                <div class="educational-tip-structured">
+                    <strong>🕵️ Time for some detective work!</strong> There are two pieces of code for each widget: the <strong>library code</strong> and the <strong>widget code</strong>. We need to confirm that both pieces of code are installed on the user's website.
+                        <br><br>
+                    <strong>🚗</strong> Think of widgets like a car - you need both the ENGINE (library code) and the STEERING WHEEL (widget code) to get anywhere. Lots of people install one but forget the other!
+                </div>   
+                
+                <div style="color: #666; margin-bottom: 20px;">
+                    🚨 Wix is different from other webbuilder installations. They have users install the library code and a unique widget ID at the same time.
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" onclick="nextStep('step-wix-steps-collection')">Collect codes →</button>
+                </div>
+            </div>
+
+            <!-- Wix Steps Collection -->
+            <div id="step-wix-steps-collection" class="step-container">
+                <div class="step-title">First, we need to collect both their library code and their widget ID#.</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">📝 Steps for you:</div>
+                    
+                    <div class="step-item">
+                        <strong>1.</strong> Go to their campaign in their Givebutter dashboard
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2.</strong> Click on the <strong>Sharing</strong> tab
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3.</strong> Click <strong>Widgets</strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4.</strong> Click the blue text that says <strong>Installation</strong>
+                        <div style="margin: 15px 0;">
+                            <img src="https://i.imgur.com/T8HEVex.png" alt="Installation button location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>5.</strong> Choose <strong>Wix</strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>6.</strong> Close the install page and click on the <strong>Embed</strong> button of the widget they want to install
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>7.</strong> Copy the library code
+                        <div style="margin: 15px 0;">
+                            <img src="https://i.imgur.com/pLhII0Y.png" alt="Library code location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>8.</strong> Copy the widget ID
+                        <div style="margin: 15px 0;">
+                            <img src="https://i.imgur.com/RoiqzlM.png" alt="Widget ID location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0 0 0;">
+                    <label for="wixLibraryCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their library code here:</label>
+                    <textarea id="wixLibraryCode" placeholder="Paste the library code here..." class="large-textarea" rows="3" style="margin-bottom: 0;" oninput="checkWixCodes()"></textarea>
+                    <div id="wixLibraryCodeError" style="color: #c62828; font-size: 0.9em; margin-top: 0; display: none;">
+                        ⚠️ Library code should contain widgets.givebutter.com
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0 0 0;">
+                    <label for="wixWidgetId" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their widget ID here:</label>
+                    <textarea id="wixWidgetId" placeholder="Paste the widget ID here (should be 6 characters: letters and numbers)" class="large-textarea" rows="1" style="min-height: 50px; resize: none; margin-bottom: 0;" oninput="checkWixCodes()"></textarea>
+                    <div id="wixWidgetIdError" style="color: #c62828; font-size: 0.9em; margin-top: 0; display: none;">
+                        ⚠️ Widget ID should have 6 characters (letters and numbers)
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="wixCodesContinue" onclick="nextStep('step-wix-install')" disabled style="opacity: 0.5;">Got the codes →</button>
+                </div>
+            </div>
             
     <script>
         // Global state
@@ -1715,7 +1806,9 @@
             shortcode: null,
             previousStep: null,
             widgetInstallOption: null,
-            widgetInstallResult: null
+            widgetInstallResult: null,
+             wixLibraryCode: null,
+            wixWidgetId: null
         };
 
         const stepOrder = [
@@ -1796,7 +1889,9 @@
                 shortcode: null,
                 previousStep: null,
                 widgetInstallOption: null,
-                widgetInstallResult: null
+                widgetInstallResult: null,
+                 wixLibraryCode: null,
+                wixWidgetId: null
             };
             nextStep('step-welcome');
         }
@@ -2140,12 +2235,17 @@ function getWidgetTypeDisplayName(type) {
         }
 
         function handleCampaignStatus() {
-            if (wizardData.campaignStatus === 'unpublished') {
-                nextStep('step-unpublished-solution');
-            } else {
-                nextStep('step-code-collection');
-            }
+    if (wizardData.campaignStatus === 'unpublished') {
+        nextStep('step-unpublished-solution');
+    } else {
+        // Check if platform is Wix - they get special flow
+        if (wizardData.platform === 'wix') {
+            nextStep('step-wix-code-collection');
+        } else {
+            nextStep('step-code-collection');
         }
+    }
+}
 
         // Compatibility selection functions
         function selectCompatibility(status) {
@@ -2689,6 +2789,42 @@ function checkWordpressShortcode() {
     // Call the same validation function since they both affect the continue button
     checkWordpressWidgetCode();
 }
+
+// Wix validation function
+        function checkWixCodes() {
+            const libraryCode = document.getElementById('wixLibraryCode').value.trim();
+            const widgetId = document.getElementById('wixWidgetId').value.trim();
+            const continueBtn = document.getElementById('wixCodesContinue');
+            const libraryError = document.getElementById('wixLibraryCodeError');
+            const widgetIdError = document.getElementById('wixWidgetIdError');
+            
+            // Validate library code
+            const libraryValid = libraryCode && libraryCode.includes('widgets.givebutter.com');
+            if (libraryCode && !libraryValid) {
+                libraryError.style.display = 'block';
+            } else {
+                libraryError.style.display = 'none';
+            }
+            
+            // Validate widget ID (6 characters, letters and numbers)
+            const widgetIdValid = widgetId && /^[a-zA-Z0-9]{6}$/.test(widgetId);
+            if (widgetId && !widgetIdValid) {
+                widgetIdError.style.display = 'block';
+            } else {
+                widgetIdError.style.display = 'none';
+            }
+            
+            // Enable button only if both are valid
+            if (libraryValid && widgetIdValid) {
+                continueBtn.disabled = false;
+                continueBtn.style.opacity = '1';
+                wizardData.wixLibraryCode = libraryCode;
+                wizardData.wixWidgetId = widgetId;
+            } else {
+                continueBtn.disabled = true;
+                continueBtn.style.opacity = '0.5';
+            }
+        }
 
 function proceedToWordpressWidgetSearch() {
     // Check if we already have website URL from library check
