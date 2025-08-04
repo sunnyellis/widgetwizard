@@ -1785,6 +1785,60 @@
                     <button class="btn btn-primary" id="wixCodesContinue" onclick="nextStep('step-website-url')" disabled style="opacity: 0.5;">Got the codes →</button>
                 </div>
             </div>
+
+<!-- Wix Code Inspection -->
+            <div id="step-wix-inspection" class="step-container">
+                <div class="step-title">🕵🏽‍♂️ Library Code and Widget Code Inspection</div>
+                <div class="step-description">Time to check if both codes are actually installed on their website.</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">🔍 How to check:</div>
+                    
+                    <div class="step-item">
+                        <strong>1.</strong> Go to <strong id="wixInspectionUrl"></strong>
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2.</strong> Right-click anywhere on the page and select "Inspect" or "Inspect Element" (or press F12)
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3.</strong> Select the <strong>Elements</strong> tab.
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <img src="https://i.imgur.com/wWGoMNl.png" alt="Elements tab location" style="width: 100%; max-width: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4.</strong> Press Ctrl+F (or Cmd+F on Mac) to open the search box
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>5.</strong> Search for: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px;">latest.umd.cjs</code>
+                    </div>
+
+                    <div class="step-item">
+                        <strong>6.</strong> Now search for their widget ID: <code style="background: #2d3748; color: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-family: monospace;" id="wixWidgetIdSearch">abc123</code>
+                    </div>
+                </div>
+                
+                <div class="question">Does anything highlight in yellow or show up in the search results for BOTH searches?</div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectWixCodesFound('found')">
+                        <span>✅</span> Found both! 
+                    </button>
+                    <button class="option-button" onclick="selectWixCodesFound('not-found')">
+                        <span>❌</span> One or both missing 
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="wixInspectionContinue" onclick="handleWixInspectionResult()" disabled>Continue →</button>
+                </div>
+            </div>
             
     <script>
         // Global state
@@ -1808,7 +1862,8 @@
             widgetInstallOption: null,
             widgetInstallResult: null,
              wixLibraryCode: null,
-            wixWidgetId: null
+            wixWidgetId: null,
+            wixCodesFound: null
         };
 
         const stepOrder = [
@@ -1891,7 +1946,8 @@
                 widgetInstallOption: null,
                 widgetInstallResult: null,
                  wixLibraryCode: null,
-                wixWidgetId: null
+                wixWidgetId: null,
+                wixCodesFound: null
             };
             nextStep('step-welcome');
         }
@@ -2408,6 +2464,36 @@ function setupWidgetInspection() {
             }
         }
 
+// Wix inspection functions
+        function setupWixInspection() {
+            // Set the website URL
+            document.getElementById('wixInspectionUrl').textContent = wizardData.websiteUrl;
+            
+            // Set the widget ID search term from collected data
+            if (wizardData.wixWidgetId) {
+                document.getElementById('wixWidgetIdSearch').textContent = wizardData.wixWidgetId;
+            }
+        }
+
+        function selectWixCodesFound(status) {
+            document.querySelectorAll('#step-wix-inspection .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.closest('.option-button').classList.add('selected');
+            wizardData.wixCodesFound = status;
+            document.getElementById('wixInspectionContinue').disabled = false;
+        }
+
+        function handleWixInspectionResult() {
+            if (wizardData.wixCodesFound === 'found') {
+                markProblemSolved('wix-codes-working');
+            } else {
+                // Need to install Wix codes - this would go to Wix installation instructions
+                nextStep('step-wix-install-instructions');
+            }
+        }
+
 // Widget installation functions
         function selectWidgetInstallOption(option) {
             document.querySelectorAll('#step-widget-install-choice .option-button').forEach(btn => {
@@ -2869,8 +2955,15 @@ function proceedToWidgetInspection() {
     }
     
     wizardData.websiteUrl = url;
-    setupWidgetInspection();
-    nextStep('step-widget-inspection');
+    
+    // Route to appropriate inspection page
+    if (wizardData.platform === 'wix') {
+        setupWixInspection();
+        nextStep('step-wix-inspection');
+    } else {
+        setupWidgetInspection();
+        nextStep('step-widget-inspection');
+    }
 }
 
         // Initialize wizard
