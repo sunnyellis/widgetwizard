@@ -1695,6 +1695,32 @@
                 </div>
             </div>
 
+<!-- Wix Widget Installation -->
+<div id="step-widget-install-wix" class="step-container">
+    <div class="step-title"><img src="https://i.imgur.com/yp0GcQp.png" alt="Wix" style="width: 20px; height: 20px; object-fit: contain; margin-right: 8px;"> <span id="widgetTypeDisplayWixInstall">Button Widget</span> Installation</div>
+    
+    <div class="solution-title">💬 What to tell your User:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="wixWidgetInstructions">
+        To install your <span id="widgetTypeDisplayWixInstall2">Button Widget</span> on your Wix website, please follow these steps:
+        
+        <div style="margin-top: 20px;">
+            <div style="margin-bottom: 8px;"><strong>1.</strong> Log into your Wix account, and click on the site you'd like to edit in your Wix dashboard. Click <strong>Edit Site</strong> to open your site editor.</div>
+            <div style="margin-bottom: 8px;"><strong>2.</strong> Click the large blue plus sign located in the site editor.</div>
+            <div style="margin-bottom: 8px;"><strong>3.</strong> Under the <strong>Add to site</strong> menu, click <strong>Embed Code</strong>, and then select <strong>Custom element</strong>.</div>
+            <div style="margin-bottom: 8px;"><strong>4.</strong> After you click <strong>Custom element</strong>, a placeholder object will be added to your site preview. If applicable, move the placeholder to the desired location of your Widget.</div>
+            <div style="margin-bottom: 8px;"><strong>5.</strong> Click <strong>Choose Source</strong>.</div>
+            <div style="margin-bottom: 8px;"><strong>6.</strong> Under <strong>Server URL</strong>, add your library code:</div>
+        </div>
+        
+        <div class="code-block" id="wixLibraryCodeDisplay">https://widgets.givebutter.com/latest.umd.cjs</div>
+        
+        <div style="margin-bottom: 8px;"><strong>7.</strong> Under <strong>Tag name</strong>, add <strong>givebutter-widget</strong>.</div>
+        <div style="margin-bottom: 8px;"><strong>8.</strong> Next, click <strong>Set Attributes</strong> to complete the embed. Under <strong>Attribute name</strong>, add <strong>id</strong>. Under <strong>Value</strong>, add this widget ID:</div>
+        
+        <div class="code-block" id="wixWidgetIdDisplay">abc123</div>
+        
+        <div style="margin-bottom: 8px;"><st
+
 <!-- Wix Code Collection -->
             <div id="step-wix-code-collection" class="step-container">
                 <div class="step-title">📝 Code Collection</div>
@@ -2234,7 +2260,7 @@
         function handleWidgetTypeSelection() {
     // Update widget type display throughout the wizard
     const widgetTypeText = getWidgetTypeDisplayName(wizardData.widgetType);
-    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL, #widgetTypeDisplayInspection, #widgetTypeDisplayInstallChoice, #widgetTypeDisplayInstallChoice2, #widgetTypeDisplayWPInstall, #widgetTypeDisplayWPInstall2, #widgetTypeDisplaySSInstall, #widgetTypeDisplaySSInstall2, #widgetTypeDisplayGDInstall, #widgetTypeDisplayGDInstall2, #widgetTypeDisplayWeeblyInstall, #widgetTypeDisplayWeeblyInstall2').forEach(element => {
+    document.querySelectorAll('#widgetTypeDisplay, #widgetTypeDisplay2, #widgetTypeDisplay3, #widgetTypeDisplay4, #widgetTypeDisplayURL, #widgetTypeDisplayInspection, #widgetTypeDisplayInstallChoice, #widgetTypeDisplayInstallChoice2, #widgetTypeDisplayWPInstall, #widgetTypeDisplayWPInstall2, #widgetTypeDisplaySSInstall, #widgetTypeDisplaySSInstall2, #widgetTypeDisplayGDInstall, #widgetTypeDisplayGDInstall2, #widgetTypeDisplayWeeblyInstall, #widgetTypeDisplayWeeblyInstall2, #widgetTypeDisplayWixInstall, #widgetTypeDisplayWixInstall2').forEach(element => {
         element.textContent = widgetTypeText;
     });
     
@@ -2488,10 +2514,11 @@ function setupWidgetInspection() {
         function handleWixInspectionResult() {
             if (wizardData.wixCodesFound === 'found') {
                 markProblemSolved('wix-codes-working');
-            } else {
-                // Need to install Wix codes - this would go to Wix installation instructions
-                nextStep('step-wix-install-instructions');
-            }
+        } else {
+                // Need to install Wix codes - go directly to installation
+                setupWidgetInstallation();
+                nextStep('step-widget-install-wix');
+                }
         }
 
 // Widget installation functions
@@ -2518,7 +2545,8 @@ function setupWidgetInspection() {
                     nextStep('step-widget-install-godaddy');
                 } else if (platform === 'weebly') {
                     nextStep('step-widget-install-weebly');
-                }
+                } else if (platform === 'wix') {
+                    nextStep('step-widget-install-wix');
             } else {
                 // Send instructions - this would skip to success page
                 markProblemSolved('widget-instructions-sent');
@@ -2541,6 +2569,14 @@ function setupWidgetInspection() {
             if (shortcode) {
                 document.getElementById('wordpressShortcodeDisplay').textContent = shortcode;
             }
+            
+            // Populate Wix data displays
+            if (wizardData.wixLibraryCode) {
+                document.getElementById('wixLibraryCodeDisplay').textContent = wizardData.wixLibraryCode;
+            }
+            if (wizardData.wixWidgetId) {
+                document.getElementById('wixWidgetIdDisplay').textContent = wizardData.wixWidgetId;
+            }
         }
 
         function selectWidgetInstallResult(result) {
@@ -2561,6 +2597,8 @@ function setupWidgetInspection() {
                 document.getElementById('godaddyInstallResultContinue').disabled = false;
             } else if (currentStepId.includes('weebly')) {
                 document.getElementById('weeblyInstallResultContinue').disabled = false;
+            } else if (currentStepId.includes('wix')) {
+                document.getElementById('wixInstallResultContinue').disabled = false;
             }
         }
 
