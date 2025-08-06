@@ -463,21 +463,21 @@
                 justify-content: center;
             }
             .shortcode-input {
-    width: 100%;
-    height: 50px;
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    font-size: 0.9em;
-    font-family: monospace;
-    outline: none;
-    margin-bottom: 20px;
-}
+                width: 100%;
+                height: 50px;
+                padding: 15px;
+                border: 2px solid #ddd;
+                border-radius: 12px;
+                font-size: 0.9em;
+                font-family: monospace;
+                outline: none;
+                margin-bottom: 20px;
+            }
 
-.shortcode-input:focus {
-    border-color: #9c27b0;
-    box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
-}
+            .shortcode-input:focus {
+                border-color: #9c27b0;
+                box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+            }
         }        
     </style>
 </head>
@@ -1233,6 +1233,11 @@
                 📋 Copy Instructions for User
             </button>
         </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+        <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
+    </div>
 </div>
             
     <!-- Get Library Code - Weebly -->
@@ -1746,7 +1751,6 @@
         <button class="btn btn-primary" id="wixInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
     </div>
 </div>
-            
 
 <!-- Wix Code Collection -->
             <div id="step-wix-code-collection" class="step-container">
@@ -1893,6 +1897,9 @@
                 </div>
             </div>
             
+        </div>
+    </div>
+            
     <script>
         // Global state
         let currentStep = 'step-welcome';
@@ -2010,6 +2017,7 @@
                 alert('👋 Thanks for using the Widget Wizard! You\'ll return to the main SALT interface.');
             }
         }
+
 
         // Platform selection functions
         function selectPlatform(platform) {
