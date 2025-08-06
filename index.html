@@ -478,7 +478,7 @@
     border-color: #9c27b0;
     box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
 }
-        
+        }        
     </style>
 </head>
 <body>
@@ -1719,7 +1719,34 @@
         
         <div class="code-block" id="wixWidgetIdDisplay">abc123</div>
         
-        <div style="margin-bottom: 8px;"><st
+        <div style="margin-bottom: 8px;"><strong>9.</strong> <strong>Save</strong> your changes, and hit <strong>Publish</strong>!</div>
+    </div>
+    
+    <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+        <button onclick="copyInstructionBox('wixWidgetInstructions')" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            📋 Copy Instructions for User
+        </button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <strong>Did this solve the issue?</strong>
+    </div>
+
+    <div class="options-container">
+        <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+            <span>✅</span> Yes, widget is working!
+        </button>
+        <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+            <span>❌</span> Still not working
+        </button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="wixInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+    </div>
+</div>
+            
 
 <!-- Wix Code Collection -->
             <div id="step-wix-code-collection" class="step-container">
