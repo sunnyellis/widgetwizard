@@ -3080,7 +3080,7 @@ function setupWidgetInspection() {
         wizardData.libraryCode = code;
         
         // Update checklist
-        updateChecklist('library-code', 'collected');
+        updateChecklist('library-code', code);
     } else {
         continueBtn.disabled = true;
         continueBtn.style.opacity = '0.5';
@@ -3465,7 +3465,8 @@ function checkWordpressShortcode() {
                 wizardData.wixWidgetId = widgetId;
                 
                 // Update checklist
-                updateChecklist('library-code', 'collected');
+                // Update checklist
+                updateChecklist('library-code', libraryCode);
                 updateChecklist('widget-id', widgetId);
             } else {
                 continueBtn.disabled = true;
