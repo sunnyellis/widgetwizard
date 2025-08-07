@@ -2968,27 +2968,7 @@ function selectAdvancedTroubleshootingResult(result) {
         }
         
         function markProblemSolved(solutionType) {
-            const solutionSummary = document.getElementById('solutionSummary');
-            
-            let summary = '';
-            switch (solutionType) {
-                case 'campaign-published':
-                    summary = 'Campaign was unpublished - guided User to publish their campaign.';
-                    break;
-                case 'payout-connected':
-                    summary = 'Payout method was not connected - provided User with payout setup instructions.';
-                    break;
-                case 'library-installed':
-                    summary = `Library code was missing - provided ${getPlatformDisplayName(wizardData.platform)}-specific installation instructions.`;
-                    break;
-                case 'manual-completion':
-                    summary = 'Issue resolved through manual troubleshooting steps.';
-                    break;
-                default:
-                    summary = 'Widget issue successfully resolved!';
-            }
-            
-            solutionSummary.textContent = summary;
+            // Go directly to success page - the success page has its own messaging
             nextStep('step-problem-solved');
         }
 
