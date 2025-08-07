@@ -1400,16 +1400,16 @@
     
     <div style="margin: 20px 0;">
         <label for="userWidgetCode" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <span id="widgetTypeDisplay3">Button Widget</span> code here:</label>
-        <textarea id="userWidgetCode" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px; margin-bottom: 0;" oninput="checkWidgetCode()"></textarea>
+        <textarea id="userWidgetCode" placeholder='Paste the complete widget code here (should start with &lt;givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px; margin-bottom: 0;" oninput="checkWidgetCode()"></textarea>
 <div id="regularWidgetCodeError" style="color: #c62828; font-size: 0.9em; margin-top: 5px; display: none;">
     ⚠️ Widget code should start with &lt;givebutter-widget id=
 </div>
     </div>
 
-<div class="checkbox-container" onclick="toggleWidgetConfirmed()" style="cursor: pointer;">
-                    <input type="checkbox" id="widgetConfirmed">
-                    <label for="widgetConfirmed">I already confirmed they have the widget code installed</label>
-                </div>
+    <div class="checkbox-container" onclick="toggleWidgetConfirmed()" style="cursor: pointer;">
+         <input type="checkbox" id="widgetConfirmed">
+         <label for="widgetConfirmed">I already confirmed they have the widget code installed</label>
+        </div>
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
@@ -1461,7 +1461,7 @@
     
     <div style="margin: 20px 0 0 0;">
         <label for="userWidgetCodeWordpress" style="font-weight: 600; color: #333; margin-bottom: 10px; display: block;">📋 Paste their <strong id="widgetTypeDisplayWP3">Button Widget</strong> code here:</label>
-        <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with <givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px; margin-bottom: 0;" oninput="checkWordpressWidgetCode()"></textarea>
+        <textarea id="userWidgetCodeWordpress" placeholder='Paste the complete widget code here (should start with &lt;givebutter-widget id...)' class="large-textarea" rows="2" style="min-height: 60px; margin-bottom: 0;" oninput="checkWordpressWidgetCode()"></textarea>
 <div id="widgetCodeError" style="color: #c62828; font-size: 0.9em; margin-top: 5px; display: none;">
     ⚠️ Widget code should start with &lt;givebutter-widget id=
 </div>
