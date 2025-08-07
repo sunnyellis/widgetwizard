@@ -2201,7 +2201,7 @@
             widgetCode: null,
             widgetFound: null,
             shortcode: null,
-            previousStep: null,
+            navigationStack: [],
             widgetInstallOption: null,
             widgetInstallResult: null,
             advancedTroubleshootingResult: null,
@@ -2293,7 +2293,7 @@ function clearChecklistFrom(stepId) {
 
         // Navigation functions
         function nextStep(stepId) {
-            wizardData.previousStep = currentStep; // Track where they came from
+            wizardData.navigationStack.push(currentStep);
             document.getElementById(currentStep).classList.remove('active');
             document.getElementById(stepId).classList.add('active');
             currentStep = stepId;
@@ -2310,15 +2310,18 @@ function clearChecklistFrom(stepId) {
             updateNavButtons();
         }
         
-        function goToPreviousStep() {
-    if (wizardData.previousStep) {
-        previousStep(wizardData.previousStep);
-    } else {
-        // Fallback if no previous step tracked (like after page refresh)
-        const currentIndex = stepOrder.indexOf(currentStep);
-        if (currentIndex > 0) {
-            previousStep(stepOrder[currentIndex - 1]);
-        }
+       function goToPreviousStep() {
+    // Pop the last step from navigation stack
+    const previousStepId = wizardData.navigationStack.pop();
+    
+    if (previousStepId) {
+        // Clear downstream checklist items when going back
+        clearChecklistFrom(previousStepId);
+        
+        document.getElementById(currentStep).classList.remove('active');
+        document.getElementById(previousStepId).classList.add('active');
+        currentStep = previousStepId;
+        updateNavButtons();
     }
 }
 
@@ -2346,7 +2349,7 @@ function clearChecklistFrom(stepId) {
                 widgetCode: null,
                 widgetFound: null,
                 shortcode: null,
-                previousStep: null,
+                navigationStack: [],
                 widgetInstallOption: null,
                 widgetInstallResult: null,
                 advancedTroubleshootingResult: null,
