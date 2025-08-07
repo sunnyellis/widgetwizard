@@ -2276,20 +2276,30 @@ function clearChecklistFrom(stepId) {
         }
 
         function showPlatformSpecific(platform) {
-            const wordpressItem = document.getElementById('checklist-shortcode-item');
-            const wixItem = document.getElementById('checklist-widget-id-item');
-            
-            if (platform === 'wordpress') {
-                wordpressItem.style.display = 'flex';
-                wixItem.style.display = 'none';
-            } else if (platform === 'wix') {
-                wordpressItem.style.display = 'none';
-                wixItem.style.display = 'flex';
-            } else {
-                wordpressItem.style.display = 'none';
-                wixItem.style.display = 'none';
-            }
-        }
+    const wordpressItem = document.getElementById('checklist-shortcode-item');
+    const wixItem = document.getElementById('checklist-widget-id-item');
+    
+    // Update labels based on platform
+    const libraryLabel = document.querySelector('#checklist-library-code').parentElement.querySelector('.checklist-label');
+    const libraryInstalledLabel = document.querySelector('#checklist-library-installed').parentElement.querySelector('.checklist-label');
+    
+    if (platform === 'wordpress') {
+        wordpressItem.style.display = 'flex';
+        wixItem.style.display = 'none';
+        libraryLabel.textContent = 'Account ID:';
+        libraryInstalledLabel.textContent = 'Plugin is installed:';
+    } else if (platform === 'wix') {
+        wordpressItem.style.display = 'none';
+        wixItem.style.display = 'flex';
+        libraryLabel.textContent = 'Library code:';
+        libraryInstalledLabel.textContent = 'Library code is installed:';
+    } else {
+        wordpressItem.style.display = 'none';
+        wixItem.style.display = 'none';
+        libraryLabel.textContent = 'Library code:';
+        libraryInstalledLabel.textContent = 'Library code is installed:';
+    }
+}
 
         // Navigation functions
         function nextStep(stepId) {
@@ -3198,6 +3208,8 @@ function checkWordPressAccountId() {
     } else {
         continueBtn.disabled = true;
         continueBtn.style.opacity = '0.5';
+        // Update checklist with Account ID for WordPress
+        updateChecklist('library-code', accountId);
     }
 }
 
