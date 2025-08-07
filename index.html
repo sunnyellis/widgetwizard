@@ -2897,32 +2897,28 @@ function copyInstructionBox(containerId) {
 }
         
 function toggleWidgetConfirmed() {
-            alert('Function called!'); // ADD THIS LINE FOR TESTING
-            const checkbox = document.getElementById('widgetConfirmed');
-            const continueButton = document.getElementById('widgetCodeContinue');
-            
-            // Toggle checkbox
-            checkbox.checked = !checkbox.checked;
-            
-            if (checkbox.checked) {
-                continueButton.textContent = 'Continue →';
-                continueButton.disabled = false;
-                continueButton.style.opacity = '1';
-                continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
-            } else {
-                continueButton.textContent = 'Got the widget code →';
-                // Reset to original state - check if they have widget code
-                const code = document.getElementById('userWidgetCode').value.trim();
-                if (code && code.includes('givebutter-widget')) {
-                    continueButton.disabled = false;
-                    continueButton.style.opacity = '1';
-                } else {
-                    continueButton.disabled = true;
-                    continueButton.style.opacity = '0.5';
-                }
-                continueButton.onclick = function() { proceedToWidgetSearch(); };
-            }
+    const checkbox = document.getElementById('widgetConfirmed');
+    const continueButton = document.getElementById('widgetCodeContinue');
+    
+    if (checkbox.checked) {
+        continueButton.textContent = 'Continue →';
+        continueButton.disabled = false;
+        continueButton.style.opacity = '1';
+        continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
+    } else {
+        continueButton.textContent = 'Got the widget code →';
+        continueButton.onclick = function() { proceedToWidgetSearch(); };
+        // Reset to original state - check if they have widget code
+        const code = document.getElementById('userWidgetCode').value.trim();
+        if (code && code.includes('givebutter-widget')) {
+            continueButton.disabled = false;
+            continueButton.style.opacity = '1';
+        } else {
+            continueButton.disabled = true;
+            continueButton.style.opacity = '0.5';
         }
+    }
+}
 
 function toggleWordpressWidgetConfirmed() {
             const checkbox = document.getElementById('wordpressWidgetConfirmed');
