@@ -2168,6 +2168,22 @@
     </div>
             
     <script>
+
+// Checklist hierarchy - defines what gets cleared when going back to each step
+        const checklistHierarchy = {
+            'step-welcome': [],
+            'step-platform': ['plan', 'plan-compatible', 'widget-type', 'payouts', 'campaign', 'library-code', 'website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-plan-check': ['plan-compatible', 'widget-type', 'payouts', 'campaign', 'library-code', 'website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-widget-type': ['payouts', 'campaign', 'library-code', 'website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-payout-check': ['campaign', 'library-code', 'website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-campaign-published': ['library-code', 'website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-code-collection': ['website', 'library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-library-check': ['library-installed', 'widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-widget-code-detection': ['widget-code', 'shortcode', 'widget-id', 'widget-installed'],
+            'step-widget-code-detection-wordpress': ['widget-code', 'shortcode', 'widget-installed'],
+            'step-website-url': ['widget-installed']
+        };
+        
         // Global state
         let currentStep = 'step-welcome';
         let wizardData = {
@@ -2219,6 +2235,31 @@
             }
         });
 
+function clearChecklistFrom(stepId) {
+            const itemsToClear = checklistHierarchy[stepId] || [];
+            
+            itemsToClear.forEach(item => {
+                const element = document.getElementById(`checklist-${item}`);
+                if (element) {
+                    element.className = 'checklist-value status-pending';
+                    element.textContent = '❓';
+                }
+            });
+            
+            // Also clear the corresponding wizardData
+            if (itemsToClear.includes('plan')) wizardData.plan = null;
+            if (itemsToClear.includes('widget-type')) wizardData.widgetType = null;
+            if (itemsToClear.includes('payouts')) wizardData.payoutStatus = null;
+            if (itemsToClear.includes('campaign')) wizardData.campaignStatus = null;
+            if (itemsToClear.includes('library-code')) wizardData.libraryCode = null;
+            if (itemsToClear.includes('website')) wizardData.websiteUrl = null;
+            if (itemsToClear.includes('widget-code')) {
+                wizardData.widgetCode = null;
+                wizardData.shortcode = null;
+                wizardData.wixWidgetId = null;
+            }
+        }
+        
         // Checklist update functions
         function updateChecklist(field, value, status = 'dynamic') {
             const element = document.getElementById(`checklist-${field}`);
@@ -2260,11 +2301,15 @@
         }
 
         function previousStep(stepId) {
+            // Clear downstream checklist items when going back
+            clearChecklistFrom(stepId);
+            
             document.getElementById(currentStep).classList.remove('active');
             document.getElementById(stepId).classList.add('active');
             currentStep = stepId;
             updateNavButtons();
         }
+        
         function goToPreviousStep() {
     if (wizardData.previousStep) {
         previousStep(wizardData.previousStep);
