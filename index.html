@@ -1406,6 +1406,11 @@
 </div>
     </div>
 
+<div class="checkbox-container" onclick="toggleWidgetConfirmed()" style="cursor: pointer;">
+                    <input type="checkbox" id="widgetConfirmed">
+                    <label for="widgetConfirmed">I already confirmed they have the widget code installed</label>
+                </div>
+
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
         <button class="btn btn-primary" id="widgetCodeContinue" onclick="proceedToWidgetSearch()" disabled style="opacity: 0.5;">Got the widget code →</button>
@@ -1469,6 +1474,11 @@
     ⚠️ Shortcode should start with [givebutter id=
 </div>
     </div>
+
+<div class="checkbox-container" onclick="toggleWordpressWidgetConfirmed()" style="cursor: pointer;">
+                    <input type="checkbox" id="wordpressWidgetConfirmed">
+                    <label for="wordpressWidgetConfirmed">I already confirmed they have the widget code installed</label>
+                </div>
 
     <div class="action-buttons">
         <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
@@ -2885,7 +2895,65 @@ function copyInstructionBox(containerId) {
         button.style.background = '#9c27b0';
     }, 2000);
 }
+        
+function toggleWidgetConfirmed() {
+            const checkbox = document.getElementById('widgetConfirmed');
+            const continueButton = document.getElementById('widgetCodeContinue');
+            
+            // Toggle checkbox
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                continueButton.textContent = 'Continue →';
+                continueButton.disabled = false;
+                continueButton.style.opacity = '1';
+                continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
+            } else {
+                continueButton.textContent = 'Got the widget code →';
+                // Reset to original state - check if they have widget code
+                const code = document.getElementById('userWidgetCode').value.trim();
+                if (code && code.includes('givebutter-widget')) {
+                    continueButton.disabled = false;
+                    continueButton.style.opacity = '1';
+                } else {
+                    continueButton.disabled = true;
+                    continueButton.style.opacity = '0.5';
+                }
+                continueButton.onclick = function() { proceedToWidgetSearch(); };
+            }
+        }
 
+function toggleWordpressWidgetConfirmed() {
+            const checkbox = document.getElementById('wordpressWidgetConfirmed');
+            const continueButton = document.getElementById('wordpressWidgetCodeContinue');
+            
+            // Toggle checkbox
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                continueButton.textContent = 'Continue →';
+                continueButton.disabled = false;
+                continueButton.style.opacity = '1';
+                continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
+            } else {
+                continueButton.textContent = 'Got the widget code →';
+                // Reset to original state - check if they have both widget code and shortcode
+                const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
+                const shortcode = document.getElementById('userShortcode').value.trim();
+                const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
+                const shortcodeValid = shortcode && shortcode.includes('[givebutter');
+                
+                if (widgetCodeValid && shortcodeValid) {
+                    continueButton.disabled = false;
+                    continueButton.style.opacity = '1';
+                } else {
+                    continueButton.disabled = true;
+                    continueButton.style.opacity = '0.5';
+                }
+                continueButton.onclick = function() { proceedToWordpressWidgetSearch(); };
+            }
+        }
+        
 function selectAdvancedTroubleshootingResult(result) {
             document.querySelectorAll('#step-advanced-troubleshooting .option-button').forEach(btn => {
                 btn.classList.remove('selected');
