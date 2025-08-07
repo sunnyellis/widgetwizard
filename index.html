@@ -1302,6 +1302,54 @@
                 </div>
             </div>
 
+<!-- Advanced Troubleshooting -->
+            <div id="step-advanced-troubleshooting" class="step-container">
+                <div class="step-title">🤔 Widget still not working</div>
+                <div class="step-description">Here are some rarer situations that you should check before creating a linear ticket.</div>
+                
+                <div class="educational-tip-structured">
+                    <div class="step-header">🔍 What to check:</div>
+                    
+                    <div class="step-item">
+                        <strong>1. Is their newest version of the website published?</strong><br>
+                        Sometimes users make changes but forget to publish/save their updates. Have them republish or save their website to make sure all changes are live.
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>2. Are they looking at their published page or are they still in the web builder?</strong><br>
+                        Some web builders don't show a visual of the widget, so it may appear broken. Always check the actual website to confirm.
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>3. If you helped them install the library or widget code, did they actually do it?</strong><br>
+                        Double-check their website again manually. People sometimes say "yes, I did it" but haven't actually completed the installation.
+                    </div>
+                    
+                    <div class="step-item">
+                        <strong>4. Did they accidentally install multiple instances of their library or widget code?</strong><br>
+                        Be careful on this step, because multiple DIFFERENT widget codes are fine - a goal bar and a button, for example. If they have doubles of the SAME code, have them remove the duplicates.
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <strong>After checking these items, did any of them solve the issue?</strong>
+                </div>
+                
+                <div class="options-container">
+                    <button class="option-button" onclick="selectAdvancedTroubleshootingResult('solved')">
+                        <span>✅</span> Yes, widget is working now!
+                    </button>
+                    <button class="option-button" onclick="selectAdvancedTroubleshootingResult('create-ticket')">
+                        <span>❌</span> Still not working - create ticket
+                    </button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                    <button class="btn btn-primary" id="advancedTroubleshootingContinue" onclick="handleAdvancedTroubleshootingResult()" disabled>Continue →</button>
+                </div>
+            </div>
+            
             <!-- Problem Solved -->
             <div id="step-problem-solved" class="step-container">
                 <div class="step-title">🎉 Fantastic! Widget Issue Resolved!</div>
@@ -1920,9 +1968,10 @@
             previousStep: null,
             widgetInstallOption: null,
             widgetInstallResult: null,
+            advancedTroubleshootingResult: null,
              wixLibraryCode: null,
             wixWidgetId: null,
-            wixCodesFound: null
+            wixCodesFound: null,
         };
 
         const stepOrder = [
@@ -2004,6 +2053,7 @@
                 previousStep: null,
                 widgetInstallOption: null,
                 widgetInstallResult: null,
+                advancedTroubleshootingResult: null,
                  wixLibraryCode: null,
                 wixWidgetId: null,
                 wixCodesFound: null
@@ -2115,8 +2165,11 @@
                                 <button class="option-button compatible" onclick="selectPlan('business')">
                                     Business plan
                                 </button>
-                                <button class="option-button compatible" onclick="selectPlan('ecommerce')">
+                               <button class="option-button compatible" onclick="selectPlan('ecommerce')">
                                     eCommerce plan
+                                </button>
+                            <button class="option-button compatible" onclick="selectPlan('wordpress-org')">
+                                    WordPress.org
                                 </button>
                             </div>
                         </div>
@@ -2218,6 +2271,7 @@
                 if (btn.textContent.toLowerCase().includes(plan.toLowerCase()) || 
                     (plan === 'business' && btn.textContent.includes('Business')) ||
                     (plan === 'ecommerce' && btn.textContent.includes('eCommerce')) ||
+                    (plan === 'wordpress-org' && btn.textContent.includes('WordPress.org')) ||
                     (plan === 'personal' && btn.textContent.includes('Personal')) ||
                     (plan === 'free' && btn.textContent.includes('Free')) ||
                     (plan === 'premium' && btn.textContent.includes('Premium'))) {
@@ -2641,10 +2695,11 @@ function setupWidgetInspection() {
             if (wizardData.widgetInstallResult === 'solved') {
                 markProblemSolved('widget-installed');
             } else {
-                // Still not working - could lead to further troubleshooting
-                markProblemSolved('needs-further-help');
+                // Route to advanced troubleshooting instead of marking as needing help
+                nextStep('step-advanced-troubleshooting');
             }
         }
+        
         function checkLibraryCode() {
     const code = document.getElementById('libraryCode').value.trim();
     const continueBtn = document.getElementById('libraryCodeContinue');
@@ -2830,6 +2885,26 @@ function copyInstructionBox(containerId) {
         button.style.background = '#9c27b0';
     }, 2000);
 }
+
+function selectAdvancedTroubleshootingResult(result) {
+            document.querySelectorAll('#step-advanced-troubleshooting .option-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.closest('.option-button').classList.add('selected');
+            wizardData.advancedTroubleshootingResult = result;
+            document.getElementById('advancedTroubleshootingContinue').disabled = false;
+        }
+
+        function handleAdvancedTroubleshootingResult() {
+            if (wizardData.advancedTroubleshootingResult === 'solved') {
+                markProblemSolved('advanced-troubleshooting-solved');
+            } else {
+                // Create ticket - could show a final page with ticket creation instructions
+                markProblemSolved('needs-linear-ticket');
+            }
+        }
+        
         function markProblemSolved(solutionType) {
             const solutionSummary = document.getElementById('solutionSummary');
             
