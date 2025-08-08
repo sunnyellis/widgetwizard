@@ -3290,11 +3290,17 @@ function toggleWidgetConfirmed() {
     const continueButton = document.getElementById('widgetCodeContinue');
     
     if (checkbox.checked) {
+        // Update checklist when checkbox is checked
+        updateChecklist('widget-installed', '', 'complete');
+        
         continueButton.textContent = 'Continue →';
         continueButton.disabled = false;
         continueButton.style.opacity = '1';
         continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
     } else {
+        // Reset checklist when unchecked
+        updateChecklist('widget-installed', '❓', 'pending');
+        
         continueButton.textContent = 'Got the widget code →';
         continueButton.onclick = function() { proceedToWidgetSearch(); };
         // Reset to original state - check if they have widget code
@@ -3310,32 +3316,38 @@ function toggleWidgetConfirmed() {
 }
 
 function toggleWordpressWidgetConfirmed() {
-            const checkbox = document.getElementById('wordpressWidgetConfirmed');
-            const continueButton = document.getElementById('wordpressWidgetCodeContinue');
-            
-            if (checkbox.checked) {
-                continueButton.textContent = 'Continue →';
-                continueButton.disabled = false;
-                continueButton.style.opacity = '1';
-                continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
-            } else {
-                continueButton.textContent = 'Got the widget code →';
-                // Reset to original state - check if they have both widget code and shortcode
-                const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
-                const shortcode = document.getElementById('userShortcode').value.trim();
-                const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
-                const shortcodeValid = shortcode && shortcode.includes('[givebutter');
-                
-                if (widgetCodeValid && shortcodeValid) {
-                    continueButton.disabled = false;
-                    continueButton.style.opacity = '1';
-                } else {
-                    continueButton.disabled = true;
-                    continueButton.style.opacity = '0.5';
-                }
-                continueButton.onclick = function() { proceedToWordpressWidgetSearch(); };
-            }
+    const checkbox = document.getElementById('wordpressWidgetConfirmed');
+    const continueButton = document.getElementById('wordpressWidgetCodeContinue');
+    
+    if (checkbox.checked) {
+        // Update checklist when checkbox is checked
+        updateChecklist('widget-installed', '', 'complete');
+        
+        continueButton.textContent = 'Continue →';
+        continueButton.disabled = false;
+        continueButton.style.opacity = '1';
+        continueButton.onclick = function() { nextStep('step-advanced-troubleshooting'); };
+    } else {
+        // Reset checklist when unchecked
+        updateChecklist('widget-installed', '❓', 'pending');
+        
+        continueButton.textContent = 'Got the widget code →';
+        // Reset to original state - check if they have both widget code and shortcode
+        const widgetCode = document.getElementById('userWidgetCodeWordpress').value.trim();
+        const shortcode = document.getElementById('userShortcode').value.trim();
+        const widgetCodeValid = widgetCode && widgetCode.includes('givebutter-widget');
+        const shortcodeValid = shortcode && shortcode.includes('[givebutter');
+        
+        if (widgetCodeValid && shortcodeValid) {
+            continueButton.disabled = false;
+            continueButton.style.opacity = '1';
+        } else {
+            continueButton.disabled = true;
+            continueButton.style.opacity = '0.5';
         }
+        continueButton.onclick = function() { proceedToWordpressWidgetSearch(); };
+    }
+}
         
 function selectAdvancedTroubleshootingResult(result) {
             document.querySelectorAll('#step-advanced-troubleshooting .option-button').forEach(btn => {
