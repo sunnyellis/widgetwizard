@@ -2451,7 +2451,7 @@ function clearChecklistFrom(stepId) {
             
             const skipCheck = document.getElementById('skipCheck');
             if (skipCheck && skipCheck.checked) {
-                updateChecklist('plan', 'all plans compatible');
+                updateChecklist('plan', 'confirmed compatible');
                 updateChecklist('plan-compatible', '', 'complete');
                 nextStep('step-widget-type');
                 return;
