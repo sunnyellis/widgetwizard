@@ -2808,6 +2808,9 @@ function getWidgetTypeDisplayName(type) {
     const continueButton = document.getElementById('libraryCheckButton');
     
     if (checkbox.checked) {
+        // Update checklist when checkbox is checked
+        updateChecklist('library-installed', '', 'complete');
+        
         continueButton.textContent = 'Continue →';
         if (wizardData.platform === 'wordpress') {
             continueButton.onclick = function() { nextStep('step-widget-code-detection-wordpress'); };
@@ -2815,6 +2818,9 @@ function getWidgetTypeDisplayName(type) {
             continueButton.onclick = function() { nextStep('step-widget-code-detection'); };
         }
     } else {
+        // Reset checklist when unchecked
+        updateChecklist('library-installed', '❓', 'pending');
+        
         continueButton.textContent = 'Check Library Code →';
         continueButton.onclick = function() { nextStep('step-library-check'); };
     }
