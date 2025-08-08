@@ -3221,6 +3221,9 @@ function showWordPressPage1() {
 function showWordPressPage2() {
     const accountId = document.getElementById('wordpressAccountId').value.trim();
     document.getElementById('wordpressDisplayAccountId').textContent = accountId;
+
+    // Update checklist with the Account ID
+    updateChecklist('library-code', accountId);
     
     document.getElementById('wordpress-page1').style.display = 'none';
     document.getElementById('wordpress-page2').style.display = 'block';
