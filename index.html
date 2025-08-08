@@ -677,7 +677,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-welcome')">← Back</button>
+                        <button class="btn btn-secondary"  onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="platformContinue" onclick="checkPlatformPlan()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -694,7 +694,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="planContinue" onclick="checkPlanCompatibility()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -760,7 +760,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-widget-type')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="payoutStatusContinue" onclick="handlePayoutStatus()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -792,7 +792,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-payout-check')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="campaignStatusContinue" onclick="handleCampaignStatus()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -822,7 +822,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-plan-check')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-secondary" onclick="restartWizard()">← Start Over</button>
                     </div>
                 </div>
@@ -852,7 +852,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
                     </div>
                 </div>
@@ -892,7 +892,7 @@
                 </div>
 
                 <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
                     </div>
                 </div> 
@@ -929,7 +929,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-secondary" onclick="previousStep('step-platform')">← Back</button>
+                    <button class="btn btn-secondary"> onclick="goToPreviousStep()">← Back</button>
                     <button class="btn btn-primary" id="compatibilityContinue" onclick="handleCompatibilitySelection()" disabled>Continue →</button>
                 </div>
                 </div>
@@ -959,7 +959,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-other-research')">← Back</button>
+                        <button class="btn btn-secondary"  onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-secondary" onclick="restartWizard()">Start Over</button>
                     </div>
                 </div>
@@ -989,7 +989,7 @@
         </div>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="previousStep('step-payout-check')">← Back</button>
+            <button class="btn btn-secondary"  onclick="goToPreviousStep()">← Back</button>
             <button class="btn btn-primary" onclick="nextStep('step-campaign-published')">Continue →</button>
         </div>
     </div>
@@ -1062,7 +1062,7 @@
                     <input type="text" class="text-input" id="websiteUrl" placeholder="https://example.com/donate" onkeyup="checkUrlInput()">
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-code-collection')">← Back</button>
+                        <button class="btn btn-secondary"  onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="urlContinue" onclick="startLibraryInspection()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -1118,7 +1118,7 @@
                         </button>
                     </div>
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-library-check')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="libraryFoundContinue" onclick="handleLibraryResult()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -1150,7 +1150,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-library-inspection')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="installOptionContinue" onclick="handleInstallOption()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -1203,7 +1203,7 @@
         </div>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+            <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
             <button class="btn btn-primary" id="libraryCodeContinue" onclick="showPlatformInstructions()" disabled style="opacity: 0.5;">Got the Library Code →</button>
         </div>
     </div>
@@ -1258,7 +1258,7 @@
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-secondary" onclick="previousStep('step-library-install')">← Back</button>
+                <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                 <button class="btn btn-primary" id="wordpressContinueBtn" onclick="showWordPressPage2()" disabled style="opacity: 0.5;">Got the Account ID →</button>
             </div>
         </div>
@@ -1304,7 +1304,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="showWordPressPage1()">← Back to Account ID</button>
-            <button class="btn btn-primary" onclick="nextStep('step-platform-instructions')">Continue →</button>
+            <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection-wordpress')">Continue →</button>
         </div>
     </div>
     </div>
@@ -1334,7 +1334,7 @@
             </div>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+            <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
             <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
         </div>
     </div>
@@ -1365,7 +1365,7 @@
             </div>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+            <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
             <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
         </div>
     </div>
@@ -1394,7 +1394,7 @@
             </div>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back to Library Code</button>
+            <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
             <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
         </div>
     </div>
@@ -1427,7 +1427,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-get-library-code')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="platformInstructionsContinue" onclick="handlePlatformInstructions()" disabled>Continue →</button>
                     </div>
                 </div>
@@ -1628,7 +1628,7 @@
                     <input type="text" class="text-input" id="widgetWebsiteUrl" placeholder="https://example.com/donate" onkeyup="checkWidgetUrlInput()">
 
                     <div class="action-buttons">
-                        <button class="btn btn-secondary" onclick="previousStep('step-code-collection')">← Back</button>
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
                         <button class="btn btn-primary" id="widgetUrlContinue" onclick="proceedToWidgetInspection()" disabled>Continue →</button>
                     </div>
                 </div>
