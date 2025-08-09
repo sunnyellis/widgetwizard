@@ -1304,7 +1304,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="showWordPressPage1()">← Back to Account ID</button>
-            <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection-wordpress')">Continue →</button>
+            <button class="btn btn-primary" onclick="handleLibraryInstallContinue('step-widget-code-detection-wordpress')">Continue →</button>
         </div>
     </div>
     </div>
@@ -1335,7 +1335,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-            <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
+            <button class="btn btn-primary" onclick="handleSquarespaceLibraryContinue()">Continue →</button>
         </div>
     </div>
 
@@ -1366,7 +1366,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-            <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
+            <button class="btn btn-primary" onclick="handleLibraryInstallContinue('step-widget-code-detection')">Continue →</button>
         </div>
     </div>
                 
@@ -1395,7 +1395,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-            <button class="btn btn-primary" onclick="nextStep('step-widget-code-detection')">Continue →</button>
+            <button class="btn btn-primary" onclick="handleLibraryInstallContinue('step-widget-code-detection')">Continue →</button>
         </div>
     </div>
 
@@ -2944,6 +2944,14 @@ function handleCampaignPublished() {
     }
 }
 
+function handleLibraryInstallContinue(nextStepId) {
+    // Update checklist to show library code is installed
+    updateChecklist('library-installed', '', 'complete');
+    
+    // Continue to the specified next step
+    nextStep(nextStepId);
+}
+
 // Widget inspection functions
         function selectWidgetFound(status) {
             document.querySelectorAll('#step-widget-inspection .option-button').forEach(btn => {
@@ -3437,11 +3445,31 @@ function copyProgressTracker(buttonElement) {
         if (!element) return 'Not checked';
         
         if (element.classList.contains('status-complete')) {
-            return '✅';  // Removed "Complete"
+            return '✅';
         } else if (element.classList.contains('status-dynamic')) {
             return element.textContent.trim();
         } else {
             return '❓ Not checked';
+        }
+    };
+    
+    // Special handling for library code to preserve HTML formatting
+    const getLibraryCode = () => {
+        if (wizardData.libraryCode) {
+            return wizardData.libraryCode;
+        } else if (wizardData.wixLibraryCode) {
+            return wizardData.wixLibraryCode;
+        } else {
+            return getChecklistValue('library-code');
+        }
+    };
+    
+    // Special handling for widget code to preserve HTML formatting
+    const getWidgetCode = () => {
+        if (wizardData.widgetCode) {
+            return wizardData.widgetCode;
+        } else {
+            return getChecklistValue('widget-code');
         }
     };
     
@@ -3454,20 +3482,22 @@ Plan is compatible: ${getChecklistStatus('plan-compatible')}
 Widget type: ${getChecklistValue('widget-type')}
 Payouts are set up: ${getChecklistStatus('payouts')}
 Campaign is published: ${getChecklistStatus('campaign')}
-Library code: ${getChecklistValue('library-code')}
+Library code: ${getLibraryCode()}
 Website: ${getChecklistValue('website')}
 Library code is installed: ${getChecklistStatus('library-installed')}
-Widget code: ${getChecklistValue('widget-code')}`;
+Widget code: ${getWidgetCode()}`;
 
     // Add platform-specific fields if they exist
     const shortcodeElement = document.getElementById('checklist-shortcode-item');
     if (shortcodeElement && shortcodeElement.style.display !== 'none') {
-        progressText += `\nShortcode (WordPress): ${getChecklistValue('shortcode')}`;
+        const shortcodeValue = wizardData.shortcode || getChecklistValue('shortcode');
+        progressText += `\nShortcode (WordPress): ${shortcodeValue}`;
     }
     
     const widgetIdElement = document.getElementById('checklist-widget-id-item');
     if (widgetIdElement && widgetIdElement.style.display !== 'none') {
-        progressText += `\nWidget ID (Wix): ${getChecklistValue('widget-id')}`;
+        const widgetIdValue = wizardData.wixWidgetId || getChecklistValue('widget-id');
+        progressText += `\nWidget ID (Wix): ${widgetIdValue}`;
     }
     
     // Always include this last field
