@@ -3139,6 +3139,9 @@ function setupWidgetInspection() {
             nextStep('step-get-library-code');
         }
     } else {
+        // They chose "Check widget code" - assume library is installed
+        updateChecklist('library-installed', '', 'complete');
+        
         if (wizardData.platform === 'wordpress') {
             nextStep('step-widget-code-detection-wordpress');
         } else {
