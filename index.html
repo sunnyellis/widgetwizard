@@ -3455,23 +3455,15 @@ function copyProgressTracker(buttonElement) {
     };
     
     // Special handling for library code to preserve HTML formatting
-const getLibraryCode = () => {
-    let code = '';
-    if (wizardData.libraryCode) {
-        code = wizardData.libraryCode;
-    } else if (wizardData.wixLibraryCode) {
-        code = wizardData.wixLibraryCode;
-    } else {
-        code = getChecklistValue('library-code');
-    }
-    
-    // Wrap in backticks for proper code formatting in Linear
-    if (code && code.includes('<script')) {
-        return '```\n' + code + '\n```';
-    } else {
-        return code;
-    }
-};
+    const getLibraryCode = () => {
+        if (wizardData.libraryCode) {
+            return wizardData.libraryCode;
+        } else if (wizardData.wixLibraryCode) {
+            return wizardData.wixLibraryCode;
+        } else {
+            return getChecklistValue('library-code');
+        }
+    };
     
     // Special handling for widget code to preserve HTML formatting
     const getWidgetCode = () => {
@@ -3482,35 +3474,44 @@ const getLibraryCode = () => {
         }
     };
     
-    // Build the progress text with all checklist items in order
-    let progressText = `Troubleshooting steps I already tried:
+    // Build the progress text in markdown format
+    let progressText = `## Troubleshooting steps I already tried:
 
-Platform: ${getChecklistValue('platform')}
-Plan: ${getChecklistValue('plan')}
-Plan is compatible: ${getChecklistStatus('plan-compatible')}
-Widget type: ${getChecklistValue('widget-type')}
-Payouts are set up: ${getChecklistStatus('payouts')}
-Campaign is published: ${getChecklistStatus('campaign')}
-Library code: ${getLibraryCode()}
-Website: ${getChecklistValue('website')}
-Library code is installed: ${getChecklistStatus('library-installed')}
-Widget code: ${getWidgetCode()}`;
+**Platform:** ${getChecklistValue('platform')}
+**Plan:** ${getChecklistValue('plan')}
+**Plan is compatible:** ${getChecklistStatus('plan-compatible')}
+**Widget type:** ${getChecklistValue('widget-type')}
+**Payouts are set up:** ${getChecklistStatus('payouts')}
+**Campaign is published:** ${getChecklistStatus('campaign')}
+
+**Library code:**
+\`\`\`
+${getLibraryCode()}
+\`\`\`
+
+**Website:** ${getChecklistValue('website')}
+**Library code is installed:** ${getChecklistStatus('library-installed')}
+
+**Widget code:**
+\`\`\`
+${getWidgetCode()}
+\`\`\``;
 
     // Add platform-specific fields if they exist
     const shortcodeElement = document.getElementById('checklist-shortcode-item');
     if (shortcodeElement && shortcodeElement.style.display !== 'none') {
         const shortcodeValue = wizardData.shortcode || getChecklistValue('shortcode');
-        progressText += `\nShortcode (WordPress): ${shortcodeValue}`;
+        progressText += `\n**Shortcode (WordPress):**\n\`\`\`\n${shortcodeValue}\n\`\`\``;
     }
     
     const widgetIdElement = document.getElementById('checklist-widget-id-item');
     if (widgetIdElement && widgetIdElement.style.display !== 'none') {
         const widgetIdValue = wizardData.wixWidgetId || getChecklistValue('widget-id');
-        progressText += `\nWidget ID (Wix): ${widgetIdValue}`;
+        progressText += `\n**Widget ID (Wix):** \`${widgetIdValue}\``;
     }
     
     // Always include this last field
-    progressText += `\nWidget code is installed: ${getChecklistStatus('widget-installed')}`;
+    progressText += `\n**Widget code is installed:** ${getChecklistStatus('widget-installed')}`;
 
     navigator.clipboard.writeText(progressText).then(() => {
         const originalText = buttonElement.innerHTML;
