@@ -3134,15 +3134,16 @@ function setupWidgetInspection() {
         }
 
         function handleWidgetInstallResult() {
-            if (wizardData.widgetInstallResult === 'solved') {
-                // Update checklist
-                updateChecklist('widget-installed', '', 'complete');
-                markProblemSolved('widget-installed');
-            } else {
-                // Route to advanced troubleshooting instead of marking as needing help
-                nextStep('step-advanced-troubleshooting');
-            }
-        }
+    // Always update checklist - if they got this far, widget code was installed
+    updateChecklist('widget-installed', '', 'complete');
+    
+    if (wizardData.widgetInstallResult === 'solved') {
+        markProblemSolved('widget-installed');
+    } else {
+        // Widget was installed but still not working - go to advanced troubleshooting
+        nextStep('step-advanced-troubleshooting');
+    }
+}
         
         function checkLibraryCode() {
     const code = document.getElementById('libraryCode').value.trim();
@@ -3540,7 +3541,8 @@ function checkWidgetCode() {
         // Extract widget ID and update checklist
         const idMatch = code.match(/id="([^"]+)"/);
         if (idMatch) {
-            updateChecklist('widget-code', idMatch[1]);
+            // Update checklist with full widget code
+            updateChecklist('widget-code', code);
         }
     } else {
         continueBtn.disabled = true;
@@ -3594,7 +3596,8 @@ function proceedToWidgetSearch() {
         // Update checklist
         const idMatch = widgetCode.match(/id="([^"]+)"/);
         if (idMatch) {
-            updateChecklist('widget-code', idMatch[1]);
+            // Update checklist with full widget code
+        updateChecklist('widget-code', widgetCode);
         }
         updateChecklist('shortcode', shortcode);
     } else {
