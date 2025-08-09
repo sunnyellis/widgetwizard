@@ -3437,7 +3437,7 @@ function copyProgressTracker(buttonElement) {
         if (!element) return 'Not checked';
         
         if (element.classList.contains('status-complete')) {
-            return '✅ Complete';
+            return '✅';  // Removed "Complete"
         } else if (element.classList.contains('status-dynamic')) {
             return element.textContent.trim();
         } else {
@@ -3448,7 +3448,6 @@ function copyProgressTracker(buttonElement) {
     // Build the progress text with all checklist items in order
     let progressText = `Troubleshooting steps I already tried:
 
-Widget Wizard Progress Tracker:
 Platform: ${getChecklistValue('platform')}
 Plan: ${getChecklistValue('plan')}
 Plan is compatible: ${getChecklistStatus('plan-compatible')}
