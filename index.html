@@ -1480,6 +1480,44 @@
                     </div>
                 </div>
                 
+<!-- Linear Ticket Creation -->
+<div id="step-create-linear-ticket" class="step-container">
+    <div class="step-title">📋 Time to submit a linear ticket</div>
+    <div class="step-description">You've completed all the basic troubleshooting steps. Since the widget still isn't working, it's time to <a href="https://www.notion.so/givebutter/Linear-b8b6e269664043c4a17aaa2f9b321063" target="_blank" style="color: #9c27b0; font-weight: 600; text-decoration: underline;">submit a linear ticket</a>.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">📝 Steps for you:</div>
+        
+        <div class="step-item">
+            <strong>1.</strong> Create a linear ticket.
+        </div>
+        
+        <div class="step-item">
+            <strong>2.</strong> Copy your progress tracker notes using the copy button below.
+        </div>
+        
+        <div class="step-item">
+            <strong>3.</strong> Paste the progress tracker notes into your linear.
+        </div>
+    </div>
+
+    <div style="margin: 20px 0; text-align: center;">
+        <button onclick="copyProgressTracker()" style="background: #9c27b0; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 1em;">
+            📋 Copy Progress Tracker Notes
+        </button>
+    </div>
+    
+    <div class="solution-title">💬 What to tell your User:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
+        I need to escalate this to our advanced team for further investigation. This may take some time, so I'll keep you updated via email. Is there anything else I can help with for now?
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" onclick="restartWizard()">Start Over</button>
+    </div>
+</div>
+                
                 <!-- Problem Solved -->
                 <div id="step-problem-solved" class="step-container">
                     <div class="step-title">🎉 Fantastic! Widget Issue Resolved!</div>
@@ -3375,18 +3413,59 @@ function selectAdvancedTroubleshootingResult(result) {
         }
 
         function handleAdvancedTroubleshootingResult() {
-            if (wizardData.advancedTroubleshootingResult === 'solved') {
-                markProblemSolved('advanced-troubleshooting-solved');
-            } else {
-                // Create ticket - could show a final page with ticket creation instructions
-                markProblemSolved('needs-linear-ticket');
-            }
-        }
+    if (wizardData.advancedTroubleshootingResult === 'solved') {
+        markProblemSolved('advanced-troubleshooting-solved');
+    } else {
+        nextStep('step-create-linear-ticket');
+    }
+}
         
         function markProblemSolved(solutionType) {
             // Go directly to success page - the success page has its own messaging
             nextStep('step-problem-solved');
         }
+
+function copyProgressTracker() {
+    // This will copy the current state of all checklist items
+    const checklistData = {
+        platform: wizardData.platform,
+        plan: wizardData.plan,
+        widgetType: wizardData.widgetType,
+        payoutStatus: wizardData.payoutStatus,
+        campaignStatus: wizardData.campaignStatus,
+        websiteUrl: wizardData.websiteUrl,
+        libraryCode: wizardData.libraryCode,
+        widgetCode: wizardData.widgetCode,
+        shortcode: wizardData.shortcode,
+        wixWidgetId: wizardData.wixWidgetId
+    };
+    
+    const progressText = `Troubleshooting steps I already tried:
+
+Widget Wizard Progress Tracker:
+Platform: ${checklistData.platform || 'Not set'}
+Plan: ${checklistData.plan || 'Not set'}  
+Widget Type: ${checklistData.widgetType || 'Not set'}
+Payout Status: ${checklistData.payoutStatus || 'Not checked'}
+Campaign Status: ${checklistData.campaignStatus || 'Not checked'}
+Website: ${checklistData.websiteUrl || 'Not provided'}
+Library Code: ${checklistData.libraryCode ? 'Collected' : 'Not collected'}
+Widget Code: ${checklistData.widgetCode ? 'Collected' : 'Not collected'}
+${checklistData.shortcode ? 'Shortcode: ' + checklistData.shortcode : ''}
+${checklistData.wixWidgetId ? 'Widget ID: ' + checklistData.wixWidgetId : ''}`;
+
+    navigator.clipboard.writeText(progressText).then(() => {
+        const button = event.target;
+        const originalText = button.innerHTML;
+        button.innerHTML = '✅ Copied!';
+        button.style.background = '#4CAF50';
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.style.background = '#9c27b0';
+        }, 2000);
+    });
+}
 
 // Widget code detection functions
 function checkWidgetCode() {
