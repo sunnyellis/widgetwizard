@@ -3426,36 +3426,56 @@ function selectAdvancedTroubleshootingResult(result) {
         }
 
 function copyProgressTracker(buttonElement) {
-    // This will copy the current state of all checklist items
-    const checklistData = {
-        platform: wizardData.platform,
-        plan: wizardData.plan,
-        widgetType: wizardData.widgetType,
-        payoutStatus: wizardData.payoutStatus,
-        campaignStatus: wizardData.campaignStatus,
-        websiteUrl: wizardData.websiteUrl,
-        libraryCode: wizardData.libraryCode,
-        widgetCode: wizardData.widgetCode,
-        shortcode: wizardData.shortcode,
-        wixWidgetId: wizardData.wixWidgetId
+    // Read directly from the checklist display to get all current values
+    const getChecklistValue = (id) => {
+        const element = document.getElementById(`checklist-${id}`);
+        return element ? element.textContent.trim() : 'Not set';
     };
     
-    const progressText = `Troubleshooting steps I already tried:
+    const getChecklistStatus = (id) => {
+        const element = document.getElementById(`checklist-${id}`);
+        if (!element) return 'Not checked';
+        
+        if (element.classList.contains('status-complete')) {
+            return '✅ Complete';
+        } else if (element.classList.contains('status-dynamic')) {
+            return element.textContent.trim();
+        } else {
+            return '❓ Not checked';
+        }
+    };
+    
+    // Build the progress text with all checklist items in order
+    let progressText = `Troubleshooting steps I already tried:
 
 Widget Wizard Progress Tracker:
-Platform: ${checklistData.platform || 'Not set'}
-Plan: ${checklistData.plan || 'Not set'}  
-Widget Type: ${checklistData.widgetType || 'Not set'}
-Payout Status: ${checklistData.payoutStatus || 'Not checked'}
-Campaign Status: ${checklistData.campaignStatus || 'Not checked'}
-Website: ${checklistData.websiteUrl || 'Not provided'}
-Library Code: ${checklistData.libraryCode ? 'Collected' : 'Not collected'}
-Widget Code: ${checklistData.widgetCode ? 'Collected' : 'Not collected'}
-${checklistData.shortcode ? 'Shortcode: ' + checklistData.shortcode : ''}
-${checklistData.wixWidgetId ? 'Widget ID: ' + checklistData.wixWidgetId : ''}`;
+Platform: ${getChecklistValue('platform')}
+Plan: ${getChecklistValue('plan')}
+Plan is compatible: ${getChecklistStatus('plan-compatible')}
+Widget type: ${getChecklistValue('widget-type')}
+Payouts are set up: ${getChecklistStatus('payouts')}
+Campaign is published: ${getChecklistStatus('campaign')}
+Library code: ${getChecklistValue('library-code')}
+Website: ${getChecklistValue('website')}
+Library code is installed: ${getChecklistStatus('library-installed')}
+Widget code: ${getChecklistValue('widget-code')}`;
+
+    // Add platform-specific fields if they exist
+    const shortcodeElement = document.getElementById('checklist-shortcode-item');
+    if (shortcodeElement && shortcodeElement.style.display !== 'none') {
+        progressText += `\nShortcode (WordPress): ${getChecklistValue('shortcode')}`;
+    }
+    
+    const widgetIdElement = document.getElementById('checklist-widget-id-item');
+    if (widgetIdElement && widgetIdElement.style.display !== 'none') {
+        progressText += `\nWidget ID (Wix): ${getChecklistValue('widget-id')}`;
+    }
+    
+    // Always include this last field
+    progressText += `\nWidget code is installed: ${getChecklistStatus('widget-installed')}`;
 
     navigator.clipboard.writeText(progressText).then(() => {
-        const originalText = buttonElement.innerHTML;  // ✅ Now using the passed parameter
+        const originalText = buttonElement.innerHTML;
         buttonElement.innerHTML = '✅ Copied!';
         buttonElement.style.background = '#4CAF50';
         
