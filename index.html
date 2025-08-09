@@ -1020,7 +1020,7 @@
 
         <div class="action-buttons">
             <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
-            <button class="btn btn-primary" onclick="nextStep('step-code-collection')">Continue →</button>
+            <button class="btn btn-primary" onclick="handleCampaignPublished()">Continue →</button>
         </div>
     </div>
 
@@ -2778,6 +2778,18 @@ function getWidgetTypeDisplayName(type) {
         } else {
             nextStep('step-code-collection');
         }
+    }
+}
+
+function handleCampaignPublished() {
+    // Update checklist to show campaign is now published
+    updateChecklist('campaign', '', 'complete');
+    
+    // Continue to next step
+    if (wizardData.platform === 'wix') {
+        nextStep('step-wix-code-collection');
+    } else {
+        nextStep('step-code-collection');
     }
 }
 
