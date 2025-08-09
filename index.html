@@ -1502,7 +1502,7 @@
     </div>
 
     <div style="margin: 20px 0; text-align: center;">
-        <button onclick="copyProgressTracker()" style="background: #9c27b0; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 1em;">
+        <button onclick="copyProgressTracker(this)" style="background: #9c27b0; color: white; border: none; padding: 15px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 1em;">
             📋 Copy Progress Tracker Notes
         </button>
     </div>
@@ -3425,7 +3425,7 @@ function selectAdvancedTroubleshootingResult(result) {
             nextStep('step-problem-solved');
         }
 
-function copyProgressTracker() {
+function copyProgressTracker(buttonElement) {
     // This will copy the current state of all checklist items
     const checklistData = {
         platform: wizardData.platform,
@@ -3455,14 +3455,13 @@ ${checklistData.shortcode ? 'Shortcode: ' + checklistData.shortcode : ''}
 ${checklistData.wixWidgetId ? 'Widget ID: ' + checklistData.wixWidgetId : ''}`;
 
     navigator.clipboard.writeText(progressText).then(() => {
-        const button = event.target;
-        const originalText = button.innerHTML;
-        button.innerHTML = '✅ Copied!';
-        button.style.background = '#4CAF50';
+        const originalText = buttonElement.innerHTML;  // ✅ Now using the passed parameter
+        buttonElement.innerHTML = '✅ Copied!';
+        buttonElement.style.background = '#4CAF50';
         
         setTimeout(() => {
-            button.innerHTML = originalText;
-            button.style.background = '#9c27b0';
+            buttonElement.innerHTML = originalText;
+            buttonElement.style.background = '#9c27b0';
         }, 2000);
     });
 }
