@@ -3455,15 +3455,23 @@ function copyProgressTracker(buttonElement) {
     };
     
     // Special handling for library code to preserve HTML formatting
-    const getLibraryCode = () => {
-        if (wizardData.libraryCode) {
-            return wizardData.libraryCode;
-        } else if (wizardData.wixLibraryCode) {
-            return wizardData.wixLibraryCode;
-        } else {
-            return getChecklistValue('library-code');
-        }
-    };
+const getLibraryCode = () => {
+    let code = '';
+    if (wizardData.libraryCode) {
+        code = wizardData.libraryCode;
+    } else if (wizardData.wixLibraryCode) {
+        code = wizardData.wixLibraryCode;
+    } else {
+        code = getChecklistValue('library-code');
+    }
+    
+    // Wrap in backticks for proper code formatting in Linear
+    if (code && code.includes('<script')) {
+        return '```\n' + code + '\n```';
+    } else {
+        return code;
+    }
+};
     
     // Special handling for widget code to preserve HTML formatting
     const getWidgetCode = () => {
