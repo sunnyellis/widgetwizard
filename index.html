@@ -3098,26 +3098,27 @@ function setupWidgetInspection() {
         }
 
         function handleWidgetInstallChoice() {
-            if (wizardData.widgetInstallOption === 'step-by-step') {
-                // Route to platform-specific installation page
-                setupWidgetInstallation();
-                const platform = wizardData.platform;
-                if (platform === 'wordpress') {
-                    nextStep('step-widget-install-wordpress');
-                } else if (platform === 'squarespace') {
-                    nextStep('step-widget-install-squarespace');
-                } else if (platform === 'godaddy') {
-                    nextStep('step-widget-install-godaddy');
-                } else if (platform === 'weebly') {
-                    nextStep('step-widget-install-weebly');
-                } else if (platform === 'wix') {
-                    nextStep('step-widget-install-wix');
-            } else {
-                // Send instructions - this would skip to success page
-                markProblemSolved('widget-instructions-sent');
-            }
+    if (wizardData.widgetInstallOption === 'step-by-step') {
+        // Route to platform-specific installation page
+        setupWidgetInstallation();
+        const platform = wizardData.platform;
+        if (platform === 'wordpress') {
+            nextStep('step-widget-install-wordpress');
+        } else if (platform === 'squarespace') {
+            nextStep('step-widget-install-squarespace');
+        } else if (platform === 'godaddy') {
+            nextStep('step-widget-install-godaddy');
+        } else if (platform === 'weebly') {
+            nextStep('step-widget-install-weebly');
+        } else if (platform === 'wix') {
+            nextStep('step-widget-install-wix');
         }
-        }
+    } else {
+        // Send instructions - assume widget code is installed and go to advanced troubleshooting
+        updateChecklist('widget-installed', '', 'complete');
+        nextStep('step-advanced-troubleshooting');
+    }
+}
 
         function setupWidgetInstallation() {
             const widgetCode = wizardData.widgetCode;
