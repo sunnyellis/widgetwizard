@@ -1002,13 +1002,13 @@
         
         <div class="solution-title">💬 What to tell your User:</div>
         <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #2e7d32; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;">
-            <span style="color: #333;">I found the issue! Your campaign needs to be published before the widget can work. Let's get that published, and see if your widget starts working properly.</span>
+            <span style="color: #333;">I found the issue! Your campaign needs to be published before the widget can work. Let's get that published and see if your widget starts working properly. 😊</span>
             
             <div style="margin-top: 25px; padding-top: 10px; border-top: 1px solid #c8e6c9;">
                 <div style="font-weight: 600; color: #2e7d32; margin-bottom: 15px; font-style: normal;">📝 Steps to share:</div>
                 <div style="color: #333; line-height: 1.5;">
-                    <strong>1.</strong> Go to your campaign in your dashboard. On the top right corner, click the blue button that says "Publish"<br>
-                    <strong>2.</strong> The "Unpublished" label should disappear<br>
+                    <strong>1.</strong> Go to your campaign in your dashboard. On the top right corner, click the blue button that says <strong>Publish.</strong><br>
+                    <strong>2.</strong> The <strong>Unpublished</strong> label should disappear<br>
                     <strong>3.</strong> Try your widget again!
                 </div>
                 <img src="https://i.imgur.com/9zoPDFp.png" alt="Widget working example" style="width: 100%; max-width: 400px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -2936,7 +2936,8 @@ function handleCampaignPublished() {
     // Update checklist
     updateChecklist('website', url);
     
-    document.getElementById('inspectionUrl').textContent = url;
+    const inspectionUrlElement = document.getElementById('inspectionUrl');
+    inspectionUrlElement.innerHTML = `<a href="${url}" target="_blank" style="color: #9c27b0; font-weight: 600; text-decoration: underline;">${url}</a>`;
     nextStep('step-library-inspection');
 }
 
@@ -3017,7 +3018,8 @@ function handleLibraryInstallContinue(nextStepId) {
 
 function setupWidgetInspection() {
             // Set the website URL
-            document.getElementById('widgetInspectionUrl').textContent = wizardData.websiteUrl;
+            const widgetInspectionUrlElement = document.getElementById('widgetInspectionUrl');
+            widgetInspectionUrlElement.innerHTML = `<a href="${wizardData.websiteUrl}" target="_blank" style="color: #9c27b0; font-weight: 600; text-decoration: underline;">${wizardData.websiteUrl}</a>`;
             
             // Extract and set the widget search term from the widget code
             const widgetCode = wizardData.widgetCode;
@@ -3047,7 +3049,8 @@ function setupWidgetInspection() {
 // Wix inspection functions
         function setupWixInspection() {
             // Set the website URL
-            document.getElementById('wixInspectionUrl').textContent = wizardData.websiteUrl;
+            const wixInspectionUrlElement = document.getElementById('wixInspectionUrl');
+            wixInspectionUrlElement.innerHTML = `<a href="${wizardData.websiteUrl}" target="_blank" style="color: #9c27b0; font-weight: 600; text-decoration: underline;">${wizardData.websiteUrl}</a>`;
             
             // Set the widget ID search term from collected data
             if (wizardData.wixWidgetId) {
@@ -3332,33 +3335,32 @@ function copyInstructionBox(containerId, buttonElement) {
         return;
     }
     
-    // Get clean text content and convert to markdown
-    let markdownText = container.textContent || container.innerText || '';
+    // Get clean text content for customer communication
+    let plainText = container.textContent || container.innerText || '';
     
-    // Clean up the text and add markdown formatting
-    markdownText = markdownText
+    // Clean up the text for customers (no markdown)
+    plainText = plainText
         // Remove extra whitespace
         .replace(/\s+/g, ' ')
         .trim()
-        // Add markdown formatting for numbered steps
-        .replace(/(\d+\.)\s*/g, '\n**$1** ')
-        // Add markdown formatting for "Alternatively" or similar
-        .replace(/(Alternatively,|Also search for|Note:|Important:)/g, '\n\n**$1**')
-        // Clean up any double line breaks
+        // Format numbered steps clearly
+        .replace(/(\d+\.)\s*/g, '\n\n$1 ')
+        // Add line breaks before key words
+        .replace(/(Alternatively,|Also search for|Note:|Important:)/g, '\n\n$1')
+        // Clean up multiple line breaks
         .replace(/\n\n+/g, '\n\n')
-        // Trim again
         .trim();
     
-    // Add code formatting for any code blocks we find
+    // Add code blocks as plain text (no backticks)
     const codeBlocks = container.querySelectorAll('.code-block');
     codeBlocks.forEach(block => {
         const codeText = block.textContent.trim();
         if (codeText) {
-            markdownText += `\n\n\`\`\`\n${codeText}\n\`\`\``;
+            plainText += `\n\n${codeText}`;
         }
     });
     
-    navigator.clipboard.writeText(markdownText).then(() => {
+    navigator.clipboard.writeText(plainText).then(() => {
         const originalText = buttonElement.innerHTML;
         buttonElement.innerHTML = '✅ Copied!';
         buttonElement.style.background = '#4CAF50';
