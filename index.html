@@ -2668,7 +2668,8 @@ checkboxes.forEach(checkboxId => {
             const buttons = document.querySelectorAll('#step-plan-check .option-button');
             buttons.forEach(btn => {
                 if (btn.textContent.toLowerCase().includes(plan.toLowerCase()) || 
-                    (plan === 'business' && btn.textContent.includes('Business')) ||
+                    (plan === 'business' && btn.textContent.includes('Business') && !btn.textContent.includes('Elite')) ||
+                    (plan === 'businesselite' && btn.textContent.includes('Business Elite')) ||
                     (plan === 'ecommerce' && btn.textContent.includes('eCommerce')) ||
                     (plan === 'wordpress-org' && btn.textContent.includes('WordPress.org')) ||
                     (plan === 'personal' && btn.textContent.includes('Personal')) ||
