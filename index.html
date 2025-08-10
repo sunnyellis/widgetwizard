@@ -3347,12 +3347,14 @@ function copyInstructionBox(containerId, buttonElement) {
     htmlContent = htmlContent
         // Convert code blocks to strong tags
         .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<strong>$1</strong>')
-        // Clean up ALL whitespace first
+        // Replace any existing div/p tags with single spaces first
+        .replace(/<\/?(div|p)[^>]*>/g, ' ')
+        // Clean up ALL whitespace 
         .replace(/\s+/g, ' ')
         .trim()
-        // Then add clean line breaks before numbers (no extra spaces)
-        .replace(/\s*(\d+\.)/g, '<br>$1')
-        // Remove leading <br> 
+        // Now add single breaks before each number
+        .replace(/(\d+\.)/g, '<br>$1')
+        // Remove any leading <br>
         .replace(/^<br>/, '');
     
     // Copy both formats
