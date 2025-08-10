@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+Uncaught SyntaxError: Unexpected end of inputUnderstand this error
+widgetwizard/:636 Uncaught ReferenceError: nextStep is not defined
+    at HTMLButtonElement.onclick (widgetwizard/:636:93)<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -3637,9 +3639,6 @@ function proceedToWidgetSearch() {
         wizardData.widgetCode = widgetCode;
         wizardData.shortcode = shortcode;
         
-        // Update checklist
-        const idMatch = widgetCode.match(/id="([^"]+)"/);
-        if (idMatch) {
             // Update checklist with full widget code
         updateChecklist('widget-code', widgetCode);
         updateChecklist('shortcode', shortcode);
