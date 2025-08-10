@@ -3168,6 +3168,11 @@ function setupWidgetInspection() {
     // Always update checklist - if they got this far, widget code was installed
     updateChecklist('widget-installed', '', 'complete');
     
+    // For Wix, also mark library as installed since they install together
+    if (wizardData.platform === 'wix') {
+        updateChecklist('library-installed', '', 'complete');
+    }
+    
     if (wizardData.widgetInstallResult === 'solved') {
         markProblemSolved('widget-installed');
     } else {
