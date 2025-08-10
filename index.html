@@ -3338,15 +3338,15 @@ function copyInstructionBox(containerId, buttonElement) {
     // Get HTML content and enhance it for rich text copying
     let htmlContent = container.innerHTML;
     
-    // Convert code blocks to monospace formatting
+    // Convert code blocks to monospace (try different approach)
     htmlContent = htmlContent
-        .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<span style="font-family: Consolas, Monaco, monospace;">$1</span>')
-        // Also catch any content that looks like code (IDs, URLs, etc.)
-        .replace(/([A-Za-z0-9]{10,})/g, '<span style="font-family: Consolas, Monaco, monospace;">$1</span>')
+        .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<code>$1</code>')
         // Clean up extra whitespace
         .replace(/\s+/g, ' ')
-        // Add line breaks before numbered steps  
-        .replace(/(\d+\.)\s*/g, '\n\n$1 ')
+        // Add some spacing before numbered steps (not full line break)
+        .replace(/(\d+\.)\s*/g, '<div style="margin-top: 8px;">$1 ')
+        // Close the div after each step
+        .replace(/(\d+\.\s[^0-9]*?)(?=\d+\.|$)/g, '$1</div>')
         .trim();
     
     // Copy as both HTML and plain text
