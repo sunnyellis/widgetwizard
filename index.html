@@ -3318,11 +3318,22 @@ function copyInstructionBox(containerId, buttonElement) {
         return;
     }
     
-    // Get HTML content with minimal processing
+    // Get HTML content and clean it up
     let htmlContent = container.innerHTML;
     
-    // Only convert code blocks to strong tags
-    htmlContent = htmlContent.replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<strong>$1</strong>');
+    // Simple cleanup for Intercom compatibility
+    htmlContent = htmlContent
+        // Convert code blocks to strong tags
+        .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<strong>$1</strong>')
+        // Replace any existing div/p tags with single spaces first
+        .replace(/<\/?(div|p)[^>]*>/g, ' ')
+        // Clean up ALL whitespace 
+        .replace(/\s+/g, ' ')
+        .trim()
+        // Now add single breaks before each number
+        .replace(/(\d+\.)/g, '<br>$1')
+        // Remove any leading <br>
+        .replace(/^<br>/, '');
     
     // Copy both formats
     if (navigator.clipboard && window.ClipboardItem) {
