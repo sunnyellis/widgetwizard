@@ -742,7 +742,7 @@
                     </div>
                     
                     <div class="educational-tip-structured">
-                        <strong>🔍 How to check:</strong> Click on the payouts tab in the User's dashboard. Accounts that haven't set up their payout method yet will look like this:
+                        <strong>🔍 How to check:</strong> Click on the <strong>Payouts</strong> tab in the User's dashboard. Accounts that haven't set up their payout method yet will look like this:
 
                         <div style="margin-top: 15px;">
                             <img src="https://i.imgur.com/8UWth0V.png" alt="Payout tab location" style="width: 100%; max-width: 400px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -2926,15 +2926,6 @@ function handleCampaignPublished() {
        function startLibraryInspection() {
     let url = document.getElementById('websiteUrl').value.trim();
     
-    // Validate domain ending when they click continue
-    const domainPattern = /\.[a-zA-Z]{2,}$/;
-    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
-    
-    if (!hasValidDomain) {
-        alert('Please make sure you include an ending for the website, such as .com or .org');
-        return; // Stop here, don't proceed
-    }
-    
     // Add https:// if no protocol is present
     if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
@@ -3000,9 +2991,10 @@ function handleLibraryInstallContinue(nextStepId) {
 
         function handleWidgetResult() {
     if (wizardData.widgetFound === 'found') {
-        // Update checklist
+        // Update checklist - widget code is installed
         updateChecklist('widget-installed', '', 'complete');
-        markProblemSolved('widget-working');
+        // Widget is installed but still not working - go to advanced troubleshooting
+        nextStep('step-advanced-troubleshooting');
     } else {
         nextStep('step-widget-install-choice');
     }
@@ -3333,54 +3325,49 @@ function showWordPressPage2() {
     document.getElementById('wordpress-page2').style.display = 'block';
 }
     
-// Universal copy function for instruction boxes
-function copyInstructionBox(containerId) {
+function copyInstructionBox(containerId, buttonElement) {
     const container = document.getElementById(containerId);
     if (!container) {
         console.error('Container not found:', containerId);
         return;
     }
     
-    // Get the HTML content
-    const htmlContent = container.innerHTML;
+    // Get clean text content and convert to markdown
+    let markdownText = container.textContent || container.innerText || '';
     
-    // Create plain text version with manual line break insertion
-    let plainText = container.textContent || container.innerText || '';
+    // Clean up the text and add markdown formatting
+    markdownText = markdownText
+        // Remove extra whitespace
+        .replace(/\s+/g, ' ')
+        .trim()
+        // Add markdown formatting for numbered steps
+        .replace(/(\d+\.)\s*/g, '\n**$1** ')
+        // Add markdown formatting for "Alternatively" or similar
+        .replace(/(Alternatively,|Also search for|Note:|Important:)/g, '\n\n**$1**')
+        // Clean up any double line breaks
+        .replace(/\n\n+/g, '\n\n')
+        // Trim again
+        .trim();
     
-    // Add line breaks after numbered steps (look for pattern like "1. text 2. text")
-    plainText = plainText.replace(/(\d+\.\s[^0-9]+?)(\d+\.)/g, '$1\n$2');
+    // Add code formatting for any code blocks we find
+    const codeBlocks = container.querySelectorAll('.code-block');
+    codeBlocks.forEach(block => {
+        const codeText = block.textContent.trim();
+        if (codeText) {
+            markdownText += `\n\n\`\`\`\n${codeText}\n\`\`\``;
+        }
+    });
     
-    // Add line break before "Alternatively" or similar continuation text
-    plainText = plainText.replace(/(Alternatively,|Also search for)/g, '\n$1');
-    
-    // Copy as rich text with fallback to plain text
-    if (navigator.clipboard && window.ClipboardItem) {
-        navigator.clipboard.write([
-            new ClipboardItem({
-                'text/html': new Blob([htmlContent], {type: 'text/html'}),
-                'text/plain': new Blob([plainText], {type: 'text/plain'})
-            })
-        ]);
-    } else {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = plainText;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-    }
-    
-    // Show success feedback
-    const button = event.target;
-    const originalText = button.innerHTML;
-    button.innerHTML = '✅ Copied!';
-    button.style.background = '#4CAF50';
-    
-    setTimeout(() => {
-        button.innerHTML = originalText;
-        button.style.background = '#9c27b0';
-    }, 2000);
+    navigator.clipboard.writeText(markdownText).then(() => {
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = '✅ Copied!';
+        buttonElement.style.background = '#4CAF50';
+        
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+            buttonElement.style.background = '#9c27b0';
+        }, 2000);
+    });
 }
         
 function toggleWidgetConfirmed() {
@@ -3720,15 +3707,6 @@ function checkWidgetUrlInput() {
 
 function proceedToWidgetInspection() {
     let url = document.getElementById('widgetWebsiteUrl').value.trim();
-    
-    // Validate domain ending
-    const domainPattern = /\.[a-zA-Z]{2,}$/;
-    const hasValidDomain = domainPattern.test(url) || url.startsWith('http');
-    
-    if (!hasValidDomain) {
-        alert('Please make sure you include an ending for the website, such as .com or .org');
-        return;
-    }
     
     // Add https:// if no protocol is present
     if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
