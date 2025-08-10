@@ -3340,21 +3340,22 @@ function copyInstructionBox(containerId, buttonElement) {
         return;
     }
     
-    // Get HTML content and enhance it for rich text copying
+    // Get HTML content and clean it up
     let htmlContent = container.innerHTML;
     
-    // Convert code blocks to monospace (try different approach)
+    // Simple cleanup for Intercom compatibility
     htmlContent = htmlContent
-        .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<code>$1</code>')
-        // Clean up extra whitespace
+        // Convert code blocks to strong tags
+        .replace(/<div class="code-block"[^>]*>(.*?)<\/div>/gs, '<strong>$1</strong>')
+        // Clean up ALL whitespace first
         .replace(/\s+/g, ' ')
-        // Add some spacing before numbered steps (not full line break)
-        .replace(/(\d+\.)\s*/g, '<div style="margin-top: 8px;">$1 ')
-        // Close the div after each step
-        .replace(/(\d+\.\s[^0-9]*?)(?=\d+\.|$)/g, '$1</div>')
-        .trim();
+        .trim()
+        // Then add clean line breaks before numbers (no extra spaces)
+        .replace(/\s*(\d+\.)/g, '<br>$1')
+        // Remove leading <br> 
+        .replace(/^<br>/, '');
     
-    // Copy as both HTML and plain text
+    // Copy both formats
     if (navigator.clipboard && window.ClipboardItem) {
         navigator.clipboard.write([
             new ClipboardItem({
