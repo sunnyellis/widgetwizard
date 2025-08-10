@@ -2416,6 +2416,41 @@ function clearChecklistFrom(stepId) {
             // Hide platform-specific items
             document.getElementById('checklist-shortcode-item').style.display = 'none';
             document.getElementById('checklist-widget-id-item').style.display = 'none';
+
+            // Clear all input fields
+const inputFields = [
+    'websiteUrl',
+    'widgetWebsiteUrl', 
+    'userWidgetCode',
+    'userWidgetCodeWordpress',
+    'userShortcode',
+    'libraryCode',
+    'wordpressAccountId',
+    'wixLibraryCode',
+    'wixWidgetId'
+];
+
+inputFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+        field.value = '';
+    }
+});
+
+// Clear all checkboxes
+const checkboxes = [
+    'libraryConfirmed',
+    'widgetConfirmed', 
+    'wordpressWidgetConfirmed',
+    'skipCheck'
+];
+
+checkboxes.forEach(checkboxId => {
+    const checkbox = document.getElementById(checkboxId);
+    if (checkbox) {
+        checkbox.checked = false;
+    }
+});
             
             nextStep('step-welcome');
         }
