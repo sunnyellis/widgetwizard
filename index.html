@@ -2993,16 +2993,13 @@ function checkOtherPlatformUrl() {
 
 function proceedToOtherPlatformInstructions() {
     const url = document.getElementById('otherPlatformUrl').value.trim();
-    const platformName = wizardData.otherPlatformName;
-    const libraryCode = wizardData.libraryCode;
+    wizardData.otherPlatformResourceUrl = url;
     
-    // Update the instructions page with collected data
-    document.getElementById('otherPlatformNameInstructionsFinal').textContent = platformName;
-    document.getElementById('otherPlatformResourceLink').href = url;
-    document.getElementById('otherPlatformResourceLink').textContent = url;
-    document.getElementById('otherPlatformLibraryCodeDisplay').textContent = libraryCode;
+    // Set up the library code collection page for "other" platform
+    document.getElementById('selectedPlatformName').textContent = 'I use another platform';
     
-    nextStep('step-other-platform-instructions');
+    // Go to library code collection first
+    nextStep('step-get-library-code');
 }
 
 function selectOtherPlatformResult(result) {
@@ -3402,6 +3399,21 @@ function setupWidgetInspection() {
     const platform = wizardData.platform;
     const libraryCode = document.getElementById('libraryCode').value.trim();
     wizardData.libraryCode = libraryCode;
+
+// Handle other platforms first
+    if (platform === 'other') {
+        const url = wizardData.otherPlatformResourceUrl;
+        const platformName = wizardData.otherPlatformName;
+        
+        // Update the instructions page with collected data
+        document.getElementById('otherPlatformNameInstructionsFinal').textContent = platformName;
+        document.getElementById('otherPlatformResourceLink').href = url;
+        document.getElementById('otherPlatformResourceLink').textContent = url;
+        document.getElementById('otherPlatformLibraryCodeDisplay').textContent = libraryCode;
+        
+        nextStep('step-other-platform-instructions');
+        return;
+    }
     
     // Route to platform-specific pages
     if (platform === 'squarespace') {
