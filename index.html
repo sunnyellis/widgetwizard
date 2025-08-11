@@ -2056,6 +2056,37 @@
     </div>
 </div>
 
+<!-- Other Platform Widget Installation - Placeholder -->
+                <div id="step-widget-install-other" class="step-container">
+                    <div class="step-title">📝 <span id="widgetTypeDisplayOtherInstall">Button Widget</span> Installation</div>
+                    <div class="step-description">Placeholder page for "other" platform widget installation instructions.</div>
+                    
+                    <div class="educational-tip-structured">
+                        <div class="step-header">🚧 Coming Soon!</div>
+                        <div class="step-item">
+                            This page will contain custom widget installation instructions for <span id="otherPlatformNameWidget">[PLATFORM NAME]</span> platforms.
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <strong>Did this solve the issue?</strong>
+                    </div>
+
+                    <div class="options-container">
+                        <button class="option-button" onclick="selectWidgetInstallResult('solved')">
+                            <span>✅</span> Yes, widget is working!
+                        </button>
+                        <button class="option-button" onclick="selectWidgetInstallResult('not-solved')">
+                            <span>❌</span> Still not working
+                        </button>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+                        <button class="btn btn-primary" id="otherInstallResultContinue" onclick="handleWidgetInstallResult()" disabled>Continue →</button>
+                    </div>
+                </div>
+
                 <!-- Wix Code Collection -->
                 <div id="step-wix-code-collection" class="step-container">
                     <div class="step-title">📝 Code Collection</div>
@@ -3243,6 +3274,9 @@ function setupWidgetInspection() {
             nextStep('step-widget-install-weebly');
         } else if (platform === 'wix') {
             nextStep('step-widget-install-wix');
+        } else if (platform === 'other') {
+            // TODO: Create step-widget-install-other page
+            nextStep('step-widget-install-other');
         }
     } else {
         // Send instructions - assume widget code is installed and go to advanced troubleshooting
@@ -3344,17 +3378,21 @@ function setupWidgetInspection() {
             document.getElementById('installOptionContinue').disabled = false;
         }
 
-      function handleInstallOption() {
+     function handleInstallOption() {
     if (wizardData.installOption === 'step-by-step') {
         if (wizardData.platform === 'wordpress') {
             nextStep('step-get-library-code-wordpress');
+        } else if (wizardData.platform === 'other') {
+            // Set up platform names for research page
+            document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
+            
+            // Go to research page for "other" platforms
+            nextStep('step-other-platform-research');
         } else {
             // Set the platform name for the library code page
-            if (wizardData.platform === 'other') {
-                document.getElementById('selectedPlatformName').textContent = 'I use another platform';
-            } else {
-                document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
-            }
+            document.getElementById('selectedPlatformName').textContent = getPlatformDisplayName(wizardData.platform);
             nextStep('step-get-library-code');
         }
     } else {
