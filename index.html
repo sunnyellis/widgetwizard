@@ -3125,15 +3125,22 @@ function handleOtherPlatformResult() {
             nextStep('step-widget-code-detection');
         }
     } else {
-        // Wix is special - library and widget code install together
+        // Handle different platforms when library code is missing
         if (wizardData.platform === 'wix') {
             nextStep('step-wix-install');
+        } else if (wizardData.platform === 'other') {
+            // Set up platform names for research page
+            document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
+            
+            // Go directly to research page for "other" platforms
+            nextStep('step-other-platform-research');
         } else {
             nextStep('step-library-install');
         }
     }
 }
-
 function handleLibraryInstallContinue(nextStepId) {
     // Update checklist to show library code is installed
     updateChecklist('library-installed', '', 'complete');
