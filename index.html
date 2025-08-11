@@ -2992,20 +2992,16 @@ function handleCampaignPublished() {
         }
 
         function handleCompatibilitySelection() {
-            if (wizardData.compatibilityStatus === 'compatible') {
-                updateChecklist('plan', 'all plans compatible');
-                updateChecklist('plan-compatible', '', 'complete');
-                
-                // Set up platform names for research page
-                document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
-                document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
-                document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
-                
-                nextStep('step-other-platform-research');
-            } else {
-                showIncompatibleFromResearch();
-            }
-        }
+    if (wizardData.compatibilityStatus === 'compatible') {
+        updateChecklist('plan', 'all plans compatible');
+        updateChecklist('plan-compatible', '', 'complete');
+        
+        // Go to widget type selection like other platforms
+        nextStep('step-widget-type');
+    } else {
+        showIncompatibleFromResearch();
+    }
+}
 
 // Other platform functions
 function checkOtherPlatformUrl() {
