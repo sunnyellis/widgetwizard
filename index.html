@@ -1018,6 +1018,45 @@
     </div>
 </div>
 
+<!-- Other Platform Widget Research Instructions -->
+<div id="step-other-platform-widget-research" class="step-container">
+    <div class="step-title">Let's find instructions for installing their widget code on <span id="otherPlatformNameWidgetResearch">[PLATFORM NAME]</span>.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">No worries, we can figure this out!</div>
+        
+        <div class="step-item">
+            <strong>🔍 Research Step:</strong> Ask Google: "how to install custom code in <span id="otherPlatformNameWidgetGoogle">[PLATFORM NAME]</span> website"
+        </div>
+        
+        <div class="step-item">
+            <strong>🤖 Skip the AI summary.</strong> These can be inaccurate. We want instructions written specifically by <span id="otherPlatformNameWidgetInstructions">[PLATFORM NAME]</span>.
+        </div>
+        
+        <div class="step-item">
+            <strong>👀 Look for pages that reference:</strong>
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>Custom HTML</li>
+                <li>Embed custom code</li>
+                <li>Embed elements</li>
+                <li>Code injection</li>
+                <li>Insert/install custom code</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 15px; font-weight: 600; color: #333;">
+        Once you find the best resource for your user, paste the web address here:
+    </div>
+    
+    <textarea id="otherPlatformWidgetUrl" class="large-textarea" placeholder="Paste the web address here..." rows="3" oninput="checkOtherPlatformWidgetUrl()"></textarea>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="otherPlatformWidgetUrlContinue" onclick="proceedToOtherPlatformWidgetInstructions()" disabled style="opacity: 0.5;">Continue →</button>
+    </div>
+</div>
+
                 <!-- Generic Platform Incompatible -->
                 <div id="step-generic-incompatible" class="step-container">
                     <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
@@ -3051,6 +3090,29 @@ function handleOtherPlatformResult() {
     }
 }
 
+// Other platform widget research functions
+function checkOtherPlatformWidgetUrl() {
+    const url = document.getElementById('otherPlatformWidgetUrl').value.trim();
+    const continueBtn = document.getElementById('otherPlatformWidgetUrlContinue');
+    
+    if (url && url.includes('http')) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.otherPlatformWidgetResourceUrl = url;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function proceedToOtherPlatformWidgetInstructions() {
+    const url = document.getElementById('otherPlatformWidgetUrl').value.trim();
+    wizardData.otherPlatformWidgetResourceUrl = url;
+    
+    // Go to the widget installation page (our placeholder)
+    nextStep('step-widget-install-other');
+}
+
         function toggleLibraryConfirmed() {
     const checkbox = document.getElementById('libraryConfirmed');
     const continueButton = document.getElementById('libraryCheckButton');
@@ -3167,15 +3229,25 @@ function handleLibraryInstallContinue(nextStepId) {
         // Widget is installed but still not working - go to advanced troubleshooting
         nextStep('step-advanced-troubleshooting');
     } else {
-        // Route "other" platforms directly to their installation page
-        if (wizardData.platform === 'other') {
+    // Route "other" platforms based on whether they did library research
+    if (wizardData.platform === 'other') {
+        if (wizardData.otherPlatformResourceUrl) {
+            // They already did library research, go straight to placeholder
             setupWidgetInstallation();
             nextStep('step-widget-install-other');
         } else {
-            nextStep('step-widget-install-choice');
+            // They skipped library research, so need widget research first
+            document.getElementById('otherPlatformNameWidgetResearch').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameWidgetGoogle').textContent = wizardData.otherPlatformName;
+            document.getElementById('otherPlatformNameWidgetInstructions').textContent = wizardData.otherPlatformName;
+            
+            nextStep('step-other-platform-widget-research');
+        }
+    } else {
+        nextStep('step-widget-install-choice');
         }
     }
-}
+ }
 
         function goBackFromWidgetInspection() {
             // Check if they came from widget code detection or website URL collection
