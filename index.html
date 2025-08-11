@@ -2095,16 +2095,27 @@
     </div>
 </div>
 
-<!-- Other Platform Widget Installation - Placeholder -->
+<!-- Other Platform Widget Installation -->
                 <div id="step-widget-install-other" class="step-container">
-                    <div class="step-title">📝 <span id="widgetTypeDisplayOtherInstall">Button Widget</span> Installation</div>
-                    <div class="step-description">Placeholder page for "other" platform widget installation instructions.</div>
+                    <div class="step-title">🔧 <span id="otherPlatformNameWidget">[PLATFORM NAME]</span> - <span id="widgetTypeDisplayOtherInstall">Button Widget</span> Installation</div>
                     
-                    <div class="educational-tip-structured">
-                        <div class="step-header">🚧 Coming Soon!</div>
-                        <div class="step-item">
-                            This page will contain custom widget installation instructions for <span id="otherPlatformNameWidget">[PLATFORM NAME]</span> platforms.
+                    <div class="solution-title">💬 What to tell your User:</div>
+                    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="otherPlatformWidgetInstructions">
+                        It looks like your widget code isn't installed on your website. Here are instructions from <span id="otherPlatformNameWidgetFinal">[PLATFORM NAME]</span> on how to do that. Check out these steps and let me know if there's anything else you'd like to go over. 😊<br><br>
+                        
+                        <div style="margin-top: 20px;">
+                            <a href="#" target="_blank" style="color: #333; font-weight: 600; text-decoration: underline; word-break: break-all; display: block;" id="otherPlatformWidgetResourceLink">https://example.com/instructions</a><br><br>
+                            
+                            This is the widget code you need:<br>
+                            
+                            <div class="code-block" id="otherPlatformWidgetCodeDisplay">&lt;givebutter-widget id="abc123"&gt;&lt;/givebutter-widget&gt;</div>
                         </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+                        <button onclick="copyInstructionBox('otherPlatformWidgetInstructions', this)" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                            📋 Copy Instructions for User
+                        </button>
                     </div>
 
                     <div style="margin-bottom: 20px;">
@@ -3108,6 +3119,9 @@ function checkOtherPlatformWidgetUrl() {
 function proceedToOtherPlatformWidgetInstructions() {
     const url = document.getElementById('otherPlatformWidgetUrl').value.trim();
     wizardData.otherPlatformWidgetResourceUrl = url;
+
+    // Set up widget installation data and go to the widget installation page
+    setupWidgetInstallation();
     
     // Go to the widget installation page (our placeholder)
     nextStep('step-widget-install-other');
@@ -3376,6 +3390,7 @@ function setupWidgetInspection() {
                 document.getElementById('squarespaceWidgetCodeDisplay').textContent = widgetCode;
                 document.getElementById('godaddyWidgetCodeDisplay').textContent = widgetCode;
                 document.getElementById('weeblyWidgetCodeDisplay').textContent = widgetCode;
+                document.getElementById('otherPlatformWidgetCodeDisplay').textContent = widgetCode;
             }
             
             // Populate shortcode display for WordPress
@@ -3389,6 +3404,19 @@ function setupWidgetInspection() {
             }
             if (wizardData.wixWidgetId) {
                 document.getElementById('wixWidgetIdDisplay').textContent = wizardData.wixWidgetId;
+            }
+            // Populate "other" platform data displays
+            if (wizardData.platform === 'other') {
+                const platformName = wizardData.otherPlatformName;
+                const resourceUrl = wizardData.otherPlatformWidgetResourceUrl || wizardData.otherPlatformResourceUrl;
+                
+                document.getElementById('otherPlatformNameWidget').textContent = platformName;
+                document.getElementById('otherPlatformNameWidgetFinal').textContent = platformName;
+                
+                if (resourceUrl) {
+                    document.getElementById('otherPlatformWidgetResourceLink').href = resourceUrl;
+                    document.getElementById('otherPlatformWidgetResourceLink').textContent = resourceUrl;
+                }
             }
         }
 
@@ -3412,6 +3440,8 @@ function setupWidgetInspection() {
                 document.getElementById('weeblyInstallResultContinue').disabled = false;
             } else if (currentStepId.includes('wix')) {
                 document.getElementById('wixInstallResultContinue').disabled = false;
+            } else if (currentStepId.includes('other')) {
+                document.getElementById('otherInstallResultContinue').disabled = false;
             }
         }
 
