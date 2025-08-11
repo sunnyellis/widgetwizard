@@ -3160,14 +3160,20 @@ function handleLibraryInstallContinue(nextStepId) {
             document.getElementById('widgetFoundContinue').disabled = false;
         }
 
-        function handleWidgetResult() {
+       function handleWidgetResult() {
     if (wizardData.widgetFound === 'found') {
         // Update checklist - widget code is installed
         updateChecklist('widget-installed', '', 'complete');
         // Widget is installed but still not working - go to advanced troubleshooting
         nextStep('step-advanced-troubleshooting');
     } else {
-        nextStep('step-widget-install-choice');
+        // Route "other" platforms directly to their installation page
+        if (wizardData.platform === 'other') {
+            setupWidgetInstallation();
+            nextStep('step-widget-install-other');
+        } else {
+            nextStep('step-widget-install-choice');
+        }
     }
 }
 
