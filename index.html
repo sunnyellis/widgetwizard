@@ -2960,17 +2960,17 @@ function handleCampaignPublished() {
             document.getElementById('compatibilityContinue').disabled = false;
         }
 
-        if (wizardData.compatibilityStatus === 'compatible') {
-    updateChecklist('plan', 'all plans compatible');
-    updateChecklist('plan-compatible', '', 'complete');
-    
-    // Set up platform names for research page
-    document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
-    document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
-    document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
-    
-    nextStep('step-other-platform-research');
-}
+        function handleCompatibilitySelection() {
+            if (wizardData.compatibilityStatus === 'compatible') {
+                updateChecklist('plan', 'all plans compatible');
+                updateChecklist('plan-compatible', '', 'complete');
+                
+                // Set up platform names for research page
+                document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
+                document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
+                document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
+                
+                nextStep('step-other-platform-research');
             } else {
                 showIncompatibleFromResearch();
             }
