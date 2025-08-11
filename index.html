@@ -934,6 +934,90 @@
                 </div>
                 </div>
 
+<!-- Other Platform Research Instructions -->
+<div id="step-other-platform-research" class="step-container">
+    <div class="step-title">Let's find instructions for installing their library code on <span id="otherPlatformNameResearch">[PLATFORM NAME]</span>.</div>
+    
+    <div class="educational-tip-structured">
+        <div class="step-header">No worries, we can figure this out!</div>
+        
+        <div class="step-item">
+            <strong>🔍 Research Step:</strong> Ask Google: "how to install custom code in <span id="otherPlatformNameGoogle">[PLATFORM NAME]</span> website"
+        </div>
+        
+        <div class="step-item">
+            <strong>🤖 Skip the AI summary.</strong> These can be inaccurate. We want instructions written specifically by <span id="otherPlatformNameInstructions">[PLATFORM NAME]</span>.
+        </div>
+        
+        <div class="step-item">
+            <strong>👀 Look for pages that reference:</strong>
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>Custom HTML</li>
+                <li>Embed custom code</li>
+                <li>Embed elements</li>
+                <li>Code injection</li>
+                <li>Insert/install custom code</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 15px; font-weight: 600; color: #333;">
+        Once you find the best resource for your user, paste the web address here:
+    </div>
+    
+    <textarea id="otherPlatformUrl" class="large-textarea" placeholder="Paste the web address here..." rows="3" oninput="checkOtherPlatformUrl()"></textarea>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="otherPlatformUrlContinue" onclick="proceedToOtherPlatformInstructions()" disabled style="opacity: 0.5;">Continue →</button>
+    </div>
+</div>
+
+<!-- Other Platform Library Installation Instructions -->
+<div id="step-other-platform-instructions" class="step-container">
+    <div class="solution-title">💬 What to tell your User:</div>
+    <div style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); border: 2px solid #4CAF50; color: #333; padding: 20px; border-radius: 12px; margin: 5px 0 20px 0; font-size: 1.0em;" id="otherPlatformUserInstructions">
+        I double-checked your website, and I see the library code isn't installed yet. I found this resource from <span id="otherPlatformNameInstructionsFinal">[PLATFORM NAME]</span> that explains how to add the library code to your website.<br>
+        
+        <div style="margin-top: 20px;">
+            <a href="#" target="_blank" style="color: #333; font-weight: 600; text-decoration: underline;" id="otherPlatformResourceLink">https://example.com/instructions</a><br><br>
+            
+            Here is your exact library code to use:<br>
+            
+            <div class="code-block" id="otherPlatformLibraryCodeDisplay">
+&lt;script
+    async
+    src="https://widgets.givebutter.com/latest.umd.cjs?acct=XE8NSeupPNYijQZ9&p=squarespace"
+&gt;&lt;/script&gt;
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; margin-bottom: 20px; text-align: center;">
+        <button onclick="copyInstructionBox('otherPlatformUserInstructions', this)" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            📋 Copy Instructions for User
+        </button>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <strong>Did this solve the issue?</strong>
+    </div>
+
+    <div class="options-container">
+        <button class="option-button" onclick="selectOtherPlatformResult('solved')">
+            <span>✅</span> Yes, widget is working!
+        </button>
+        <button class="option-button" onclick="selectOtherPlatformResult('not-solved')">
+            <span>❌</span> Still not working
+        </button>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goToPreviousStep()">← Back</button>
+        <button class="btn btn-primary" id="otherPlatformResultContinue" onclick="handleOtherPlatformResult()" disabled>Continue →</button>
+    </div>
+</div>
+
                 <!-- Generic Platform Incompatible -->
                 <div id="step-generic-incompatible" class="step-container">
                     <div style="color: #333; font-size: 1.0em; margin-bottom: 15px;">
@@ -2397,7 +2481,10 @@ function clearChecklistFrom(stepId) {
                 advancedTroubleshootingResult: null,
                  wixLibraryCode: null,
                 wixWidgetId: null,
-                wixCodesFound: null
+                wixCodesFound: null,
+                otherPlatformName: null,         
+                otherPlatformResourceUrl: null, 
+                otherPlatformResult: null 
             };
             
             // Reset all checklist items
@@ -2421,7 +2508,8 @@ const inputFields = [
     'libraryCode',
     'wordpressAccountId',
     'wixLibraryCode',
-    'wixWidgetId'
+    'wixWidgetId',
+    'otherPlatformUrl'
 ];
 
 inputFields.forEach(fieldId => {
@@ -2872,16 +2960,72 @@ function handleCampaignPublished() {
             document.getElementById('compatibilityContinue').disabled = false;
         }
 
-        function handleCompatibilitySelection() {
-            if (wizardData.compatibilityStatus === 'compatible') {
-                updateChecklist('plan', 'all plans compatible');
-                updateChecklist('plan-compatible', '', 'complete');
-                document.getElementById('platformName').textContent = wizardData.otherPlatformName;
-                nextStep('step-widget-type');
+        if (wizardData.compatibilityStatus === 'compatible') {
+    updateChecklist('plan', 'all plans compatible');
+    updateChecklist('plan-compatible', '', 'complete');
+    
+    // Set up platform names for research page
+    document.getElementById('otherPlatformNameResearch').textContent = wizardData.otherPlatformName;
+    document.getElementById('otherPlatformNameGoogle').textContent = wizardData.otherPlatformName;
+    document.getElementById('otherPlatformNameInstructions').textContent = wizardData.otherPlatformName;
+    
+    nextStep('step-other-platform-research');
+}
             } else {
                 showIncompatibleFromResearch();
             }
         }
+
+// Other platform functions
+function checkOtherPlatformUrl() {
+    const url = document.getElementById('otherPlatformUrl').value.trim();
+    const continueBtn = document.getElementById('otherPlatformUrlContinue');
+    
+    if (url && url.includes('http')) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        wizardData.otherPlatformResourceUrl = url;
+    } else {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+    }
+}
+
+function proceedToOtherPlatformInstructions() {
+    const url = document.getElementById('otherPlatformUrl').value.trim();
+    const platformName = wizardData.otherPlatformName;
+    const libraryCode = wizardData.libraryCode;
+    
+    // Update the instructions page with collected data
+    document.getElementById('otherPlatformNameInstructionsFinal').textContent = platformName;
+    document.getElementById('otherPlatformResourceLink').href = url;
+    document.getElementById('otherPlatformResourceLink').textContent = url;
+    document.getElementById('otherPlatformLibraryCodeDisplay').textContent = libraryCode;
+    
+    nextStep('step-other-platform-instructions');
+}
+
+function selectOtherPlatformResult(result) {
+    document.querySelectorAll('#step-other-platform-instructions .option-button').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    event.target.closest('.option-button').classList.add('selected');
+    wizardData.otherPlatformResult = result;
+    document.getElementById('otherPlatformResultContinue').disabled = false;
+}
+
+function handleOtherPlatformResult() {
+    if (wizardData.otherPlatformResult === 'solved') {
+        // Update checklist - library code is installed
+        updateChecklist('library-installed', '', 'complete');
+        markProblemSolved('other-platform-library-installed');
+    } else {
+        // Library was installed but still not working - need widget code troubleshooting
+        updateChecklist('library-installed', '', 'complete');
+        nextStep('step-widget-code-detection');
+    }
+}
 
         function toggleLibraryConfirmed() {
     const checkbox = document.getElementById('libraryConfirmed');
